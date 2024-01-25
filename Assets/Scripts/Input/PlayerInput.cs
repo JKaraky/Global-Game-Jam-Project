@@ -56,7 +56,6 @@ public class PlayerInput : MonoBehaviour
     private void MovementInput()
     {
         _movement = move.action.ReadValue<Vector3>();
-        Debug.Log("Movement vector " + playerNumber + " " + _movement);
     }
 
     private void DestroyBtnPressed()
