@@ -13,7 +13,7 @@ public class CollectiblePooling : MonoBehaviour
 
     [SerializeField] float maxBorder;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         pool = new ObjectPool<Collectible>(CreateObject, ActivateObject, DeactivateObject, DestroyObject, true, 10, 15);
     }

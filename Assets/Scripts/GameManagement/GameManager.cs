@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        pool.pool.Get();
+
     }
 
     #region Method to Create Singleton Instance
