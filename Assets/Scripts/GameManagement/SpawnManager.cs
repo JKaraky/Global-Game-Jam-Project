@@ -8,6 +8,21 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float intervalBetweenSpawns = 5;
     [SerializeField] private CollectiblePooling[] pools;
 
+    private int spawnWave = 0;
+    private int specialSpawnWave;
+
+    public int SpecialSpawnWave
+    {
+        get
+        {
+            return specialSpawnWave;
+        }
+        set
+        {
+            specialSpawnWave = value;
+        }
+    }
+
     private bool normalSpawn = true;
     private bool specialSpawn = false;
     #endregion
@@ -34,24 +49,41 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    #region Types of Spawning
     private IEnumerator NormalSpawn()
     {
         normalSpawn = false;
+        spawnWave++;
         int poolToSpawnOne = Random.Range(0, 2);
         int poolToSpawnTwo = Random.Range(0, 2);
         pools[poolToSpawnOne].pool.Get();
         pools[poolToSpawnTwo].pool.Get();
         yield return new WaitForSeconds(intervalBetweenSpawns);
-        normalSpawn = true;
+        KeepTrackSpawning();
     }
 
-    private void SpecialSpawn()
+    private IEnumerator SpecialSpawn()
     {
         specialSpawn = false;
         pools[pools.Length - 1].pool.Get();
+        yield return new WaitForSeconds(intervalBetweenSpawns);
+        NormalSpawning();
     }
+    #endregion
 
-    #region To Set Spawn Mode
+    #region To Set and check for Spawn Mode
+    private void KeepTrackSpawning()
+    {
+        spawnWave++;
+        if(spawnWave == specialSpawnWave)
+        {
+            SpecialSpawning();
+        }
+        else
+        {
+            NormalSpawning();
+        }
+    }
     public void NormalSpawning()
     {
         normalSpawn = true;

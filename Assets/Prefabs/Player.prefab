@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5834541862882505522}
   - component: {fileID: 3857710010483529263}
   - component: {fileID: 6204461998006144194}
+  - component: {fileID: 1187882761552687595}
   m_Layer: 0
   m_Name: PlayerOne
   m_TagString: Untagged
@@ -83,6 +84,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1187882761552687595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026241485772718455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec64fea919130498b7064f94e63e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 1
+  maxEnergy: 0
+  moveEnergyConsumption: 0
+  energyCooldown: 0
+  poweredUpMultiplier: 0
+  speed: 17
+  inputScript: {fileID: 0}
+  destructionRadius: 0
+  hamperPercentage: 0
+  hamperCooldown: 0
+  otherPlayer: {fileID: 5730350238049296379}
 --- !u!1 &7545299533072548567
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +118,7 @@ GameObject:
   - component: {fileID: 7545299533072548587}
   - component: {fileID: 295408682463738679}
   - component: {fileID: 1054210843454392428}
+  - component: {fileID: 3345173637448500529}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -147,6 +172,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.35, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3345173637448500529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7545299533072548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79bc2b8f46bea9042bfab0619c47cd9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatarControllerOne: {fileID: 1187882761552687595}
+  avatarControllerTwo: {fileID: 5730350238049296379}
 --- !u!1 &8757841993306039623
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +197,7 @@ GameObject:
   - component: {fileID: 7511050321703340964}
   - component: {fileID: 4774502922642792270}
   - component: {fileID: 1721376767724477823}
+  - component: {fileID: 5730350238049296379}
   m_Layer: 0
   m_Name: PlayerTwo
   m_TagString: Untagged
@@ -230,3 +270,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5730350238049296379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8757841993306039623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec64fea919130498b7064f94e63e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 2
+  maxEnergy: 0
+  moveEnergyConsumption: 0
+  energyCooldown: 0
+  poweredUpMultiplier: 0
+  speed: 17
+  inputScript: {fileID: 0}
+  destructionRadius: 0
+  hamperPercentage: 0
+  hamperCooldown: 0
+  otherPlayer: {fileID: 1187882761552687595}
