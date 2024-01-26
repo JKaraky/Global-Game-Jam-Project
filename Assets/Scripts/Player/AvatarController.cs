@@ -16,6 +16,8 @@ public class AvatarController : MonoBehaviour
     private float moveEnergyConsumption;
     [SerializeField]
     private float energyCooldown;
+    [SerializeField]
+    private int poweredUpMultiplier;
 
     [Header("Movement")]
     [SerializeField]
@@ -44,6 +46,21 @@ public class AvatarController : MonoBehaviour
     private Rigidbody _rb;
     private int _controlPointSlot = 0;
     private float _currentEnergy;
+
+    public float PlayerNbr
+    {
+        get
+        {
+            return playerNumber;
+        }
+    }
+    public int ControlPointSlot
+    {
+        get
+        {
+            return _controlPointSlot;
+        }
+    }
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -78,7 +95,7 @@ public class AvatarController : MonoBehaviour
 
     void DestroyPowerup()
     {
-        if (_currentEnergy != 0)
+        if ((!_poweredUp && _currentEnergy == maxEnergy) || (_poweredUp && _currentEnergy >= maxEnergy/poweredUpMultiplier))
         {
             DepleteEnergy(true);
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
@@ -86,13 +103,21 @@ public class AvatarController : MonoBehaviour
             foreach (Collider collider in objectsAroundPlayer)
             {
                 // Destruction logic goes here. Have to check whether it's a powerup or not
+                if (collider.tag == "CollectibleTwo" && playerNumber == 1)
+                {
+                    collider.GetComponent<Collectible>().ReleaseCollectible();
+                }
+                if (collider.tag == "CollectibleOne" && playerNumber == 2)
+                {
+                    collider.GetComponent<Collectible>().ReleaseCollectible();
+                }
             }
         }
     }
 
     private void HamperPlayer()
     {
-        if (_currentEnergy != 0)
+        if ((!_poweredUp && _currentEnergy == maxEnergy) || (_poweredUp && _currentEnergy >= maxEnergy / poweredUpMultiplier))
         {
             DepleteEnergy(true);
             otherPlayer.GetHampered();
@@ -114,14 +139,28 @@ public class AvatarController : MonoBehaviour
     }
     private void TogglePowerupState() // This is for gaining or losing Avatar 3
     {
+        _poweredUp = !_poweredUp;
 
+        if (_poweredUp)
+        {
+            maxEnergy *= poweredUpMultiplier;
+        }
+        else
+        {
+            maxEnergy /= poweredUpMultiplier;
+        }
     }
 
     private void DepleteEnergy(bool immediately)
     {
         if (immediately)
         {
-            _currentEnergy = 0;
+            if (_poweredUp)
+            {
+                _currentEnergy -= maxEnergy/poweredUpMultiplier;
+            }
+            else
+                _currentEnergy -= maxEnergy;
         }
         else
         {
@@ -144,9 +183,6 @@ public class AvatarController : MonoBehaviour
             _currentEnergy = maxEnergy;
         }
     }
-    #endregion
-
-    #region Collision Handling
     #endregion
 
     #region Subscribing To Events
@@ -182,4 +218,16 @@ public class AvatarController : MonoBehaviour
     }
 
     #endregion
+    private void OnDrawGizmos()
+    {
+        if (playerNumber == 1)
+        {
+            Gizmos.color = Color.yellow;
+        }
+        else if (playerNumber == 2)
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawWireSphere(transform.position, destructionRadius);
+    }
 }
