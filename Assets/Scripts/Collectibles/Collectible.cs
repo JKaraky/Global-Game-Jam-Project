@@ -18,11 +18,16 @@ public class Collectible : MonoBehaviour
         }
     }
 
+    public void ReleaseCollectible()
+    {
+        poolOfCollectible.pool.Release(this);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            poolOfCollectible.pool.Release(this);
+            ReleaseCollectible();
         }
     }
 }
