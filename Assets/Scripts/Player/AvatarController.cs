@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class AvatarController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class AvatarController : MonoBehaviour
     private float energyCooldown;
     [SerializeField]
     private int poweredUpMultiplier;
+
 
     [Header("Movement")]
     [SerializeField]
@@ -41,11 +43,16 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private AvatarController otherPlayer;
 
+    [Header("UI Controller")]
+    [SerializeField]
+    private UIController uiController;
+
     private Vector3 _movement;
-    private bool _poweredUp; // This is Avatar 3
+    private bool _poweredUp = false; // This is Avatar 3
     private Rigidbody _rb;
     private int _controlPointSlot = 0;
     private float _currentEnergy;
+    private PointsManager _pointsManger;
 
     public int PlayerNbr
     {
@@ -65,9 +72,11 @@ public class AvatarController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        _rb = transform.parent.GetComponent<Rigidbody>();
 
         _currentEnergy = maxEnergy;
+
+        _pointsManger = transform.parent.GetComponent<PointsManager>();
     }
 
     // Update is called once per frame
@@ -78,7 +87,7 @@ public class AvatarController : MonoBehaviour
     private void FixedUpdate()
     {
         _movement = inputScript.Movement;
-        if (_currentEnergy != 0 && _movement != Vector3.zero)
+        if (_currentEnergy > 0 && _movement != Vector3.zero)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
             if (_isHampered)
@@ -103,11 +112,11 @@ public class AvatarController : MonoBehaviour
             foreach (Collider collider in objectsAroundPlayer)
             {
                 // Destruction logic goes here. Have to check whether it's a powerup or not
-                if (collider.tag == "CollectibleTwo" && playerNumber == 1)
+                if (collider.tag == "CollectibleTwo" && playerNumber == 0)
                 {
                     collider.GetComponent<Collectible>().ReleaseCollectible();
                 }
-                if (collider.tag == "CollectibleOne" && playerNumber == 2)
+                if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
                     collider.GetComponent<Collectible>().ReleaseCollectible();
                 }
@@ -135,7 +144,7 @@ public class AvatarController : MonoBehaviour
     #region Utility Methods
     public void GetHampered()
     {
-        CooldownCountdown(hamperCooldown, true, _isHampered);
+        StartCoroutine(CooldownCountdown(hamperCooldown, true, _isHampered));
     }
     private void TogglePowerupState() // This is for gaining or losing Avatar 3
     {
@@ -167,10 +176,12 @@ public class AvatarController : MonoBehaviour
             _currentEnergy -= moveEnergyConsumption;
         }
 
-        if (_currentEnergy == 0)
+        if (_currentEnergy <= 0)
         {
-            CooldownCountdown(energyCooldown, false, false);
+            StartCoroutine(CooldownCountdown(energyCooldown, false, false));
         }
+
+        uiController.UpdateEnergyBar(playerNumber, _currentEnergy, maxEnergy);
     }
     IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle)
     {
@@ -181,6 +192,7 @@ public class AvatarController : MonoBehaviour
         if (!toggling)
         {
             _currentEnergy = maxEnergy;
+            uiController.UpdateEnergyBar(playerNumber, _currentEnergy, maxEnergy);
         }
     }
     #endregion
@@ -188,13 +200,13 @@ public class AvatarController : MonoBehaviour
     #region Subscribing To Events
     private void OnEnable()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             PlayerInput.DestroyP1 += DestroyPowerup;
             PlayerInput.HamperP1 += HamperPlayer;
             PlayerInput.ToggleControlPointP1 += ToggleControlPointSlot;
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             PlayerInput.DestroyP2 += DestroyPowerup;
             PlayerInput.HamperP2 += HamperPlayer;
@@ -203,13 +215,13 @@ public class AvatarController : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             PlayerInput.DestroyP1 -= DestroyPowerup;
             PlayerInput.HamperP1 -= HamperPlayer;
             PlayerInput.ToggleControlPointP1 -= ToggleControlPointSlot;
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             PlayerInput.DestroyP2 -= DestroyPowerup;
             PlayerInput.HamperP2 -= HamperPlayer;
@@ -220,11 +232,11 @@ public class AvatarController : MonoBehaviour
     #endregion
     private void OnDrawGizmos()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             Gizmos.color = Color.yellow;
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             Gizmos.color = Color.red;
         }
