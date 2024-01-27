@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private CollectiblePooling pool;
-    private ControlPoints[] controlArray;
     #endregion
 
     #region Awake Methods
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        controlArray = player.GetComponentsInChildren<ControlPoints>();
+
     }
 
     #region Method to Create Singleton Instance
