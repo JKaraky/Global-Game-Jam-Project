@@ -48,7 +48,9 @@ public class AvatarController : MonoBehaviour
     private Rigidbody _rb;
     private int _controlPointSlot = 0;
     private float _currentEnergy;
-    private PointsManager _pointsManger;
+    private PointsManager _pointsManager;
+    private ControlPoints _controlPoints;
+    private List<Avatar> _controlledAvatars;
 
     #endregion
     #region Events
@@ -73,10 +75,15 @@ public class AvatarController : MonoBehaviour
     void Start()
     {
         _rb = transform.parent.GetComponent<Rigidbody>();
+        _controlPoints = GetComponent<ControlPoints>();
 
         _currentEnergy = maxEnergy;
 
-        _pointsManger = transform.parent.GetComponent<PointsManager>();
+        _pointsManager = transform.parent.GetComponent<PointsManager>();
+
+        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+
+        _controlPointSlot = playerNumber == 0 ? 1 : 0;
     }
 
     // Update is called once per frame
@@ -139,8 +146,19 @@ public class AvatarController : MonoBehaviour
 
     private void ToggleControlPointSlot()
     {
+        //Check which avatars are locked
+        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
         // Every press incerments the slider, but when it reaches 3, it goes back to 0
         _controlPointSlot = (_controlPointSlot + 1) % 3;
+        foreach (Avatar avatar in _controlledAvatars)
+        {
+            if (_controlPointSlot == avatar.AvatarNumber && !avatar.CheckPickableAvatar(playerNumber))
+            {
+                _controlPointSlot = (_controlPointSlot + 1) % 3;
+            }
+        }
+        
+        _controlPoints.PointDestination(_controlPointSlot);
 
         ControlSlotToggleTrigger?.Invoke(_controlPointSlot, PlayerNbr);
     }

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48209d5c76c9e184c800e86f8a011c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatarNumber: 2
 --- !u!1 &749128428557419816
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,16 +178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   maxEnergy: 20
-  moveEnergyConsumption: 2
+  moveEnergyConsumption: 0.2
   energyCooldown: 2
-  poweredUpMultiplier: 2
   speed: 17
   inputScript: {fileID: 0}
   destructionRadius: 3
   hamperPercentage: 50
   hamperCooldown: 1
   otherPlayer: {fileID: 5730350238049296379}
-  uiController: {fileID: 0}
 --- !u!114 &5492435997118034002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48209d5c76c9e184c800e86f8a011c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatarNumber: 0
 --- !u!1 &7218107982652456070
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48209d5c76c9e184c800e86f8a011c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatarNumber: 1
 --- !u!1 &7545299533072548567
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,16 +470,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   maxEnergy: 20
-  moveEnergyConsumption: 2
+  moveEnergyConsumption: 0.2
   energyCooldown: 2
-  poweredUpMultiplier: 2
   speed: 17
   inputScript: {fileID: 0}
   destructionRadius: 3
   hamperPercentage: 50
   hamperCooldown: 1
   otherPlayer: {fileID: 5730350238049296379}
-  uiController: {fileID: 0}
 --- !u!114 &4364287127584056765
 MonoBehaviour:
   m_ObjectHideFlags: 0

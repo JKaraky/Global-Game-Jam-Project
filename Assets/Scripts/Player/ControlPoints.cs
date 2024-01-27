@@ -46,23 +46,22 @@ public class ControlPoints : MonoBehaviour
         player = GetComponent<AvatarController>().PlayerNbr;
     }
 
-    public Avatars PointDestination()
+    public void PointDestination(int slot)
     {
-        int destinationofPoint = GetComponent<AvatarController>().ControlPointSlot;
-        switch(destinationofPoint)
+        switch(slot)
         {
             case 0:
                 destination = Avatars.AvatarOne;
-                return destination;
+                break;
             case 1:
                 destination = Avatars.AvatarTwo;
-                return destination;
+                break;
             case 2:
                 destination = Avatars.AvatarThree;
-                return destination;
+                break;
             default:
-                destination = Avatars.AvatarThree;
-                return destination;
+                destination = Avatars.AvatarOne;
+                break;
         }
     }
 }

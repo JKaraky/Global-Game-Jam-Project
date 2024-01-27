@@ -74,6 +74,10 @@ public class Avatar : MonoBehaviour
     public static event Action<int, int> GainedControl;
     public static event Action<int, int> LostControl;
     #endregion
+    private void Start()
+    {
+        GetStorage();
+    }
 
     #region Avatar Methods
     private int GetStorage()
@@ -90,12 +94,14 @@ public class Avatar : MonoBehaviour
 
     public void Addpoint(int player)
     {
+        Debug.Log("Avatar " + avatarNumber + " Current storarge " + currentStorage + " max storage " + maxStorage);
         if(currentStorage == maxStorage)
         {
             foreach (int i in playersPoints)
             {
                 if (i == player)
                 {
+                    Debug.Log("Increase point should be fired");
                     playersPoints[i]++;
                     IncreasePoint?.Invoke(avatarNumber, i);
                 }
@@ -132,6 +138,16 @@ public class Avatar : MonoBehaviour
         }
 
         DecreasePoint?.Invoke(avatarNumber, player);
+    }
+
+    public bool CheckPickableAvatar(int playerNumber)
+    {
+        if (playerNumber == controllingPlayer)
+        {
+            if (playersPoints[playerNumber] == maxStorage)
+                return false;
+        }
+        return true;
     }
     #endregion
 }

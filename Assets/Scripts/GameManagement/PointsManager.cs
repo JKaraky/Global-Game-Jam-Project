@@ -24,9 +24,17 @@ public class PointsManager : MonoBehaviour
     private List<List<Avatar>> playersAvatars;
 
     public static event Action<int> SpecialSpawnWave;
+
+    public List<List<Avatar>> PlayersAvatars
+    {
+        get
+        {
+            return playersAvatars;
+        }
+    }
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         maxPoints = (defaultPoints * 2) + (defaultPoints / 2);
 
@@ -37,14 +45,17 @@ public class PointsManager : MonoBehaviour
         // Setup avatar one
         avatarOne.MaxStorage = defaultPoints;
         avatarOne.PlayersPoints = new int[2] { defaultPoints, 0 };
+        avatarOne.ControllingPlayer = 0;
 
         // Setup avatar two
         avatarTwo.MaxStorage = defaultPoints;
         avatarTwo.PlayersPoints = new int[2] { 0, defaultPoints };
+        avatarTwo.ControllingPlayer = 1;
 
         // Setup avatar three
         avatarThree.MaxStorage = defaultPoints / 2;
         avatarThree.PlayersPoints = new int[2] { 0, 0 };
+        avatarThree.ControllingPlayer = 3;
 
         // Setup controlled avatars lists
         avatarsControlledByOne = new List<Avatar> { avatarOne };
@@ -52,6 +63,7 @@ public class PointsManager : MonoBehaviour
 
         playersPoints = new List<ControlPoints> { pointsOne, pointsTwo };
         allAvatars = new List<Avatar> { avatarOne, avatarTwo, avatarThree };
+        playersAvatars = new List<List<Avatar>> { avatarsControlledByOne, avatarsControlledByTwo };
     }
 
     #region Points Management Methods
@@ -62,14 +74,17 @@ public class PointsManager : MonoBehaviour
         if(destination == Avatars.AvatarOne)
         {
             avatarOne.Addpoint(controlPoints.Player);
+            Debug.Log("PT Manager first if");
         }
         else if(destination == Avatars.AvatarTwo)
         {
             avatarTwo.Addpoint(controlPoints.Player);
+            Debug.Log("PT Manager second if");
         }
         else
         {
             avatarThree.Addpoint(controlPoints.Player);
+            Debug.Log("PT Manager third if");
         }
     }
 
@@ -146,7 +161,7 @@ public class PointsManager : MonoBehaviour
         controlPointsScript.CurrentPoints--;
         if (controlPointsScript.CurrentPoints == 0)
         {
-            Debug.Log("Congratulations " + controlPointsScript.Player + 1 + " you showcased why your father left!");
+            Debug.Log("Congratulations " + (controlPointsScript.Player + 1) + " you showcased why your father left!");
         }
 
         if(player == losingPlayer)
