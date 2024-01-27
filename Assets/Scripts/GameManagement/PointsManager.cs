@@ -17,6 +17,7 @@ public class PointsManager : MonoBehaviour
 
     private int defaultPoints = 3;
     private int maxPoints;
+    private int losingPlayer;
 
     private List<Avatar> avatarsControlledByOne;
     private List<Avatar> avatarsControlledByTwo;
@@ -108,14 +109,17 @@ public class PointsManager : MonoBehaviour
     {
         if (pointsOne.CurrentPoints == pointsTwo.CurrentPoints)
         {
+            losingPlayer = -1;
             return -1;
         }
         else if(pointsOne.CurrentPoints < pointsTwo.CurrentPoints)
         {
+            losingPlayer = 0;
             return 1;
         }
         else
         {
+            losingPlayer = 1;
             return 0;
         }
     }
@@ -127,15 +131,31 @@ public class PointsManager : MonoBehaviour
     {
         ControlPoints controlPointsScript = playersPoints[player];
         controlPointsScript.CurrentPoints++;
+
+        if(player == losingPlayer)
+        {
+            SpecialSpawnWave?.Invoke(playersPoints[player].CurrentPoints);
+
+            PlayerWithMostPoints();
+        }
     }
 
     private void DecreasePoint(int avatar, int player)
     {
         ControlPoints controlPointsScript = playersPoints[player];
-        controlPointsScript.CurrentPoints++;
+        controlPointsScript.CurrentPoints--;
         if (controlPointsScript.CurrentPoints == 0)
         {
-            Debug.Log("Congratulations " + controlPointsScript.Player + 1 + " you proved why your father left you!");
+            Debug.Log("Congratulations " + controlPointsScript.Player + 1 + " you showcased why your father left!");
+        }
+
+        if(player == losingPlayer)
+        {
+            SpecialSpawnWave?.Invoke(playersPoints[player].CurrentPoints);
+        }
+        else
+        {
+            PlayerWithMostPoints();
         }
     }
 

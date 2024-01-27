@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private float intervalBetweenSpawns = 5;
+    [SerializeField] private float spawnRate = 5;
     [SerializeField] private CollectiblePooling[] pools;
 
     private int spawnWave = 0;
@@ -58,7 +58,7 @@ public class SpawnManager : MonoBehaviour
         int poolToSpawnTwo = Random.Range(0, 2);
         pools[poolToSpawnOne].pool.Get();
         pools[poolToSpawnTwo].pool.Get();
-        yield return new WaitForSeconds(intervalBetweenSpawns);
+        yield return new WaitForSeconds(spawnRate);
         KeepTrackSpawning();
     }
 
@@ -66,7 +66,7 @@ public class SpawnManager : MonoBehaviour
     {
         specialSpawn = false;
         pools[pools.Length - 1].pool.Get();
-        yield return new WaitForSeconds(intervalBetweenSpawns);
+        yield return new WaitForSeconds(spawnRate);
         NormalSpawning();
     }
     #endregion
@@ -97,10 +97,22 @@ public class SpawnManager : MonoBehaviour
     }
     #endregion
 
+    #region To Change Special Spawn Rate
+    private void ChangeSpecialSpawn(int wave)
+    {
+        specialSpawnWave = wave;
+    }
+    #endregion
+
     #region OnEnable and OnDisable
     private void OnEnable()
     {
-        
+        PointsManager.SpecialSpawnWave += ChangeSpecialSpawn;
+    }
+
+    private void OnDisable()
+    {
+        PointsManager.SpecialSpawnWave -= ChangeSpecialSpawn;
     }
     #endregion
 
