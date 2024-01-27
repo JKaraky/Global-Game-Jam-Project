@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,8 @@ public class AvatarController : MonoBehaviour
     private float moveEnergyConsumption;
     [SerializeField]
     private float energyCooldown;
-    [SerializeField]
-    private int poweredUpMultiplier;
+
+    private int _poweredUpMultiplier = 1;
 
 
     [Header("Movement")]
@@ -43,17 +44,17 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private AvatarController otherPlayer;
 
-    [Header("UI Controller")]
-    [SerializeField]
-    private UIController uiController;
-
     private Vector3 _movement;
-    private bool _poweredUp = false; // This is Avatar 3
     private Rigidbody _rb;
     private int _controlPointSlot = 0;
     private float _currentEnergy;
     private PointsManager _pointsManger;
 
+    #endregion
+    #region Events
+    public static event Action<int, float, float> RefreshEnergyBarTrigger;
+    public static event Action<int, int> ControlSlotToggleTrigger;
+    #endregion
     public int PlayerNbr
     {
         get
@@ -68,7 +69,6 @@ public class AvatarController : MonoBehaviour
             return _controlPointSlot;
         }
     }
-    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -92,7 +92,7 @@ public class AvatarController : MonoBehaviour
             DepleteEnergy(false); // Gradually depleting energy bar
             if (_isHampered)
             {
-                _rb.AddForce(_movement*hamperPercentage * speed);
+                _rb.AddForce(_movement*hamperPercentage/100 * speed);
             }
             else
             {
@@ -104,7 +104,7 @@ public class AvatarController : MonoBehaviour
 
     void DestroyPowerup()
     {
-        if ((!_poweredUp && _currentEnergy == maxEnergy) || (_poweredUp && _currentEnergy >= maxEnergy/poweredUpMultiplier))
+        if (_currentEnergy >= maxEnergy/_poweredUpMultiplier)
         {
             DepleteEnergy(true);
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
@@ -121,15 +121,19 @@ public class AvatarController : MonoBehaviour
                     collider.GetComponent<Collectible>().ReleaseCollectible();
                 }
             }
+
+            Debug.Log("Player " + (playerNumber + 1) + " destroyed  powerup");
         }
     }
 
     private void HamperPlayer()
     {
-        if ((!_poweredUp && _currentEnergy == maxEnergy) || (_poweredUp && _currentEnergy >= maxEnergy / poweredUpMultiplier))
+        if (_currentEnergy >= maxEnergy / _poweredUpMultiplier)
         {
             DepleteEnergy(true);
             otherPlayer.GetHampered();
+
+            Debug.Log("Player " + (playerNumber + 1) + " hampered other player");
         }
     }
 
@@ -137,6 +141,8 @@ public class AvatarController : MonoBehaviour
     {
         // Every press incerments the slider, but when it reaches 3, it goes back to 0
         _controlPointSlot = (_controlPointSlot + 1) % 3;
+
+        ControlSlotToggleTrigger?.Invoke(_controlPointSlot, PlayerNbr);
     }
 
     #endregion
@@ -148,28 +154,18 @@ public class AvatarController : MonoBehaviour
     }
     private void TogglePowerupState() // This is for gaining or losing Avatar 3
     {
-        _poweredUp = !_poweredUp;
+        maxEnergy /= _poweredUpMultiplier;
 
-        if (_poweredUp)
-        {
-            maxEnergy *= poweredUpMultiplier;
-        }
-        else
-        {
-            maxEnergy /= poweredUpMultiplier;
-        }
+        // Get new multiplier from nbr of controlles avatars
+
+        maxEnergy *= _poweredUpMultiplier;
     }
 
     private void DepleteEnergy(bool immediately)
     {
         if (immediately)
         {
-            if (_poweredUp)
-            {
-                _currentEnergy -= maxEnergy/poweredUpMultiplier;
-            }
-            else
-                _currentEnergy -= maxEnergy;
+            _currentEnergy -= maxEnergy / _poweredUpMultiplier;
         }
         else
         {
@@ -181,7 +177,7 @@ public class AvatarController : MonoBehaviour
             StartCoroutine(CooldownCountdown(energyCooldown, false, false));
         }
 
-        uiController.UpdateEnergyBar(playerNumber, _currentEnergy, maxEnergy);
+        RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
     }
     IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle)
     {
@@ -192,7 +188,7 @@ public class AvatarController : MonoBehaviour
         if (!toggling)
         {
             _currentEnergy = maxEnergy;
-            uiController.UpdateEnergyBar(playerNumber, _currentEnergy, maxEnergy);
+            RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
         }
     }
     #endregion
