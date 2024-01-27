@@ -76,7 +76,6 @@ public class UIController : MonoBehaviour
 
     private void UpdateAvatarPoints(int avatar, int player)
     {
-        Debug.Log("Updating points");
         int[] ptsInAvatar = avatars[avatar].PlayersPoints;
         if (avatarTextDictionary.TryGetValue(avatar, out TextMeshProUGUI[] texts))
         {

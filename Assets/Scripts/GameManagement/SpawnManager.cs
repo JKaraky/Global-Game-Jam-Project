@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
         }
         else if(specialSpawn)
         {
-            SpecialSpawn();
+            StartCoroutine(SpecialSpawn());
         }
         else
         {
@@ -53,7 +53,6 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator NormalSpawn()
     {
         normalSpawn = false;
-        spawnWave++;
         int poolToSpawnOne = Random.Range(0, 2);
         int poolToSpawnTwo = Random.Range(0, 2);
         pools[poolToSpawnOne].pool.Get();
@@ -64,6 +63,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpecialSpawn()
     {
+        Debug.Log("Spawned power 3");
         specialSpawn = false;
         pools[pools.Length - 1].pool.Get();
         yield return new WaitForSeconds(spawnRate);
@@ -74,10 +74,12 @@ public class SpawnManager : MonoBehaviour
     #region To Set and check for Spawn Mode
     private void KeepTrackSpawning()
     {
+        Debug.Log("This is wave " + spawnWave + " special spawning is every " + specialSpawnWave);
         spawnWave++;
         if(spawnWave == specialSpawnWave)
         {
             SpecialSpawning();
+            spawnWave = 0;
         }
         else
         {

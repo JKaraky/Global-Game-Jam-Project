@@ -84,12 +84,20 @@ public class AvatarController : MonoBehaviour
         _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
 
         _controlPointSlot = playerNumber == 0 ? 1 : 0;
+        _controlPoints.PointDestination(_controlPointSlot);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+        foreach (Avatar av in _controlledAvatars)
+        {
+            if (av.AvatarNumber == _controlPointSlot)
+            {
+                ToggleControlPointSlot();
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -113,7 +121,6 @@ public class AvatarController : MonoBehaviour
     {
         if (_currentEnergy >= maxEnergy/_poweredUpMultiplier)
         {
-            DepleteEnergy(true);
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
 
             foreach (Collider collider in objectsAroundPlayer)
@@ -122,14 +129,14 @@ public class AvatarController : MonoBehaviour
                 if (collider.tag == "CollectibleTwo" && playerNumber == 0)
                 {
                     collider.GetComponent<Collectible>().ReleaseCollectible();
+                    DepleteEnergy(true);
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
                     collider.GetComponent<Collectible>().ReleaseCollectible();
+                    DepleteEnergy(true);
                 }
             }
-
-            Debug.Log("Player " + (playerNumber + 1) + " destroyed  powerup");
         }
     }
 
@@ -139,8 +146,6 @@ public class AvatarController : MonoBehaviour
         {
             DepleteEnergy(true);
             otherPlayer.GetHampered();
-
-            Debug.Log("Player " + (playerNumber + 1) + " hampered other player");
         }
     }
 
@@ -175,6 +180,7 @@ public class AvatarController : MonoBehaviour
         maxEnergy /= _poweredUpMultiplier;
 
         // Get new multiplier from nbr of controlles avatars
+        _poweredUpMultiplier = _controlledAvatars.Count;
 
         maxEnergy *= _poweredUpMultiplier;
     }

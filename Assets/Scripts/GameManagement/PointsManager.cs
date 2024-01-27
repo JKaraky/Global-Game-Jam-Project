@@ -16,7 +16,6 @@ public class PointsManager : MonoBehaviour
     private List<Avatar> allAvatars;
 
     private int defaultPoints = 3;
-    private int maxPoints;
     private int losingPlayer;
 
     private List<Avatar> avatarsControlledByOne;
@@ -36,8 +35,6 @@ public class PointsManager : MonoBehaviour
 
     private void Awake()
     {
-        maxPoints = (defaultPoints * 2) + (defaultPoints / 2);
-
         // Setup starting points
         pointsOne.CurrentPoints = defaultPoints;
         pointsTwo.CurrentPoints = defaultPoints;
@@ -73,15 +70,15 @@ public class PointsManager : MonoBehaviour
 
         if(destination == Avatars.AvatarOne)
         {
-            avatarOne.Addpoint(controlPoints.Player);
+            avatarOne.AddPoint(controlPoints.Player);
         }
         else if(destination == Avatars.AvatarTwo)
         {
-            avatarTwo.Addpoint(controlPoints.Player);
+            avatarTwo.AddPoint(controlPoints.Player);
         }
         else
         {
-            avatarThree.Addpoint(controlPoints.Player);
+            avatarThree.AddPoint(controlPoints.Player);
         }
     }
 
@@ -89,30 +86,21 @@ public class PointsManager : MonoBehaviour
     {
         foreach (Avatar avatar in allAvatars)
         {
-            if (playersAvatars[playerToDecrease].Contains(avatar))
-            {
-                return;
-            }
-            else
+            if (!playersAvatars[playerToDecrease].Contains(avatar))
             {
                 if (avatar.PlayersPoints[playerToDecrease] != 0)
                 {
-                    avatar.SubtractPoint(playerToDecrease);
+                    avatar.AddPoint(losingPlayer);
                     return;
                 }
-                else
-                {
-                    if (playersAvatars[playerToDecrease].Contains(avatarThree))
-                    {
-                        avatarThree.SubtractPoint(playerToDecrease);
-                    }
-                    else
-                    {
-                        playersAvatars[playerToDecrease][0].SubtractPoint(playerToDecrease);
-                    }
-                }
+            }
+            else if (avatar.AvatarNumber == 2)
+            {
+                avatarThree.SubtractPoint(playerToDecrease);
+                return;
             }
         }
+        playersAvatars[playerToDecrease][0].SubtractPoint(playerToDecrease);
     }
     #endregion
 
@@ -144,11 +132,15 @@ public class PointsManager : MonoBehaviour
         ControlPoints controlPointsScript = playersPoints[player];
         controlPointsScript.CurrentPoints++;
 
-        if(player == losingPlayer)
+        PlayerWithMostPoints();
+
+        if(losingPlayer == -1)
         {
             SpecialSpawnWave?.Invoke(playersPoints[player].CurrentPoints);
-
-            PlayerWithMostPoints();
+        }
+        else
+        {
+            SpecialSpawnWave?.Invoke(playersPoints[losingPlayer].CurrentPoints);
         }
     }
 
@@ -161,13 +153,15 @@ public class PointsManager : MonoBehaviour
             Debug.Log("Congratulations " + (controlPointsScript.Player + 1) + " you showcased why your father left!");
         }
 
-        if(player == losingPlayer)
+        PlayerWithMostPoints();
+
+        if (losingPlayer == -1)
         {
             SpecialSpawnWave?.Invoke(playersPoints[player].CurrentPoints);
         }
         else
         {
-            PlayerWithMostPoints();
+            SpecialSpawnWave?.Invoke(playersPoints[losingPlayer].CurrentPoints);
         }
     }
 

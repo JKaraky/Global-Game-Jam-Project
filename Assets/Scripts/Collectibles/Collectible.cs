@@ -5,6 +5,8 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     private CollectiblePooling poolOfCollectible;
+    [SerializeField]
+    private static float lifespan = 40;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -16,6 +18,10 @@ public class Collectible : MonoBehaviour
         {
             poolOfCollectible = value;
         }
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(LifeSpan());
     }
 
     public void ReleaseCollectible()
@@ -29,5 +35,11 @@ public class Collectible : MonoBehaviour
         {
             ReleaseCollectible();
         }
+    }
+
+    private IEnumerator LifeSpan()
+    {
+        yield return new WaitForSeconds(lifespan);
+        ReleaseCollectible();
     }
 }
