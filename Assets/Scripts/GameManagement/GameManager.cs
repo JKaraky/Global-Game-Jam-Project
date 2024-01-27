@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     #region Variables
     [SerializeField] private GameObject player;
-    [SerializeField] private SpawnManager spawnManager;
 
     public GameObject Player
     {

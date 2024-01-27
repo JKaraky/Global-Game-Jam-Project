@@ -97,4 +97,11 @@ public class SpawnManager : MonoBehaviour
     }
     #endregion
 
+    #region OnEnable and OnDisable
+    private void OnEnable()
+    {
+        
+    }
+    #endregion
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,11 @@ public class PointsManager : MonoBehaviour
     #region Variables
     [SerializeField]
     private ControlPoints pointsOne, pointsTwo;
+    private List<ControlPoints> playersPoints;
+
     [SerializeField]
     private Avatar avatarOne, avatarTwo, avatarThree;
+    private List<Avatar> allAvatars;
 
     private int defaultPoints = 3;
     private int maxPoints;
@@ -17,6 +21,8 @@ public class PointsManager : MonoBehaviour
     private List<Avatar> avatarsControlledByOne;
     private List<Avatar> avatarsControlledByTwo;
     private List<List<Avatar>> playersAvatars;
+
+    public static event Action<int> SpecialSpawnWave;
     #endregion
 
     private void Start()
@@ -42,110 +48,105 @@ public class PointsManager : MonoBehaviour
         // Setup controlled avatars lists
         avatarsControlledByOne = new List<Avatar> { avatarOne };
         avatarsControlledByTwo = new List<Avatar> { avatarTwo };
+
+        playersPoints = new List<ControlPoints> { pointsOne, pointsTwo };
+        allAvatars = new List<Avatar> { avatarOne, avatarTwo, avatarThree };
     }
 
     #region Points Management Methods
     public void IncrementPoint(ControlPoints controlPoints)
     {
-        IncreasePoint(controlPoints);
-
         Avatars destination = controlPoints.Destination;
 
         if(destination == Avatars.AvatarOne)
         {
-            ManageAvatar(avatarOne, controlPoints.Player);
+            avatarOne.Addpoint(controlPoints.Player);
         }
         else if(destination == Avatars.AvatarTwo)
         {
-            ManageAvatar(avatarTwo, controlPoints.Player);
+            avatarTwo.Addpoint(controlPoints.Player);
         }
         else
         {
-            ManageAvatar(avatarThree, controlPoints.Player);
+            avatarThree.Addpoint(controlPoints.Player);
         }
     }
 
-    public void DecrementPoint(ControlPoints controlPoints)
+    public void DecrementPoint(int playerToDecrease)
     {
-
-    }
-    #endregion
-
-    #region Comparison Checks
-    private ControlPoints GiveBiggestPoints()
-    {
-        if (pointsOne.CurrentPoints == pointsTwo.CurrentPoints)
+        foreach (Avatar avatar in allAvatars)
         {
-            return null;
-        }
-        else if(pointsOne.CurrentPoints < pointsTwo.CurrentPoints)
-        {
-            return pointsTwo;
-        }
-        else
-        {
-            return pointsOne;
-        }
-    }
-    #endregion
-
-    #region Managing Avatars and Points Algorithms
-
-    private void IncreasePoint(ControlPoints controlPoints)
-    {
-        controlPoints.CurrentPoints++;
-        if (controlPoints.CurrentPoints == maxPoints)
-        {
-            Debug.Log("Player " + controlPoints.Player + " took full control!");
-        }
-    }
-    private void ManageAvatar(Avatar avatar, int playerNumber)
-    {
-        IncreasePointsInAvatar(avatar, playerNumber);
-        CheckControlOfAvatar(avatar, playerNumber);
-    }
-
-    private void IncreasePointsInAvatar(Avatar avatar, int playerNumber)
-    {
-        if (avatar.CurrentStorage == avatar.MaxStorage)
-        {
-            foreach (int i in avatar.PlayersPoints)
+            if (playersAvatars[playerToDecrease].Contains(avatar))
             {
-                if (i == playerNumber)
-                {
-                    avatar.PlayersPoints[i]++;
-                }
-                else
-                {
-                    avatar.PlayersPoints[i]--;
-                }
+                return;
             }
-        }
-        else
-        {
-            avatar.PlayersPoints[playerNumber]++;
-        }
-    }
-
-    private void CheckControlOfAvatar(Avatar avatar, int playerNumber)
-    {
-        if (avatar.PlayersPoints[playerNumber] == avatar.MaxStorage)
-        {
-            for (int i = 0; i < playersAvatars.Count; i++)
+            else
             {
-                if (i == playerNumber)
+                if (avatar.PlayersPoints[playerToDecrease] != 0)
                 {
-                    playersAvatars[i].Add(avatar);
+                    avatar.SubtractPoint(playerToDecrease);
+                    return;
                 }
                 else
                 {
-                    if (playersAvatars[i].Contains(avatar))
+                    if (playersAvatars[playerToDecrease].Contains(avatarThree))
                     {
-                        playersAvatars[i].Remove(avatar);
+                        avatarThree.SubtractPoint(playerToDecrease);
+                    }
+                    else
+                    {
+                        playersAvatars[playerToDecrease][0].SubtractPoint(playerToDecrease);
                     }
                 }
             }
         }
+    }
+    #endregion
+
+    #region Comparison Checks
+    private int PlayerWithMostPoints()
+    {
+        if (pointsOne.CurrentPoints == pointsTwo.CurrentPoints)
+        {
+            return -1;
+        }
+        else if(pointsOne.CurrentPoints < pointsTwo.CurrentPoints)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    #endregion
+
+    #region Adding and Removing Player Points and Controlling Players
+
+    private void IncreasePoint(int avatar, int player)
+    {
+        ControlPoints controlPointsScript = playersPoints[player];
+        controlPointsScript.CurrentPoints++;
+    }
+
+    private void DecreasePoint(int avatar, int player)
+    {
+        ControlPoints controlPointsScript = playersPoints[player];
+        controlPointsScript.CurrentPoints++;
+        if (controlPointsScript.CurrentPoints == 0)
+        {
+            Debug.Log("Congratulations " + controlPointsScript.Player + 1 + " you proved why your father left you!");
+        }
+    }
+
+    private void AddControl(int avatar, int player)
+    {
+        playersAvatars[player].Add(allAvatars[avatar]);
+    }
+
+    private void RemoveControl(int avatar, int player)
+    {
+        playersAvatars[player].Remove(allAvatars[avatar]);
     }
     #endregion
 
@@ -162,9 +163,30 @@ public class PointsManager : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("CollectibleThree"))
         {
-            ControlPoints playerToDecrease = GiveBiggestPoints();
-            DecrementPoint(playerToDecrease);
+            int playerToDecrease = PlayerWithMostPoints();
+            if(playerToDecrease != -1)
+            {
+                DecrementPoint(playerToDecrease);
+            }
         }
+    }
+    #endregion
+
+    #region OnEnable and OnDisable
+    private void OnEnable()
+    {
+        Avatar.IncreasePoint += IncreasePoint;
+        Avatar.DecreasePoint += DecreasePoint;
+        Avatar.GainedControl += AddControl;
+        Avatar.LostControl += RemoveControl;
+    }
+
+    private void OnDisable()
+    {
+        Avatar.IncreasePoint -= IncreasePoint;
+        Avatar.DecreasePoint -= DecreasePoint;
+        Avatar.GainedControl -= AddControl;
+        Avatar.LostControl -= RemoveControl;
     }
     #endregion
 }
