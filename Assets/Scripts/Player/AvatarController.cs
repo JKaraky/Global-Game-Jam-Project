@@ -47,7 +47,7 @@ public class AvatarController : MonoBehaviour
     private int _controlPointSlot = 0;
     private float _currentEnergy;
 
-    public float PlayerNbr
+    public int PlayerNbr
     {
         get
         {

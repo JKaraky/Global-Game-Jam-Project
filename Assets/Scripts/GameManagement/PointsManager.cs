@@ -2,65 +2,149 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Avatars { AvatarOne, AvatarTwo, AvatarThree};
 public class PointsManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private AvatarController avatarControllerOne, avatarControllerTwo;
+    private ControlPoints pointsOne, pointsTwo;
+    [SerializeField]
+    private Avatar avatarOne, avatarTwo, avatarThree;
 
     private int defaultPoints = 3;
     private int maxPoints;
-    private int currentPointsOne, currentPointsTwo, maxNormalAvatar, maxSpecialAvatar;
 
-    private int[] avatarOne, avatarTwo, avatarThree;
+    private List<Avatar> avatarsControlledByOne;
+    private List<Avatar> avatarsControlledByTwo;
+    private List<List<Avatar>> playersAvatars;
     #endregion
 
     private void Start()
     {
-        maxPoints = (defaultPoints * 2) + 1;
-        currentPointsOne = defaultPoints;
-        currentPointsTwo = defaultPoints;
-        maxNormalAvatar = defaultPoints;
-        maxSpecialAvatar = defaultPoints / 2;
-        avatarOne = new int[2] { currentPointsOne, 0 };
-        avatarTwo = new int[2] { 0, currentPointsTwo };
-        avatarThree = new int[1] { 0 };
+        maxPoints = (defaultPoints * 2) + (defaultPoints / 2);
+
+        // Setup starting points
+        pointsOne.CurrentPoints = defaultPoints;
+        pointsTwo.CurrentPoints = defaultPoints;
+
+        // Setup avatar one
+        avatarOne.MaxStorage = defaultPoints;
+        avatarOne.PlayersPoints = new int[2] { defaultPoints, 0 };
+
+        // Setup avatar two
+        avatarTwo.MaxStorage = defaultPoints;
+        avatarTwo.PlayersPoints = new int[2] { 0, defaultPoints };
+
+        // Setup avatar three
+        avatarThree.MaxStorage = defaultPoints / 2;
+        avatarThree.PlayersPoints = new int[2] { 0, 0 };
+
+        // Setup controlled avatars lists
+        avatarsControlledByOne = new List<Avatar> { avatarOne };
+        avatarsControlledByTwo = new List<Avatar> { avatarTwo };
     }
 
     #region Points Management Methods
-    public void IncrementPoint(int playerPoint)
+    public void IncrementPoint(ControlPoints controlPoints)
     {
-        if(playerPoint == 1)
+        IncreasePoint(controlPoints);
+
+        Avatars destination = controlPoints.Destination;
+
+        if(destination == Avatars.AvatarOne)
         {
-            //Start here when coding next time
+            ManageAvatar(avatarOne, controlPoints.Player);
+        }
+        else if(destination == Avatars.AvatarTwo)
+        {
+            ManageAvatar(avatarTwo, controlPoints.Player);
+        }
+        else
+        {
+            ManageAvatar(avatarThree, controlPoints.Player);
         }
     }
 
-    public void DecrementPoint(int currentPoints)
+    public void DecrementPoint(ControlPoints controlPoints)
     {
-        currentPoints--;
 
-        if (currentPoints == 0)
+    }
+    #endregion
+
+    #region Comparison Checks
+    private ControlPoints GiveBiggestPoints()
+    {
+        if (pointsOne.CurrentPoints == pointsTwo.CurrentPoints)
         {
-            Debug.Log("You have Lost");
+            return null;
+        }
+        else if(pointsOne.CurrentPoints < pointsTwo.CurrentPoints)
+        {
+            return pointsTwo;
+        }
+        else
+        {
+            return pointsOne;
         }
     }
     #endregion
 
-    #region Comparison Method
-    private int GiveBiggestPoints()
+    #region Managing Avatars and Points Algorithms
+
+    private void IncreasePoint(ControlPoints controlPoints)
     {
-        if (currentPointsOne == currentPointsTwo)
+        controlPoints.CurrentPoints++;
+        if (controlPoints.CurrentPoints == maxPoints)
         {
-            return 0;
+            Debug.Log("Player " + controlPoints.Player + " took full control!");
         }
-        else if(currentPointsOne < currentPointsTwo)
+    }
+    private void ManageAvatar(Avatar avatar, int playerNumber)
+    {
+        IncreasePointsInAvatar(avatar, playerNumber);
+        CheckControlOfAvatar(avatar, playerNumber);
+    }
+
+    private void IncreasePointsInAvatar(Avatar avatar, int playerNumber)
+    {
+        if (avatar.CurrentStorage == avatar.MaxStorage)
         {
-            return currentPointsTwo;
+            foreach (int i in avatar.PlayersPoints)
+            {
+                if (i == playerNumber)
+                {
+                    avatar.PlayersPoints[i]++;
+                }
+                else
+                {
+                    avatar.PlayersPoints[i]--;
+                }
+            }
         }
         else
         {
-            return currentPointsOne;
+            avatar.PlayersPoints[playerNumber]++;
+        }
+    }
+
+    private void CheckControlOfAvatar(Avatar avatar, int playerNumber)
+    {
+        if (avatar.PlayersPoints[playerNumber] == avatar.MaxStorage)
+        {
+            for (int i = 0; i < playersAvatars.Count; i++)
+            {
+                if (i == playerNumber)
+                {
+                    playersAvatars[i].Add(avatar);
+                }
+                else
+                {
+                    if (playersAvatars[i].Contains(avatar))
+                    {
+                        playersAvatars[i].Remove(avatar);
+                    }
+                }
+            }
         }
     }
     #endregion
@@ -70,16 +154,16 @@ public class PointsManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("CollectibleOne"))
         {
-            IncrementPoint(1);
+            IncrementPoint(pointsOne);
         }
         else if (collision.gameObject.CompareTag("CollectibleTwo"))
         {
-            IncrementPoint(2);
+            IncrementPoint(pointsTwo);
         }
         else if (collision.gameObject.CompareTag("CollectibleThree"))
         {
-            int biggestPoints = GiveBiggestPoints();
-            DecrementPoint(biggestPoints);
+            ControlPoints playerToDecrease = GiveBiggestPoints();
+            DecrementPoint(playerToDecrease);
         }
     }
     #endregion
