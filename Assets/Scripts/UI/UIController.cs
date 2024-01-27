@@ -90,11 +90,13 @@ public class UIController : MonoBehaviour
         AvatarController.ControlSlotToggleTrigger += UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         Avatar.IncreasePoint += UpdateAvatarPoints;
+        Avatar.DecreasePoint += UpdateAvatarPoints;
     }
     private void OnDisable()
     {
         AvatarController.ControlSlotToggleTrigger -= UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         Avatar.IncreasePoint -= UpdateAvatarPoints;
+        Avatar.DecreasePoint -= UpdateAvatarPoints;
     }
 }

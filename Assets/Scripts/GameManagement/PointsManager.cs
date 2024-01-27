@@ -74,17 +74,14 @@ public class PointsManager : MonoBehaviour
         if(destination == Avatars.AvatarOne)
         {
             avatarOne.Addpoint(controlPoints.Player);
-            Debug.Log("PT Manager first if");
         }
         else if(destination == Avatars.AvatarTwo)
         {
             avatarTwo.Addpoint(controlPoints.Player);
-            Debug.Log("PT Manager second if");
         }
         else
         {
             avatarThree.Addpoint(controlPoints.Player);
-            Debug.Log("PT Manager third if");
         }
     }
 

@@ -94,14 +94,12 @@ public class Avatar : MonoBehaviour
 
     public void Addpoint(int player)
     {
-        Debug.Log("Avatar " + avatarNumber + " Current storarge " + currentStorage + " max storage " + maxStorage);
         if(currentStorage == maxStorage)
         {
-            foreach (int i in playersPoints)
+            for (int i = 0; i < playersPoints.Length; i++)
             {
                 if (i == player)
                 {
-                    Debug.Log("Increase point should be fired");
                     playersPoints[i]++;
                     IncreasePoint?.Invoke(avatarNumber, i);
                 }
@@ -114,6 +112,7 @@ public class Avatar : MonoBehaviour
         else
         {
             playersPoints[player]++;
+            IncreasePoint?.Invoke(avatarNumber, player);
         }
 
         if (playersPoints[player] == MaxStorage)
@@ -125,6 +124,8 @@ public class Avatar : MonoBehaviour
 
     public void SubtractPoint(int player)
     {
+        Debug.Log("Players Points: " + playersPoints[0] + ", " + playersPoints[1]);
+        Debug.Log("Subtracting point from: " + player);
         playersPoints[player]--;
 
         if (playersPoints[player] == 0)
