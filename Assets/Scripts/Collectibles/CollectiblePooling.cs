@@ -9,13 +9,15 @@ public class CollectiblePooling : MonoBehaviour
     #region Variables
     public ObjectPool<Collectible> pool;
     [SerializeField] private Collectible pooledObject;
+    [SerializeField] private GameObject spawnPointsHolder; 
+    private static Transform[] spawnPoints;
     #endregion
-
-    [SerializeField] float maxBorder;
     // Start is called before the first frame update
     void Awake()
     {
         pool = new ObjectPool<Collectible>(CreateObject, ActivateObject, DeactivateObject, DestroyObject, true, 10, 15);
+        spawnPoints = spawnPointsHolder.GetComponentsInChildren<Transform>();
+        Debug.Log(spawnPoints.Length);
     }
 
     #region Pool Methods
@@ -48,25 +50,9 @@ public class CollectiblePooling : MonoBehaviour
     #region Randomization Method
     private Vector3 RandomPosition()
     {
-        int wall = UnityEngine.Random.Range(0, 4);
-        float spawnPosition = UnityEngine.Random.Range(-maxBorder, maxBorder);
-
-        if(wall == 0)
-        {
-            return new Vector3(-maxBorder, 1, spawnPosition);
-        }
-        else if (wall == 1)
-        {
-            return new Vector3(maxBorder, 1, spawnPosition);
-        }
-        else if(wall == 2)
-        {
-            return new Vector3(spawnPosition, 1, maxBorder);
-        }
-        else
-        {
-            return new Vector3(spawnPosition, 1, -maxBorder);
-        }
+        int spawnPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
+        Transform pointTransform = spawnPoints[spawnPoint];
+        return new Vector3(pointTransform.position.x, pointTransform.position.y, pointTransform.position.z);
     }
     #endregion
 }
