@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,7 @@ public class Collectible : MonoBehaviour
     [SerializeField]
     private static float lifespan = 20;
 
-    [SerializeField]
-    private ParticleSystem particleEffect;
+    public static event Action<Vector3> PlayDestroyEffect;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -29,7 +29,7 @@ public class Collectible : MonoBehaviour
 
     public void ReleaseCollectible()
     {
-        particleEffect.Play();
+        PlayDestroyEffect?.Invoke(transform.position);
         poolOfCollectible.pool.Release(this);
     }
 

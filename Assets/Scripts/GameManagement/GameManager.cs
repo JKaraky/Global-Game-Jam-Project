@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField]
+    private ParticleSystem particleEffect;
     #endregion
 
     #region Awake Methods
@@ -81,6 +83,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    #region Particle Effect PLay
+    private void PlayParticleEffect(Vector3 position)
+    {
+        Instantiate(particleEffect, position, Quaternion.identity);
+        particleEffect.Play();
+    }
+    #endregion
+
     #region Method to Create Singleton Instance
     private static void SetupInstance()
     {
@@ -98,10 +108,12 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PointsManager.GameOver += GameOver;
+        Collectible.PlayDestroyEffect += PlayParticleEffect;
     }
 
     private void OnDisable()
     {
         PointsManager.GameOver -= GameOver;
+        Collectible.PlayDestroyEffect -= PlayParticleEffect;
     }
 }
