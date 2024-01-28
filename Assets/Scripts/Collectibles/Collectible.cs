@@ -8,6 +8,9 @@ public class Collectible : MonoBehaviour
     [SerializeField]
     private static float lifespan = 20;
 
+    [SerializeField]
+    private ParticleSystem particleEffect;
+
     public CollectiblePooling PoolOfCollectible
     {
         get
@@ -26,6 +29,7 @@ public class Collectible : MonoBehaviour
 
     public void ReleaseCollectible()
     {
+        particleEffect.Play();
         poolOfCollectible.pool.Release(this);
     }
 
