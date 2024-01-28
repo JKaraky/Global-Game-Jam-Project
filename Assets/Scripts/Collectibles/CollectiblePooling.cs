@@ -17,7 +17,6 @@ public class CollectiblePooling : MonoBehaviour
     {
         pool = new ObjectPool<Collectible>(CreateObject, ActivateObject, DeactivateObject, DestroyObject, true, 10, 15);
         spawnPoints = spawnPointsHolder.GetComponentsInChildren<Transform>();
-        Debug.Log(spawnPoints.Length);
     }
 
     #region Pool Methods
