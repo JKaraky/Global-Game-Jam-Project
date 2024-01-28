@@ -23,6 +23,8 @@ public class PointsManager : MonoBehaviour
     private List<List<Avatar>> playersAvatars;
 
     public static event Action<int> SpecialSpawnWave;
+    public static event Action<int> GainedPoint;
+    public static event Action<int> GameOver;
 
     public List<List<Avatar>> PlayersAvatars
     {
@@ -33,6 +35,7 @@ public class PointsManager : MonoBehaviour
     }
     #endregion
 
+    #region Points Setup
     private void Awake()
     {
         // Setup starting points
@@ -62,6 +65,7 @@ public class PointsManager : MonoBehaviour
         allAvatars = new List<Avatar> { avatarOne, avatarTwo, avatarThree };
         playersAvatars = new List<List<Avatar>> { avatarsControlledByOne, avatarsControlledByTwo };
     }
+    #endregion
 
     #region Points Management Methods
     public void IncrementPoint(ControlPoints controlPoints)
@@ -131,6 +135,7 @@ public class PointsManager : MonoBehaviour
     {
         ControlPoints controlPointsScript = playersPoints[player];
         controlPointsScript.CurrentPoints++;
+        GainedPoint?.Invoke(player);
 
         PlayerWithMostPoints();
 
@@ -150,6 +155,7 @@ public class PointsManager : MonoBehaviour
         controlPointsScript.CurrentPoints--;
         if (controlPointsScript.CurrentPoints == 0)
         {
+            GameOver?.Invoke(player);
             Debug.Log("Congratulations " + (controlPointsScript.Player + 1) + " you showcased why your father left!");
         }
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,7 +35,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private CollectiblePooling pool;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TextMeshProUGUI text;
     #endregion
 
     #region Awake Methods
@@ -55,10 +58,28 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private void Start()
+    #region Game Over Method
+    private void GameOver(int player)
     {
-
+        text.text = "Congratulations player " + (player + 1) + ", you have proved why your father left!";
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
     }
+    #endregion
+
+    #region Button Events
+
+    public void RestartLevel()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    #endregion
 
     #region Method to Create Singleton Instance
     private static void SetupInstance()
@@ -73,4 +94,14 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnEnable()
+    {
+        PointsManager.GameOver += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        PointsManager.GameOver -= GameOver;
+    }
 }

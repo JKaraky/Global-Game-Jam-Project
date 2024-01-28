@@ -76,7 +76,7 @@ public class SpawnManager : MonoBehaviour
     {
         Debug.Log("This is wave " + spawnWave + " special spawning is every " + specialSpawnWave);
         spawnWave++;
-        if(spawnWave == specialSpawnWave)
+        if(spawnWave >= specialSpawnWave)
         {
             SpecialSpawning();
             spawnWave = 0;

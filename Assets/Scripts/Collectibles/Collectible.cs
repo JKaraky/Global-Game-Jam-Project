@@ -6,7 +6,7 @@ public class Collectible : MonoBehaviour
 {
     private CollectiblePooling poolOfCollectible;
     [SerializeField]
-    private static float lifespan = 40;
+    private static float lifespan = 20;
 
     public CollectiblePooling PoolOfCollectible
     {
