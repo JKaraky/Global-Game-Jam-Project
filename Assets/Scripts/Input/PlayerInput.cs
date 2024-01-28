@@ -60,11 +60,11 @@ public class PlayerInput : MonoBehaviour
 
     private void DestroyBtnPressed()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             DestroyP1?.Invoke();
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             DestroyP2?.Invoke();
         }
@@ -72,11 +72,11 @@ public class PlayerInput : MonoBehaviour
 
     private void HamperBtnPressed()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             HamperP1?.Invoke();
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             HamperP2?.Invoke();
         }
@@ -84,11 +84,11 @@ public class PlayerInput : MonoBehaviour
 
     private void ToggleControlBtnPressed()
     {
-        if (playerNumber == 1)
+        if (playerNumber == 0)
         {
             ToggleControlPointP1?.Invoke();
         }
-        else if (playerNumber == 2)
+        else if (playerNumber == 1)
         {
             ToggleControlPointP2?.Invoke();
         }
