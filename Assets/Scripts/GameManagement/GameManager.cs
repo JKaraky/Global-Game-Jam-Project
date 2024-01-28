@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     private void PlayParticleEffect(Vector3 position)
     {
         Instantiate(particleEffect, position, Quaternion.identity);
-        particleEffect.Play();
+        particleEffect.Emit(100);
     }
     #endregion
 
