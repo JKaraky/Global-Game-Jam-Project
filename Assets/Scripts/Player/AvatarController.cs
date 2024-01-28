@@ -90,7 +90,15 @@ public class AvatarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int prevNumberOfAvatars = _controlledAvatars.Count;
+
         _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+
+        if (_controlledAvatars.Count !=  prevNumberOfAvatars)
+        {
+            TogglePowerupState();
+        }
+
         foreach (Avatar av in _controlledAvatars)
         {
             if (av.AvatarNumber == _controlPointSlot)
