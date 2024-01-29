@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
@@ -30,11 +32,17 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI wormPtInWorm;
 
-    [Header("Robot Control Points")]
+    [Header("Dispenser Control Points")]
     [SerializeField]
-    private TextMeshProUGUI duckPtInRobot;
+    private TextMeshProUGUI duckPtInDispenser;
     [SerializeField]
-    private TextMeshProUGUI wormPtInRobot;
+    private TextMeshProUGUI wormPtInDispenser;
+
+    [Header("Pause Menu")]
+    [SerializeField]
+    private GameObject pauseMenu;
+    [SerializeField]
+    private InputActionReference pauseButton;
 
     [Header("Avatars")]
     [SerializeField]
@@ -47,7 +55,7 @@ public class UIController : MonoBehaviour
         {
             {0, new TextMeshProUGUI[2] {duckPtInDuck, wormPtInDuck } },
             {1, new TextMeshProUGUI[2] { duckPtInWorm, wormPtInWorm } },
-            {2, new TextMeshProUGUI[2] { duckPtInRobot, wormPtInRobot } }
+            {2, new TextMeshProUGUI[2] { duckPtInDispenser, wormPtInDispenser } }
         };
     }
     private void UpdateEnergyBar(int player, float energy, float maxEnergy)
@@ -82,7 +90,14 @@ public class UIController : MonoBehaviour
             texts[0].text = ptsInAvatar[0] + "";
             texts[1].text = ptsInAvatar[1] + "";
         }
-}
+    }
+
+    private void PauseMenu(InputAction.CallbackContext context)
+    {
+        // If it's on, it gets turned off and vice versa
+        Time.timeScale = 0f;
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+    }
 
     private void OnEnable()
     {
@@ -90,12 +105,15 @@ public class UIController : MonoBehaviour
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         Avatar.IncreasePoint += UpdateAvatarPoints;
         Avatar.DecreasePoint += UpdateAvatarPoints;
+        pauseButton.action.performed += PauseMenu;
     }
+
     private void OnDisable()
     {
         AvatarController.ControlSlotToggleTrigger -= UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         Avatar.IncreasePoint -= UpdateAvatarPoints;
         Avatar.DecreasePoint -= UpdateAvatarPoints;
+        pauseButton.action.performed -= PauseMenu;
     }
 }
