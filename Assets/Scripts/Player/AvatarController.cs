@@ -18,6 +18,8 @@ public class AvatarController : MonoBehaviour
     private float moveEnergyConsumption;
     [SerializeField]
     private float energyCooldown;
+    [SerializeField]
+    private float energyRegenerationRate;
 
     private int _poweredUpMultiplier = 1;
 
@@ -48,6 +50,8 @@ public class AvatarController : MonoBehaviour
     private Rigidbody _rb;
     private int _controlPointSlot = 0;
     private float _currentEnergy;
+    private float _energyRegeneration = 0;
+    private Coroutine _energyRoutine;
     private PointsManager _pointsManager;
     private ControlPoints _controlPoints;
     private List<Avatar> _controlledAvatars;
@@ -90,21 +94,12 @@ public class AvatarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int prevNumberOfAvatars = _controlledAvatars.Count;
-
-        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
-
-        if (_controlledAvatars.Count !=  prevNumberOfAvatars)
+        if (_currentEnergy < maxEnergy)
         {
-            TogglePowerupState();
-        }
+            Debug.Log("Repleneshing Energy. Rate: " + _energyRegeneration);
+            _currentEnergy += _energyRegeneration;
+            RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
 
-        foreach (Avatar av in _controlledAvatars)
-        {
-            if (av.AvatarNumber == _controlPointSlot)
-            {
-                ToggleControlPointSlot();
-            }
         }
     }
     private void FixedUpdate()
@@ -195,6 +190,10 @@ public class AvatarController : MonoBehaviour
 
     private void DepleteEnergy(bool immediately)
     {
+        _energyRegeneration = 0;
+
+        if (_energyRoutine != null) StopCoroutine(_energyRoutine);
+
         if (immediately)
         {
             _currentEnergy -= maxEnergy / _poweredUpMultiplier;
@@ -204,24 +203,39 @@ public class AvatarController : MonoBehaviour
             _currentEnergy -= moveEnergyConsumption;
         }
 
-        if (_currentEnergy <= 0)
-        {
-            StartCoroutine(CooldownCountdown(energyCooldown, false, false));
-        }
-
+        _energyRoutine = StartCoroutine(WaitTillEnergyReplenishes(energyCooldown));
+        
         RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
+    }
+
+    private void AvatarNumberChanged(int player)
+    {
+        if (player == playerNumber)
+        {
+            _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+            Debug.Log("Player " + playerNumber + "'s avatars are now " + _controlledAvatars.Count);
+
+            TogglePowerupState();
+
+            foreach (Avatar av in _controlledAvatars)
+            {
+                if (av.AvatarNumber == _controlPointSlot)
+                {
+                    ToggleControlPointSlot();
+                }
+            }
+        }
     }
     IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle)
     {
         variableToToggle = !variableToToggle;
         yield return new WaitForSeconds(duration);
         variableToToggle = !variableToToggle;
-
-        if (!toggling)
-        {
-            _currentEnergy = maxEnergy;
-            RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
-        }
+    }
+    IEnumerator WaitTillEnergyReplenishes(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _energyRegeneration = energyRegenerationRate;
     }
     #endregion
 
@@ -240,6 +254,8 @@ public class AvatarController : MonoBehaviour
             PlayerInput.HamperP2 += HamperPlayer;
             PlayerInput.ToggleControlPointP2 += ToggleControlPointSlot;
         }
+
+        PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
     }
     private void OnDisable()
     {
@@ -255,6 +271,8 @@ public class AvatarController : MonoBehaviour
             PlayerInput.HamperP2 -= HamperPlayer;
             PlayerInput.ToggleControlPointP2 -= ToggleControlPointSlot;
         }
+
+        PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
     }
 
     #endregion

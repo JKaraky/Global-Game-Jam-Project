@@ -25,6 +25,7 @@ public class PointsManager : MonoBehaviour
     public static event Action<int> SpecialSpawnWave;
     public static event Action<int> GainedPoint;
     public static event Action<int> GameOver;
+    public static event Action<int> PlayerAvatarsChanged;
 
     public List<List<Avatar>> PlayersAvatars
     {
@@ -156,7 +157,7 @@ public class PointsManager : MonoBehaviour
         if (controlPointsScript.CurrentPoints == 0)
         {
             GameOver?.Invoke(player);
-            Debug.Log("Congratulations " + (controlPointsScript.Player + 1) + " you showcased why your father left!");
+            Debug.Log("Congratulations " + (controlPointsScript.Player==0 ? "Duck" : "Worm") + " you showcased why your father left!");
         }
 
         PlayerWithMostPoints();
@@ -174,11 +175,15 @@ public class PointsManager : MonoBehaviour
     private void AddControl(int avatar, int player)
     {
         playersAvatars[player].Add(allAvatars[avatar]);
+
+        PlayerAvatarsChanged?.Invoke(player);
     }
 
     private void RemoveControl(int avatar, int player)
     {
         playersAvatars[player].Remove(allAvatars[avatar]);
+
+        PlayerAvatarsChanged?.Invoke(player);
     }
     #endregion
 
