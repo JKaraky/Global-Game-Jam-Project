@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1744,10 +1744,10 @@ MonoBehaviour:
   m_text: "This dumb duck is the definition of imbecile. \n\nTake control of the
     spaceship and push him out. Collect some delicious apples to give you strength.\n\nUse
     the arrow keys to try and steer the ship where you want, but beware, that dumb
-    duckis trying to do the same thing!\n\nUse 1 to toggle what part of the spaceship
+    duckis trying to do the same thing!\n\nUse 8 to toggle what part of the spaceship
     you want to control. You can go for his side of the controls or the energy pill
-    dispenser which will give you more energy to fight.\n\nUse 2 to try and slow
-    the spaceship's speed when the worm is trying to steer it and 3 to destroy the
+    dispenser which will give you more energy to fight.\n\nUse 9 to try and slow
+    the spaceship's speed when the worm is trying to steer it and 0 to destroy the
     disgusting pizzas he keeps munching on even though everyone on the ship (you)
     finds it annoying! They have to be close enough though.\n\nKeep track of how
     much energy you have. Take a rest once it is empty, don't worry you'll feel better

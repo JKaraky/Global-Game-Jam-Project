@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
+        Debug.Log("Rerstarting to scene " +  sceneName);
+        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 

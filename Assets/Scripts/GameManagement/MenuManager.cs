@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("LevelOne", LoadSceneMode.Single);
+        SceneManager.LoadScene("Arena", LoadSceneMode.Single);
     }
 
     public void GoToLearn()
