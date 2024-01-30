@@ -32,6 +32,8 @@ public class PlayerInput : MonoBehaviour
     public static event Action HamperP2;
     public static event Action ToggleControlPointP1;
     public static event Action ToggleControlPointP2;
+    public static event Action<int> ShowDestroyRadius;
+    public static event Action<int> HideDestroyRadius;
     #endregion
     public Vector3 Movement
     {
@@ -60,6 +62,8 @@ public class PlayerInput : MonoBehaviour
 
     private void DestroyBtnPressed()
     {
+        HideDestroyRadius?.Invoke(playerNumber);
+
         if (playerNumber == 0)
         {
             DestroyP1?.Invoke();
@@ -68,6 +72,11 @@ public class PlayerInput : MonoBehaviour
         {
             DestroyP2?.Invoke();
         }
+    }
+
+    private void DestroyBtnHeld(InputAction.CallbackContext context)
+    {
+        ShowDestroyRadius?.Invoke(playerNumber);
     }
 
     private void HamperBtnPressed()
@@ -97,13 +106,17 @@ public class PlayerInput : MonoBehaviour
     #region Event Subscribing
     private void OnEnable()
     {
+        destroy.action.started += DestroyBtnHeld;
         destroy.action.performed += destroyTrigger;
+        destroy.action.canceled += destroyTrigger;
         hamper.action.performed += hamperTrigger;
         toggleControlPoint.action.performed += toggleControlTrigger;
     }
     private void OnDisable()
     {
+        destroy.action.started -= DestroyBtnHeld;
         destroy.action.performed -= destroyTrigger;
+        destroy.action.canceled -= destroyTrigger;
         hamper.action.performed -= hamperTrigger;
         toggleControlPoint.action.performed -= toggleControlTrigger;
     }

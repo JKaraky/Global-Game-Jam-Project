@@ -75,6 +75,14 @@ public class AvatarController : MonoBehaviour
             return _controlPointSlot;
         }
     }
+
+    public float DestructionRadius
+    {
+        get
+        {
+            return destructionRadius;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
