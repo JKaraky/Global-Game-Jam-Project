@@ -23,7 +23,7 @@ public class CollectiblePooling : MonoBehaviour
     private Collectible CreateObject()
     {
         Collectible collectible = Instantiate(pooledObject, RandomPosition(), Quaternion.identity);
-        collectible.GetComponent<FollowPlayer>().Target = GameManager.Instance.Player;
+        collectible.GetComponent<FollowPlayer>().Target = tag == "CollectibleOne" ? GameManager.Instance.DuckTarget : GameManager.Instance.WormTarget;
         collectible.PoolOfCollectible = this;
         return collectible;
     }
@@ -31,7 +31,7 @@ public class CollectiblePooling : MonoBehaviour
     private void ActivateObject(Collectible pooled)
     {
         pooled.transform.position = RandomPosition();
-        pooled.GetComponent<FollowPlayer>().Target = GameManager.Instance.Player;
+        pooled.GetComponent<FollowPlayer>().Target = tag == "CollectibleOne" ? GameManager.Instance.DuckTarget : GameManager.Instance.WormTarget;
         pooled.gameObject.SetActive(true);
     }
 

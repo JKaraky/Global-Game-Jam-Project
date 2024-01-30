@@ -35,6 +35,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    [SerializeField] private GameObject duckTarget;
+    public GameObject DuckTarget
+    { 
+        get
+        {
+            return duckTarget;
+        }
+    }
+    [SerializeField] private GameObject wormTarget;
+    public GameObject WormTarget
+    {
+        get
+        {
+            return wormTarget;
+        }
+    }
+
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField]
