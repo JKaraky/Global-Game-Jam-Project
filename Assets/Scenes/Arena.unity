@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 420354459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fa16bc4c8c6744899c1871cc045a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: d63d6420362621d4d8fc80a52eed7bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
@@ -1147,7 +1147,6 @@ MonoBehaviour:
   destroy: {fileID: -1389677938012391502, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
   hamper: {fileID: 1583147694681179704, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
   toggleControlPoint: {fileID: 7852323488874585473, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
-  _movement: {x: 0, y: 0}
 --- !u!1001 &426701279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1658,7 +1657,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 541252997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23fa16bc4c8c6744899c1871cc045a0d, type: 3}
+  m_Script: {fileID: 11500000, guid: d63d6420362621d4d8fc80a52eed7bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
@@ -1667,7 +1666,6 @@ MonoBehaviour:
   destroy: {fileID: -1389677938012391502, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
   hamper: {fileID: 1583147694681179704, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
   toggleControlPoint: {fileID: 7852323488874585473, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
-  _movement: {x: 0, y: 0}
 --- !u!1 &557486784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2919609803760763803, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
@@ -2316,7 +2314,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837417204}
-  m_LocalRotation: {x: 0.13204396, y: -0.000000008527858, z: 0.0000000011359992, w: 0.9912439}
+  m_LocalRotation: {x: 0.13204396, y: 0.000000008527861, z: -0.0000000011359996, w: 0.9912439}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
