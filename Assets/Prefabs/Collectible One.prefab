@@ -83,7 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa495561aa4004429d62f298aaa233b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleEffect: {fileID: 198220379293217532, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
+  destroyEffect: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  fadeEffect: {fileID: 3927827116673132581, guid: 86ff242c671400c4f8f9d0fa4761bfbe, type: 3}
+  collectEffect: {fileID: 4893928107627164939, guid: 644a468e69ffb5741806a480809138e4, type: 3}
 --- !u!54 &1637456330591023782
 Rigidbody:
   m_ObjectHideFlags: 0

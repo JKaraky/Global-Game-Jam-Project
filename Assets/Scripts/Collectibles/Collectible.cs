@@ -6,10 +6,10 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     private CollectiblePooling poolOfCollectible;
-    [SerializeField]
     private static float lifespan = 20;
 
-    public static event Action<Vector3> PlayDestroyEffect;
+    [SerializeField]
+    private ParticleSystem destroyEffect, fadeEffect, collectEffect;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -27,9 +27,26 @@ public class Collectible : MonoBehaviour
         StartCoroutine(LifeSpan());
     }
 
-    public void ReleaseCollectible()
+    public void DestroyCollectible()
     {
-        PlayDestroyEffect?.Invoke(transform.position);
+        destroyEffect.Play();
+        ReleaseCollectible();
+    }
+
+    public void CollectCollectible()
+    {
+        collectEffect.Play();
+        ReleaseCollectible();
+    }
+
+    public void FadeCollectible()
+    {
+        fadeEffect.Play();
+        ReleaseCollectible();
+    }
+
+    private void ReleaseCollectible()
+    {
         poolOfCollectible.pool.Release(this);
     }
 
@@ -37,13 +54,13 @@ public class Collectible : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ReleaseCollectible();
+            CollectCollectible();
         }
     }
 
     private IEnumerator LifeSpan()
     {
         yield return new WaitForSeconds(lifespan);
-        ReleaseCollectible();
+        FadeCollectible();
     }
 }

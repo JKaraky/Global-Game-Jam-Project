@@ -139,12 +139,12 @@ public class AvatarController : MonoBehaviour
                 // Destruction logic goes here. Have to check whether it's a powerup or not
                 if (collider.tag == "CollectibleTwo" && playerNumber == 0)
                 {
-                    collider.GetComponent<Collectible>().ReleaseCollectible();
+                    collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
-                    collider.GetComponent<Collectible>().ReleaseCollectible();
+                    collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
                 }
             }

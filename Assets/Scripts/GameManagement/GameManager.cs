@@ -137,12 +137,10 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PointsManager.GameOver += GameOver;
-        Collectible.PlayDestroyEffect += PlayParticleEffect;
     }
 
     private void OnDisable()
     {
         PointsManager.GameOver -= GameOver;
-        Collectible.PlayDestroyEffect -= PlayParticleEffect;
     }
 }
