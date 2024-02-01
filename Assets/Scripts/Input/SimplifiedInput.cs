@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : MonoBehaviour
+public class SimplifiedInput : MonoBehaviour
 {
     #region Variables
     [Header("Player 1 or Player 2?")]
     [SerializeField]
     private int playerNumber;
+    [SerializeField]
+    private AvatarController avatarController;
     [Header("Player Controls")]
     [SerializeField]
     private InputActionReference move;
@@ -20,22 +22,15 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private InputActionReference toggleControlPoint;
 
-    private Vector3 _movement;
+    private Vector2 _movement;
 
     private Action<InputAction.CallbackContext> destroyTrigger;
     private Action<InputAction.CallbackContext> hamperTrigger;
     private Action<InputAction.CallbackContext> toggleControlTrigger;
 
-    public static event Action DestroyP1;
-    public static event Action DestroyP2;
-    public static event Action HamperP1;
-    public static event Action HamperP2;
-    public static event Action ToggleControlPointP1;
-    public static event Action ToggleControlPointP2;
-    public static event Action<int> ShowDestroyRadius;
-    public static event Action<int> HideDestroyRadius;
+    public static event Action<int> ShowOrDestroyRadius;
     #endregion
-    public Vector3 Movement
+    public Vector2 Movement
     {
         get
         {
@@ -57,50 +52,29 @@ public class PlayerInput : MonoBehaviour
     #region Event Handlers
     private void MovementInput()
     {
-        _movement = move.action.ReadValue<Vector3>();
+        _movement = move.action.ReadValue<Vector2>();
     }
 
     private void DestroyBtnPressed()
     {
-        HideDestroyRadius?.Invoke(playerNumber);
+        ShowOrDestroyRadius?.Invoke(playerNumber);
 
-        if (playerNumber == 0)
-        {
-            DestroyP1?.Invoke();
-        }
-        else if (playerNumber == 1)
-        {
-            DestroyP2?.Invoke();
-        }
+        avatarController.DestroyPowerup();
     }
 
     private void DestroyBtnHeld(InputAction.CallbackContext context)
     {
-        ShowDestroyRadius?.Invoke(playerNumber);
+        ShowOrDestroyRadius?.Invoke(playerNumber);
     }
 
     private void HamperBtnPressed()
     {
-        if (playerNumber == 0)
-        {
-            HamperP1?.Invoke();
-        }
-        else if (playerNumber == 1)
-        {
-            HamperP2?.Invoke();
-        }
+        avatarController.HamperPlayer();
     }
 
     private void ToggleControlBtnPressed()
     {
-        if (playerNumber == 0)
-        {
-            ToggleControlPointP1?.Invoke();
-        }
-        else if (playerNumber == 1)
-        {
-            ToggleControlPointP2?.Invoke();
-        }
+        avatarController.ToggleControlPointSlot();
     }
     #endregion
     #region Event Subscribing

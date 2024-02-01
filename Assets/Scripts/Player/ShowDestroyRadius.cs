@@ -28,12 +28,10 @@ public class ShowDestroyRadius : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerInput.ShowDestroyRadius += ShowOrHideDestructionCircle;
-        PlayerInput.HideDestroyRadius += ShowOrHideDestructionCircle;
+        SimplifiedInput.ShowOrDestroyRadius += ShowOrHideDestructionCircle;
     }
     private void OnDisable()
     {
-        PlayerInput.ShowDestroyRadius -= ShowOrHideDestructionCircle;
-        PlayerInput.HideDestroyRadius -= ShowOrHideDestructionCircle;
+        SimplifiedInput.ShowOrDestroyRadius -= ShowOrHideDestructionCircle;
     }
 }

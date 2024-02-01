@@ -28,7 +28,7 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private float speed = 17;
     [SerializeField]
-    private PlayerInput inputScript;
+    private SimplifiedInput inputScript;
 
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
@@ -104,7 +104,6 @@ public class AvatarController : MonoBehaviour
     {
         if (_currentEnergy < maxEnergy)
         {
-            Debug.Log("Repleneshing Energy. Rate: " + _energyRegeneration);
             _currentEnergy += _energyRegeneration;
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
 
@@ -112,7 +111,7 @@ public class AvatarController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        _movement = inputScript.Movement;
+        _movement = new Vector3(inputScript.Movement.x, 0, inputScript.Movement.y);
         if (_currentEnergy > 0 && _movement != Vector3.zero)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
@@ -128,8 +127,9 @@ public class AvatarController : MonoBehaviour
     }
     #region Player Actions
 
-    void DestroyPowerup()
+    public void DestroyPowerup()
     {
+        Debug.Log("Player " + playerNumber + " destroying");
         if (_currentEnergy >= maxEnergy/_poweredUpMultiplier)
         {
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
@@ -151,8 +151,9 @@ public class AvatarController : MonoBehaviour
         }
     }
 
-    private void HamperPlayer()
+    public void HamperPlayer()
     {
+        Debug.Log("Player " + playerNumber + " hampering");
         if (_currentEnergy >= maxEnergy / _poweredUpMultiplier)
         {
             DepleteEnergy(true);
@@ -160,8 +161,9 @@ public class AvatarController : MonoBehaviour
         }
     }
 
-    private void ToggleControlPointSlot()
+    public void ToggleControlPointSlot()
     {
+        Debug.Log("Player " + playerNumber + " toggling");
         //Check which avatars are locked
         _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
         // Every press incerments the slider, but when it reaches 3, it goes back to 0
@@ -250,36 +252,10 @@ public class AvatarController : MonoBehaviour
     #region Subscribing To Events
     private void OnEnable()
     {
-        if (playerNumber == 0)
-        {
-            PlayerInput.DestroyP1 += DestroyPowerup;
-            PlayerInput.HamperP1 += HamperPlayer;
-            PlayerInput.ToggleControlPointP1 += ToggleControlPointSlot;
-        }
-        else if (playerNumber == 1)
-        {
-            PlayerInput.DestroyP2 += DestroyPowerup;
-            PlayerInput.HamperP2 += HamperPlayer;
-            PlayerInput.ToggleControlPointP2 += ToggleControlPointSlot;
-        }
-
         PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
     }
     private void OnDisable()
     {
-        if (playerNumber == 0)
-        {
-            PlayerInput.DestroyP1 -= DestroyPowerup;
-            PlayerInput.HamperP1 -= HamperPlayer;
-            PlayerInput.ToggleControlPointP1 -= ToggleControlPointSlot;
-        }
-        else if (playerNumber == 1)
-        {
-            PlayerInput.DestroyP2 -= DestroyPowerup;
-            PlayerInput.HamperP2 -= HamperPlayer;
-            PlayerInput.ToggleControlPointP2 -= ToggleControlPointSlot;
-        }
-
         PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
     }
 
