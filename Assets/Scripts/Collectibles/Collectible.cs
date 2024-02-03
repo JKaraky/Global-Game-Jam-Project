@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Collectible : MonoBehaviour
 {
+    #region Variables
     private CollectiblePooling poolOfCollectible;
     private static float lifespan = 20;
-
-    [SerializeField]
-    private ParticleSystem destroyEffect, fadeEffect, collectEffect;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -22,26 +21,28 @@ public class Collectible : MonoBehaviour
             poolOfCollectible = value;
         }
     }
+    #endregion
+
+    #region OnEnable
     private void OnEnable()
     {
         StartCoroutine(LifeSpan());
     }
+    #endregion
 
+    #region Handling Collectible Removal From Level
     public void DestroyCollectible()
     {
-        destroyEffect.Play();
         ReleaseCollectible();
     }
 
     public void CollectCollectible()
     {
-        collectEffect.Play();
         ReleaseCollectible();
     }
 
     public void FadeCollectible()
     {
-        fadeEffect.Play();
         ReleaseCollectible();
     }
 
@@ -49,7 +50,9 @@ public class Collectible : MonoBehaviour
     {
         poolOfCollectible.pool.Release(this);
     }
+    #endregion
 
+    #region Collision Handling
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -57,10 +60,13 @@ public class Collectible : MonoBehaviour
             CollectCollectible();
         }
     }
+    #endregion
 
+    #region LifeSpan Handling
     private IEnumerator LifeSpan()
     {
         yield return new WaitForSeconds(lifespan);
         FadeCollectible();
     }
+    #endregion
 }

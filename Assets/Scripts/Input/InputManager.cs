@@ -64,8 +64,6 @@ public class InputManager : MonoBehaviour
                 playerInput2.SwitchCurrentControlScheme(controllerScheme, connectedControllers[0]);
                 break;
         }
-        Debug.Log("Player 1 using scheme " + playerInput1.currentControlScheme);
-        Debug.Log("Player 2 using scheme " + playerInput2.currentControlScheme);
     }
 
     private void OnEnable()
