@@ -21,6 +21,10 @@ public class Collectible : MonoBehaviour
             poolOfCollectible = value;
         }
     }
+
+    public static event Action<Vector3> CollectibleCollected;
+    public static event Action<Vector3> CollectibleDestroyed;
+    public static event Action<Vector3> CollectibleFaded;
     #endregion
 
     #region OnEnable
@@ -34,16 +38,19 @@ public class Collectible : MonoBehaviour
     public void DestroyCollectible()
     {
         ReleaseCollectible();
+        CollectibleDestroyed?.Invoke(transform.position);
     }
 
     public void CollectCollectible()
     {
         ReleaseCollectible();
+        CollectibleCollected?.Invoke(transform.position);
     }
 
     public void FadeCollectible()
     {
         ReleaseCollectible();
+        CollectibleFaded?.Invoke(transform.position);
     }
 
     private void ReleaseCollectible()
