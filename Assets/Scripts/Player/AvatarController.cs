@@ -105,14 +105,14 @@ public class AvatarController : MonoBehaviour
         if (_currentEnergy < maxEnergy)
         {
             _currentEnergy += _energyRegeneration;
+            _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
-
         }
     }
     private void FixedUpdate()
     {
         _movement = new Vector3(inputScript.Movement.x, 0, inputScript.Movement.y);
-        if (_currentEnergy > 0 && _movement != Vector3.zero)
+        if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
             if (_isHampered)
@@ -212,6 +212,8 @@ public class AvatarController : MonoBehaviour
         {
             _currentEnergy -= moveEnergyConsumption;
         }
+
+        _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
 
         _energyRoutine = StartCoroutine(WaitTillEnergyReplenishes(energyCooldown));
         
