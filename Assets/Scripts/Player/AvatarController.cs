@@ -111,21 +111,41 @@ public class AvatarController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        _movement = new Vector3(inputScript.Movement.x, 0, inputScript.Movement.y);
+        _movement = Move();
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
             if (_isHampered)
             {
-                _rb.AddForce(_movement*hamperPercentage/100 * speed);
+                _rb.AddForce(_movement*hamperPercentage/100 * speed * Time.deltaTime);
             }
             else
             {
-                _rb.AddForce(_movement * speed);
+                _rb.AddForce(_movement * speed * Time.deltaTime);
             }
+
+            // Look away from the camera (same direction as it's pointing)
+            this.transform.LookAt(transform.position - (Camera.main.transform.position - transform.position));
         }
     }
     #region Player Actions
+
+    private Vector3 Move()
+    {
+        // Get the forward direction of the camera
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0f; // Zero out the y component to ensure movement is in the horizontal plane
+
+        // Get the right direction of the camera
+        Vector3 cameraRight = Camera.main.transform.right;
+        cameraRight.y = 0f;
+
+        // Combine the forward and right directions based on input
+        Vector3 movementDirection = (cameraForward * inputScript.Movement.y + cameraRight * inputScript.Movement.x).normalized;
+
+        // Set the movement vector
+        return new Vector3(movementDirection.x, 0, movementDirection.z);
+    }
 
     public void DestroyPowerup()
     {
