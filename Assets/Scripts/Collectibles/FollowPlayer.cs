@@ -8,7 +8,7 @@ public class FollowPlayer : MonoBehaviour
 {
     #region Variables
     private NavMeshAgent agent;
-    private GameObject target;
+    [SerializeField] private GameObject target;
 
     public GameObject Target { 
         get { 
@@ -29,6 +29,9 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.destination = target.transform.position;
+        if (agent.enabled == true && target != null)
+        {
+            agent.destination = target.transform.position;
+        }
     }
 }
