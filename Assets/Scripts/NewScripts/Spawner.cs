@@ -124,7 +124,6 @@ public class Spawner : MonoBehaviour
         else
         {
             specialSpawnTurn = turn;
-            Debug.Log("Special spawn is every " + specialSpawnTurn + " turn(s)");
         }
     }
     #endregion
