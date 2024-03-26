@@ -3,18 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Players { Nobody, PlayerOne, PlayerTwo };
+
 [RequireComponent(typeof(Collider))]
 public class Points : MonoBehaviour
 {
     #region Variables
     private int playerOnePoints;
     private int playerTwoPoints;
+    private int winningScore;
+
     [SerializeField]
     [Tooltip("Points the players start with. Player must have twice this value to win the game")]
     private int startingPoints = 3;
-    private int winningScore;
-    public enum Players { Nobody, PlayerOne, PlayerTwo };
+
     public static event Action<Players> PlayerWon;
+    public static event Action<Players> PointForPlayer;
     public static event Action<int> TurnsToSpecialSpawn;
 
     public int PlayerOnePoints
@@ -40,6 +44,14 @@ public class Points : MonoBehaviour
             playerTwoPoints = value;
         }
     }
+
+    public int StartingPoints
+    {
+        get
+        {
+            return startingPoints;
+        }
+    }
     #endregion
 
     #region Start
@@ -61,6 +73,7 @@ public class Points : MonoBehaviour
     {
         playerOnePoints++;
         playerTwoPoints--;
+        PointForPlayer?.Invoke(Players.PlayerOne);
 
         if(playerOnePoints == winningScore)
         {
@@ -74,6 +87,7 @@ public class Points : MonoBehaviour
     {
         playerTwoPoints++;
         playerOnePoints--;
+        PointForPlayer?.Invoke(Players.PlayerTwo);
 
         if (playerTwoPoints == winningScore)
         {
