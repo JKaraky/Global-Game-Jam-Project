@@ -28,23 +28,23 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private GameObject[] indicator2;
 
-    [Header("Station 1 Control Points")]
-    [SerializeField]
-    private TextMeshProUGUI p1PtInStation1;
-    [SerializeField]
-    private TextMeshProUGUI p2PtInStation1;
+    //[Header("Station 1 Control Points")]
+    //[SerializeField]
+    //private TextMeshProUGUI p1PtInStation1;
+    //[SerializeField]
+    //private TextMeshProUGUI p2PtInStation1;
 
-    [Header("Station 2 Control Points")]
-    [SerializeField]
-    private TextMeshProUGUI p1PtInStation2;
-    [SerializeField]
-    private TextMeshProUGUI p2PtInStation2;
+    //[Header("Station 2 Control Points")]
+    //[SerializeField]
+    //private TextMeshProUGUI p1PtInStation2;
+    //[SerializeField]
+    //private TextMeshProUGUI p2PtInStation2;
 
-    [Header("Station 3 Control Points")]
-    [SerializeField]
-    private TextMeshProUGUI p1PtInStation3;
-    [SerializeField]
-    private TextMeshProUGUI p2PtInStation3;
+    //[Header("Station 3 Control Points")]
+    //[SerializeField]
+    //private TextMeshProUGUI p1PtInStation3;
+    //[SerializeField]
+    //private TextMeshProUGUI p2PtInStation3;
 
     [Header("Pause Menu")]
     [SerializeField]
@@ -52,21 +52,21 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private InputActionReference pauseButton;
 
-    [Header("Avatars")]
-    [SerializeField]
-    private Avatar[] avatars;
+    //[Header("Avatars")]
+    //[SerializeField]
+    //private Avatar[] avatars;
 
     private Dictionary<int, TextMeshProUGUI[]> avatarTextDictionary;
     private int player1EnergyBarsActive = 1;
     private int player2EnergyBarsActive = 1;
     private void Start()
     {
-        avatarTextDictionary = new Dictionary<int, TextMeshProUGUI[]>
-        {
-            {0, new TextMeshProUGUI[2] {p1PtInStation1, p2PtInStation1 } },
-            {1, new TextMeshProUGUI[2] { p1PtInStation2, p2PtInStation2 } },
-            {2, new TextMeshProUGUI[2] { p1PtInStation3, p2PtInStation3 } }
-        };
+        //avatarTextDictionary = new Dictionary<int, TextMeshProUGUI[]>
+        //{
+        //    {0, new TextMeshProUGUI[2] {p1PtInStation1, p2PtInStation1 } },
+        //    {1, new TextMeshProUGUI[2] { p1PtInStation2, p2PtInStation2 } },
+        //    {2, new TextMeshProUGUI[2] { p1PtInStation3, p2PtInStation3 } }
+        //};
     }
     private void UpdateEnergyBar(int player, float energy, float maxEnergy)
     {
@@ -98,27 +98,27 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void UpdateControlPointSlot(int slot, int player)
-    {
-        GameObject[] indicators = player == 0 ? indicator1 : indicator2;
-        for (int i = 0; i < 3; i++)
-        {
-            if (i == slot)
-                indicators[i].SetActive(true);
-            else
-                indicators[i].SetActive(false);
-        }
-    }
+    //private void UpdateControlPointSlot(int slot, int player)
+    //{
+    //    GameObject[] indicators = player == 0 ? indicator1 : indicator2;
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        if (i == slot)
+    //            indicators[i].SetActive(true);
+    //        else
+    //            indicators[i].SetActive(false);
+    //    }
+    //}
 
-    private void UpdateAvatarPoints(int avatar, int player)
-    {
-        int[] ptsInAvatar = avatars[avatar].PlayersPoints;
-        if (avatarTextDictionary.TryGetValue(avatar, out TextMeshProUGUI[] texts))
-        {
-            texts[0].text = ptsInAvatar[0] + "";
-            texts[1].text = ptsInAvatar[1] + "";
-        }
-    }
+    //private void UpdateAvatarPoints(int avatar, int player)
+    //{
+    //    int[] ptsInAvatar = avatars[avatar].PlayersPoints;
+    //    if (avatarTextDictionary.TryGetValue(avatar, out TextMeshProUGUI[] texts))
+    //    {
+    //        texts[0].text = ptsInAvatar[0] + "";
+    //        texts[1].text = ptsInAvatar[1] + "";
+    //    }
+    //}
     private void UpdateEnergyBarNumber(int avatar, int player)
     {
         if (player == 0)
@@ -148,7 +148,7 @@ public class UIController : MonoBehaviour
 
     private void OnEnable()
     {
-        AvatarController.ControlSlotToggleTrigger += UpdateControlPointSlot;
+        //AvatarController.ControlSlotToggleTrigger += UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         //Avatar.IncreasePoint += UpdateAvatarPoints;
         //Avatar.DecreasePoint += UpdateAvatarPoints;
@@ -158,7 +158,7 @@ public class UIController : MonoBehaviour
 
     private void OnDisable()
     {
-        AvatarController.ControlSlotToggleTrigger -= UpdateControlPointSlot;
+        //AvatarController.ControlSlotToggleTrigger -= UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         //Avatar.IncreasePoint -= UpdateAvatarPoints;
         //Avatar.DecreasePoint -= UpdateAvatarPoints;

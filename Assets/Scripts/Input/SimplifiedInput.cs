@@ -19,8 +19,8 @@ public class SimplifiedInput : MonoBehaviour
     private InputActionReference destroy;
     [SerializeField]
     private InputActionReference hamper;
-    [SerializeField]
-    private InputActionReference toggleControlPoint;
+    //[SerializeField]
+    //private InputActionReference toggleControlPoint;
 
     private Vector2 _movement;
 
@@ -41,7 +41,7 @@ public class SimplifiedInput : MonoBehaviour
     {
         destroyTrigger = (ctx) => DestroyBtnPressed();
         hamperTrigger = (ctx) => HamperBtnPressed();
-        toggleControlTrigger = (ctx) => ToggleControlBtnPressed();
+        //toggleControlTrigger = (ctx) => ToggleControlBtnPressed();
     }
 
     // Update is called once per frame
@@ -69,13 +69,13 @@ public class SimplifiedInput : MonoBehaviour
 
     private void HamperBtnPressed()
     {
-        avatarController.HamperPlayer();
+        avatarController.JamPlayer();
     }
 
-    private void ToggleControlBtnPressed()
-    {
-        avatarController.ToggleControlPointSlot();
-    }
+    //private void ToggleControlBtnPressed()
+    //{
+    //    avatarController.ToggleControlPointSlot();
+    //}
     #endregion
     #region Event Subscribing
     private void OnEnable()
@@ -84,7 +84,7 @@ public class SimplifiedInput : MonoBehaviour
         destroy.action.performed += destroyTrigger;
         destroy.action.canceled += destroyTrigger;
         hamper.action.performed += hamperTrigger;
-        toggleControlPoint.action.performed += toggleControlTrigger;
+        //toggleControlPoint.action.performed += toggleControlTrigger;
     }
     private void OnDisable()
     {
@@ -92,7 +92,7 @@ public class SimplifiedInput : MonoBehaviour
         destroy.action.performed -= destroyTrigger;
         destroy.action.canceled -= destroyTrigger;
         hamper.action.performed -= hamperTrigger;
-        toggleControlPoint.action.performed -= toggleControlTrigger;
+        //toggleControlPoint.action.performed -= toggleControlTrigger;
     }
     #endregion
 }

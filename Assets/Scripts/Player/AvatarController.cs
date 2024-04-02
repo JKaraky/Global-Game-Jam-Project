@@ -21,7 +21,7 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private float energyRegenerationRate;
 
-    private int _poweredUpMultiplier = 1;
+    //private int _poweredUpMultiplier = 1;
 
 
     [Header("Movement")]
@@ -34,13 +34,13 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private float destructionRadius;
 
-    [Header("Hamper Enemy Player Movement")]
-    [SerializeField]
-    private float hamperPercentage;
-    [SerializeField]
-    private float hamperCooldown; // How long does a player stay hampered
+    [Header("Jam Canon")]
+    //[SerializeField]
+    //private float hamperPercentage;
+    //[SerializeField]
+    private float jamCooldown; // How long does a player stay hampered
 
-    private bool _isHampered = false;
+    private bool _isJammed = false;
 
     [Header("Enemy Player Reference")]
     [SerializeField]
@@ -48,18 +48,18 @@ public class AvatarController : MonoBehaviour
 
     private Vector3 _movement;
     private Rigidbody _rb;
-    private int _controlPointSlot = 0;
+    //private int _controlPointSlot = 0;
     private float _currentEnergy;
     private float _energyRegeneration = 0;
     private Coroutine _energyRoutine;
     private PointsManager _pointsManager;
     private ControlPoints _controlPoints;
-    private List<Avatar> _controlledAvatars;
+    //private List<Avatar> _controlledAvatars;
 
     #endregion
     #region Events
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
-    public static event Action<int, int> ControlSlotToggleTrigger;
+    //public static event Action<int, int> ControlSlotToggleTrigger;
     #endregion
     public int PlayerNbr
     {
@@ -68,13 +68,13 @@ public class AvatarController : MonoBehaviour
             return playerNumber;
         }
     }
-    public int ControlPointSlot
-    {
-        get
-        {
-            return _controlPointSlot;
-        }
-    }
+    //public int ControlPointSlot
+    //{
+        //get
+        //{
+            //return _controlPointSlot;
+        //}
+    //}
 
     public float DestructionRadius
     {
@@ -91,12 +91,12 @@ public class AvatarController : MonoBehaviour
 
         _currentEnergy = maxEnergy;
 
-        _pointsManager = transform.parent.GetComponent<PointsManager>();
+        //_pointsManager = transform.parent.GetComponent<PointsManager>();
 
-        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+        //_controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
 
-        _controlPointSlot = playerNumber == 0 ? 1 : 0;
-        _controlPoints.PointDestination(_controlPointSlot);
+        //_controlPointSlot = playerNumber == 0 ? 1 : 0;
+        //_controlPoints.PointDestination(_controlPointSlot);
     }
 
     // Update is called once per frame
@@ -115,9 +115,9 @@ public class AvatarController : MonoBehaviour
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
-            if (_isHampered)
+            if (_isJammed)
             {
-                _rb.AddForce(_movement*hamperPercentage/100 * speed * Time.deltaTime);
+                //_rb.AddForce(_movement*hamperPercentage/100 * speed * Time.deltaTime);
             }
             else
             {
@@ -150,7 +150,7 @@ public class AvatarController : MonoBehaviour
     public void DestroyPowerup()
     {
         Debug.Log("Player " + playerNumber + " destroying");
-        if (_currentEnergy >= maxEnergy/_poweredUpMultiplier)
+        if (_currentEnergy >= maxEnergy/1)
         {
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
 
@@ -171,52 +171,52 @@ public class AvatarController : MonoBehaviour
         }
     }
 
-    public void HamperPlayer()
+    public void JamPlayer()
     {
         Debug.Log("Player " + playerNumber + " hampering");
-        if (_currentEnergy >= maxEnergy / _poweredUpMultiplier)
+        if (_currentEnergy >= maxEnergy / 1)
         {
             DepleteEnergy(true);
-            otherPlayer.GetHampered();
+            otherPlayer.GetJammed();
         }
     }
 
-    public void ToggleControlPointSlot()
-    {
-        Debug.Log("Player " + playerNumber + " toggling");
-        //Check which avatars are locked
-        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
-        // Every press incerments the slider, but when it reaches 3, it goes back to 0
-        _controlPointSlot = (_controlPointSlot + 1) % 3;
-        foreach (Avatar avatar in _controlledAvatars)
-        {
-            if (_controlPointSlot == avatar.AvatarNumber && !avatar.CheckPickableAvatar(playerNumber))
-            {
-                _controlPointSlot = (_controlPointSlot + 1) % 3;
-            }
-        }
+    //public void ToggleControlPointSlot()
+    //{
+    //    Debug.Log("Player " + playerNumber + " toggling");
+    //    //Check which avatars are locked
+    //    _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+    //    // Every press incerments the slider, but when it reaches 3, it goes back to 0
+    //    _controlPointSlot = (_controlPointSlot + 1) % 3;
+    //    foreach (Avatar avatar in _controlledAvatars)
+    //    {
+    //        if (_controlPointSlot == avatar.AvatarNumber && !avatar.CheckPickableAvatar(playerNumber))
+    //        {
+    //            _controlPointSlot = (_controlPointSlot + 1) % 3;
+    //        }
+    //    }
         
-        _controlPoints.PointDestination(_controlPointSlot);
+    //    _controlPoints.PointDestination(_controlPointSlot);
 
-        ControlSlotToggleTrigger?.Invoke(_controlPointSlot, PlayerNbr);
-    }
+    //    ControlSlotToggleTrigger?.Invoke(_controlPointSlot, PlayerNbr);
+    //}
 
     #endregion
 
     #region Utility Methods
-    public void GetHampered()
+    public void GetJammed()
     {
-        StartCoroutine(CooldownCountdown(hamperCooldown, true, _isHampered));
+        StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed));
     }
-    private void TogglePowerupState() // This is for gaining or losing Avatar 3
-    {
-        maxEnergy /= _poweredUpMultiplier;
+    //private void TogglePowerupState() // This is for gaining or losing Avatar 3
+    //{
+    //    maxEnergy /= _poweredUpMultiplier;
 
-        // Get new multiplier from nbr of controlles avatars
-        _poweredUpMultiplier = _controlledAvatars.Count;
+    //    // Get new multiplier from nbr of controlles avatars
+    //    _poweredUpMultiplier = _controlledAvatars.Count;
 
-        maxEnergy *= _poweredUpMultiplier;
-    }
+    //    maxEnergy *= _poweredUpMultiplier;
+    //}
 
     private void DepleteEnergy(bool immediately)
     {
@@ -226,7 +226,7 @@ public class AvatarController : MonoBehaviour
 
         if (immediately)
         {
-            _currentEnergy -= maxEnergy / _poweredUpMultiplier;
+            _currentEnergy -= maxEnergy / 1;
         }
         else
         {
@@ -240,24 +240,24 @@ public class AvatarController : MonoBehaviour
         RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
     }
 
-    private void AvatarNumberChanged(int player)
-    {
-        if (player == playerNumber)
-        {
-            _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
-            Debug.Log("Player " + playerNumber + "'s avatars are now " + _controlledAvatars.Count);
+    //private void AvatarNumberChanged(int player)
+    //{
+    //    if (player == playerNumber)
+    //    {
+    //        _controlledAvatars = _pointsManager.PlayersAvatars[playerNumber];
+    //        Debug.Log("Player " + playerNumber + "'s avatars are now " + _controlledAvatars.Count);
 
-            TogglePowerupState();
+    //        TogglePowerupState();
 
-            foreach (Avatar av in _controlledAvatars)
-            {
-                if (av.AvatarNumber == _controlPointSlot)
-                {
-                    ToggleControlPointSlot();
-                }
-            }
-        }
-    }
+    //        foreach (Avatar av in _controlledAvatars)
+    //        {
+    //            if (av.AvatarNumber == _controlPointSlot)
+    //            {
+    //                ToggleControlPointSlot();
+    //            }
+    //        }
+    //    }
+    //}
     IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle)
     {
         variableToToggle = !variableToToggle;
@@ -272,14 +272,14 @@ public class AvatarController : MonoBehaviour
     #endregion
 
     #region Subscribing To Events
-    private void OnEnable()
-    {
-        PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
-    }
-    private void OnDisable()
-    {
-        PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
-    }
+    //private void OnEnable()
+    //{
+    //    PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
+    //}
+    //private void OnDisable()
+    //{
+    //    PointsManager.PlayerAvatarsChanged += AvatarNumberChanged;
+    //}
 
     #endregion
     private void OnDrawGizmos()
