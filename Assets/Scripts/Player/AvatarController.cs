@@ -93,14 +93,8 @@ public class AvatarController : MonoBehaviour
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
             DepleteEnergy(false); // Gradually depleting energy bar
-            if (_isJammed)
-            {
-                //_rb.AddForce(_movement*hamperPercentage/100 * speed * Time.deltaTime);
-            }
-            else
-            {
-                _rb.AddForce(_movement * speed);
-            }
+
+            _rb.AddForce(_movement * speed);
 
             // Look away from the camera (same direction as it's pointing)
             playerObj.LookAt(playerObj.position - (Camera.main.transform.position - playerObj.position));
@@ -128,7 +122,7 @@ public class AvatarController : MonoBehaviour
     public void DestroyPowerup()
     {
         Debug.Log("Player " + playerNumber + " destroying");
-        if (_currentEnergy >= maxEnergy/1)
+        if (!_isJammed && _currentEnergy >= maxEnergy)
         {
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
 
@@ -151,8 +145,8 @@ public class AvatarController : MonoBehaviour
 
     public void JamPlayer()
     {
-        Debug.Log("Player " + playerNumber + " hampering");
-        if (_currentEnergy >= maxEnergy / 1)
+        Debug.Log("Player " + playerNumber + " jamming");
+        if (_currentEnergy >= maxEnergy)
         {
             DepleteEnergy(true);
             otherPlayer.GetJammed();
@@ -175,7 +169,7 @@ public class AvatarController : MonoBehaviour
 
         if (immediately)
         {
-            _currentEnergy -= maxEnergy / 1;
+            _currentEnergy -= maxEnergy;
         }
         else
         {

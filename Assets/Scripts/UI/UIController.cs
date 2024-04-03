@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -27,10 +28,17 @@ public class UIController : MonoBehaviour
     private GameObject pauseMenu;
     [SerializeField]
     private InputActionReference pauseButton;
+    [SerializeField]
+    private GameObject resumeButton;
 
-    private Dictionary<int, TextMeshProUGUI[]> avatarTextDictionary;
     private int player1EnergyBarsActive = 1;
     private int player2EnergyBarsActive = 1;
+    
+    private Action<InputAction.CallbackContext> pauseTrigger;
+    private void Awake()
+    {
+        pauseTrigger = (ctx) => PauseMenu();
+    }
     private void UpdateEnergyBar(int player, float energy, float maxEnergy)
     {
         float barMax;
@@ -80,29 +88,31 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void PauseMenu(InputAction.CallbackContext context)
+    public void PauseMenu()
     {
-        // If it's on, it gets turned off and vice versa
-        Time.timeScale = 0f;
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(resumeButton);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            pauseMenu.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     private void OnEnable()
     {
-        //AvatarController.ControlSlotToggleTrigger += UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
-        //Avatar.IncreasePoint += UpdateAvatarPoints;
-        //Avatar.DecreasePoint += UpdateAvatarPoints;
-        Avatar.GainedControl += UpdateEnergyBarNumber;
-        pauseButton.action.performed += PauseMenu;
+        pauseButton.action.performed += pauseTrigger;
     }
 
     private void OnDisable()
     {
-        //AvatarController.ControlSlotToggleTrigger -= UpdateControlPointSlot;
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
-        //Avatar.IncreasePoint -= UpdateAvatarPoints;
-        //Avatar.DecreasePoint -= UpdateAvatarPoints;
-        pauseButton.action.performed -= PauseMenu;
+        pauseButton.action.performed -= pauseTrigger;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -93,11 +94,6 @@ public class GameManager : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-    }
-
-    public void ResumeLevel()
-    {
-        Time.timeScale = 1f;
     }
 
     public void BackToMainMenu()
