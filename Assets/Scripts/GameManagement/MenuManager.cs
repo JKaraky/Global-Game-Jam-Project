@@ -21,10 +21,23 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject[] instructions;
 
+    [Header("Keyboard Actions")]
+    [SerializeField]
+    private List<GameObject> humanKeyboardActions;
+    [SerializeField]
+    private List<GameObject> robotKeyboardActions;
+
+    [Header("Gamepad Actions")]
+    [SerializeField]
+    private List<GameObject> humanGamepadActions;
+    [SerializeField]
+    private List<GameObject> robotGamepadActions;
+
     private LinkedList<GameObject> slides;
     private LinkedListNode<GameObject> _currentSlide;
-    #endregion
 
+
+    #endregion
     private void Start()
     {
         SetSettingsSliderFromPrefs();
@@ -65,6 +78,55 @@ public class MenuManager : MonoBehaviour
             _currentSlide = _currentSlide.Previous;
         }
         _currentSlide.Value.SetActive(true);
+    }
+
+    public void OnDeviceChange(string humanScheme, string robotScheme)
+    {
+        Debug.Log("Human device: " + humanScheme + " Robot device: " +  robotScheme);
+        if (humanScheme == "keyboard")
+        {
+            foreach (GameObject item in humanGamepadActions)
+            {
+                item.SetActive(false);
+            }
+            foreach(GameObject item in humanKeyboardActions)
+            {
+                item.SetActive(true);
+            }
+        }
+        else if (humanScheme == "controller")
+        {
+            foreach (GameObject item in humanGamepadActions)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in humanKeyboardActions)
+            {
+                item.SetActive(false);
+            }
+        }
+        if (robotScheme == "keyboard")
+        {
+            foreach (GameObject item in robotGamepadActions)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in robotKeyboardActions)
+            {
+                item.SetActive(true);
+            }
+        }
+        else if (robotScheme == "controller")
+        {
+            foreach (GameObject item in robotGamepadActions)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in robotKeyboardActions)
+            {
+                item.SetActive(false);
+            }
+        }
     }
     #region Audio Methods
     public void ChangeMusicVolume()
