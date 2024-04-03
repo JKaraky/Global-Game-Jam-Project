@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private GameObject learnMenu;
-
     [Header ("Audio Settings")]
     [SerializeField]
     private Slider sfxSlider;
@@ -18,11 +16,21 @@ public class MenuManager : MonoBehaviour
     private Slider musicSlider;
     [SerializeField]
     private AudioSource musicSource;
+
+    [Header("Instrucitons Slides")]
+    [SerializeField]
+    private GameObject[] instructions;
+
+    private LinkedList<GameObject> slides;
+    private LinkedListNode<GameObject> _currentSlide;
     #endregion
 
     private void Start()
     {
         SetSettingsSliderFromPrefs();
+
+        slides = new LinkedList<GameObject> (instructions);
+        _currentSlide = slides.First;
     }
     public void StartGame()
     {
@@ -31,14 +39,32 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("Arena", LoadSceneMode.Single);
     }
 
-    public void GoToLearn()
+    public void NextInstructionSlide()
     {
-        learnMenu.SetActive(true);
+        _currentSlide.Value.SetActive(false);
+        if (_currentSlide == slides.Last)
+        {
+            _currentSlide = slides.First;
+        }
+        else
+        {
+            _currentSlide = _currentSlide.Next;
+        }
+        _currentSlide.Value.SetActive(true);
     }
 
-    public void GoBackFromLearn()
+    public void PreviousInstructionSlide()
     {
-        learnMenu.SetActive(false);
+        _currentSlide.Value.SetActive(false);
+        if (_currentSlide == slides.First)
+        {
+            _currentSlide = slides.Last;
+        }
+        else
+        {
+            _currentSlide = _currentSlide.Previous;
+        }
+        _currentSlide.Value.SetActive(true);
     }
     #region Audio Methods
     public void ChangeMusicVolume()

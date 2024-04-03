@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hamper2",
+                    "name": "Jam2",
                     "type": "Button",
                     "id": "6b5b364a-5377-4bb9-b70e-ebee8e288d60",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Toggle Control Point2",
-                    "type": "Button",
-                    "id": "64cf9c82-6bc6-4767-ae19-2187677630f3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -138,7 +129,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Hamper2",
+                    "action": "Jam2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -149,29 +140,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controllers",
-                    "action": "Hamper2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "795a625d-9d71-49fe-af4c-4c25f52bb854",
-                    "path": "<Keyboard>/8",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Toggle Control Point2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7c4b8e16-8b8a-4cfc-bd4d-ec2afc239804",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controllers",
-                    "action": "Toggle Control Point2",
+                    "action": "Jam2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

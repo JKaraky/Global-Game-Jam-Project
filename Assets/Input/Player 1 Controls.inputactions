@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hamper",
+                    "name": "Jam",
                     "type": "Button",
                     "id": "6b5b364a-5377-4bb9-b70e-ebee8e288d60",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Toggle Control Point",
-                    "type": "Button",
-                    "id": "64cf9c82-6bc6-4767-ae19-2187677630f3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -156,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Hamper",
+                    "action": "Jam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -167,29 +158,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controllers",
-                    "action": "Hamper",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aa5c9bcb-1539-4b2e-bd87-28e14e33841d",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Toggle Control Point",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7c4b8e16-8b8a-4cfc-bd4d-ec2afc239804",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controllers",
-                    "action": "Toggle Control Point",
+                    "action": "Jam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
