@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -80,9 +81,13 @@ public class MenuManager : MonoBehaviour
         _currentSlide.Value.SetActive(true);
     }
 
+    public void ChangeSelectedButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
     public void OnDeviceChange(string humanScheme, string robotScheme)
     {
-        Debug.Log("Human device: " + humanScheme + " Robot device: " +  robotScheme);
         if (humanScheme == "keyboard")
         {
             foreach (GameObject item in humanGamepadActions)
