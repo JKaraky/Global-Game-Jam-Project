@@ -97,7 +97,21 @@ public class AvatarController : MonoBehaviour
             _rb.AddForce(_movement * speed);
 
             // Look away from the camera (same direction as it's pointing)
-            playerObj.LookAt(playerObj.position - (Camera.main.transform.position - playerObj.position));
+            // Get the position of the camera
+            Vector3 cameraPosition = Camera.main.transform.position;
+
+            // Calculate the direction from the player to the camera
+            Vector3 directionToCamera = playerObj.position - cameraPosition;
+
+            // Ignore the y component of the direction
+            directionToCamera.y = 0;
+
+            // Make the player object rotate only on the y-axis
+            Quaternion rotation = Quaternion.LookRotation(directionToCamera);
+
+            // Apply the rotation to the player object, only rotating around the y-axis
+            playerObj.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+
         }
     }
     #region Player Actions
