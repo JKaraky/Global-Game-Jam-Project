@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public enum Players { Nobody, PlayerOne, PlayerTwo };
@@ -14,7 +15,7 @@ public class Points : MonoBehaviour
     private int winningScore;
 
     [SerializeField]
-    [Tooltip("Points the players start with. Player must have twice this value to win the game")]
+    [Tooltip("Points the players start with. Player must have twice this value to win the game.")]
     private int startingPoints = 3;
 
     public static event Action<Players> PlayerWon;
@@ -61,11 +62,6 @@ public class Points : MonoBehaviour
         winningScore = startingPoints * 2;
         TurnsToSpecialSpawn?.Invoke(startingPoints);
     }
-
-    //private void Update()
-    //{
-    //    Debug.Log(playerOnePoints + " " + playerTwoPoints);
-    //}
     #endregion
 
     #region Points Handling
@@ -133,19 +129,19 @@ public class Points : MonoBehaviour
     #endregion
 
     #region Collision Handling
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("CollectibleOne"))
+        if (other.gameObject.CompareTag("CollectibleOne"))
         {
             PointForPlayerOne();
         }
 
-        if (collision.gameObject.CompareTag("CollectibleTwo"))
+        if (other.gameObject.CompareTag("CollectibleTwo"))
         {
             PointForPlayerTwo();
         }
 
-        if (collision.gameObject.CompareTag("CollectibleThree"))
+        if (other.gameObject.CompareTag("CollectibleThree"))
         {
             RemoveFromWinner();
         }
