@@ -63,7 +63,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295368025993459821}
   m_LocalRotation: {x: -0, y: -0.26512375, z: -0, w: 0.9642144}
-  m_LocalPosition: {x: -9.94, y: 5.2719364, z: -3.77}
+  m_LocalPosition: {x: -9.33, y: 5.2719364, z: -2.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -151,12 +151,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1678507659212647365}
+  - {fileID: 2541503311501681562}
   - {fileID: 1632508909105236461}
   - {fileID: 2683186102550829187}
   - {fileID: 7256591884945412931}
   - {fileID: 1022274243745069590}
-  - {fileID: 2541503311501681562}
+  - {fileID: 1678507659212647365}
   m_Father: {fileID: 2399696951577115374}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 2896823846611449045}
   - component: {fileID: 7099929227504232103}
   m_Layer: 0
-  m_Name: RobotHouse1
+  m_Name: RobotHouse6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,14 +185,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979212159536283914}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.03, y: 5.1917305, z: 8.52}
+  m_LocalRotation: {x: 0, y: -0.37484917, z: 0, w: 0.9270858}
+  m_LocalPosition: {x: -14.09, y: 7.36, z: -4.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1985785090314235313}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -44.03, z: 0}
 --- !u!33 &2896823846611449045
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 2528116765503963509}
   - component: {fileID: 2446457777806081756}
   m_Layer: 0
-  m_Name: RobotHouse1
+  m_Name: RobotHouse6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -849,14 +849,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3613144272508887402}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.05, y: 5.1917305, z: 8.28}
+  m_LocalRotation: {x: 0, y: -0.33955884, z: 0, w: 0.9405849}
+  m_LocalPosition: {x: -15.24, y: 5.1917305, z: -4.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5956967968385874200}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -39.7, z: 0}
 --- !u!33 &2528116765503963509
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 5743836333971096095}
   - component: {fileID: 222048710821578926}
   m_Layer: 0
-  m_Name: RobotHouse6
+  m_Name: RobotHouse1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1022,14 +1022,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4270403121800963840}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.641491, y: 0.46720695, z: -4.225815}
+  m_LocalRotation: {x: 0, y: -0.74599934, z: 0, w: 0.6659468}
+  m_LocalPosition: {x: -5.68, y: 0.46720695, z: 6.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1985785090314235313}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -96.49, z: 0}
 --- !u!33 &5743836333971096095
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4776620441414556411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.615707, y: 1.1530972, z: -2.6030731}
+  m_LocalPosition: {x: -15.38, y: 3.4, z: -0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1661,7 +1661,7 @@ GameObject:
   - component: {fileID: 9010306563926872477}
   - component: {fileID: 8644426854472999281}
   m_Layer: 0
-  m_Name: RobotHouse6
+  m_Name: RobotHouse1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1674,14 +1674,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6291753433872474441}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.641491, y: 0.46720695, z: -4.225815}
+  m_LocalRotation: {x: 0, y: -0.013089582, z: 0, w: 0.99991435}
+  m_LocalPosition: {x: -15.1, y: 0.1, z: 5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5956967968385874200}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -1.5, z: 0}
 --- !u!33 &9010306563926872477
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2025,12 +2025,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 370858091311594928}
+  - {fileID: 7757978823289877929}
   - {fileID: 3761289290721075753}
   - {fileID: 5330530617834786538}
   - {fileID: 912757717704614463}
   - {fileID: 1373546631283527753}
-  - {fileID: 7757978823289877929}
+  - {fileID: 370858091311594928}
   m_Father: {fileID: 2399696951577115374}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
