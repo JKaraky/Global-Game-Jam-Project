@@ -27,6 +27,8 @@ public class AvatarController : MonoBehaviour
     private float speed = 17;
     [SerializeField]
     private SimplifiedInput inputScript;
+    [SerializeField]
+    private float gravityMultiplier = 1f;
 
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
@@ -89,6 +91,9 @@ public class AvatarController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // Simulating gravity
+        _rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
+
         _movement = Move();
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
