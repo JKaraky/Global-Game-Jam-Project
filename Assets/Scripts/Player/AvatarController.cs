@@ -33,6 +33,10 @@ public class AvatarController : MonoBehaviour
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
     private float destructionRadius;
+    [SerializeField]
+    private GameObject cannon;
+    [SerializeField]
+    private GameObject explosion;
 
     [Header("Jam Canon")]
     [SerializeField]
@@ -140,7 +144,6 @@ public class AvatarController : MonoBehaviour
 
     public void DestroyPowerup()
     {
-        Debug.Log("Player " + playerNumber + " destroying");
         if (!_isJammed && _currentEnergy >= maxEnergy)
         {
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
@@ -150,11 +153,19 @@ public class AvatarController : MonoBehaviour
                 // Destruction logic goes here. Have to check whether it's a powerup or not
                 if (collider.tag == "CollectibleTwo" && playerNumber == 0)
                 {
+                    explosion.transform.localPosition = cannon.transform.localPosition;
+                    explosion.SetActive(true);
+
+                    Debug.Log("I am " + cannon.gameObject.name);
+
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
+                    explosion.transform.position = cannon.transform.position;
+                    explosion.SetActive(true);
+
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
                 }
