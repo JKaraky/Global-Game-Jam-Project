@@ -29,6 +29,8 @@ public class AvatarController : MonoBehaviour
     private SimplifiedInput inputScript;
     [SerializeField]
     private float gravityMultiplier = 1f;
+    [SerializeField]
+    private float rotationSpeed = 0.05f;
 
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
@@ -54,6 +56,8 @@ public class AvatarController : MonoBehaviour
     private float _currentEnergy;
     private float _energyRegeneration = 0;
     private Coroutine _energyRoutine;
+
+    private Quaternion _finalRotation;
 
     #endregion
     #region Events
@@ -92,6 +96,8 @@ public class AvatarController : MonoBehaviour
             _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
         }
+
+        playerObj.rotation = Quaternion.Slerp(playerObj.rotation, _finalRotation, rotationSpeed);
     }
     private void FixedUpdate()
     {
@@ -119,7 +125,9 @@ public class AvatarController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(directionToCamera);
 
             // Apply the rotation to the player object, only rotating around the y-axis
-            playerObj.rotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+            _finalRotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+
+            //playerObj.rotation = _finalRotation;
 
         }
     }
