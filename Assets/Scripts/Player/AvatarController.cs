@@ -43,7 +43,8 @@ public class AvatarController : MonoBehaviour
     [Header("Jam Canon")]
     [SerializeField]
     private float jamCooldown; // How long does a player stay hampered
-
+    [SerializeField]
+    private GameObject jamParticles;
     private bool _isJammed = false;
 
     [Header("Enemy Player Reference")]
@@ -183,7 +184,6 @@ public class AvatarController : MonoBehaviour
 
     public void JamPlayer()
     {
-        Debug.Log("Player " + playerNumber + " jamming");
         if (_currentEnergy >= maxEnergy)
         {
             DepleteEnergy(true);
@@ -196,7 +196,7 @@ public class AvatarController : MonoBehaviour
     #region Utility Methods
     public void GetJammed()
     {
-        StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed));
+        StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed, jamParticles));
     }
 
     private void DepleteEnergy(bool immediately)
@@ -220,11 +220,18 @@ public class AvatarController : MonoBehaviour
         
         RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
     }
-    IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle)
+
+    private void ToggleParticles(GameObject particles)
     {
+        particles.SetActive(!particles.activeSelf);
+    }
+    IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle, GameObject particles)
+    {
+        ToggleParticles(particles);
         variableToToggle = !variableToToggle;
         yield return new WaitForSeconds(duration);
         variableToToggle = !variableToToggle;
+        ToggleParticles(particles);
     }
     IEnumerator WaitTillEnergyReplenishes(float duration)
     {
