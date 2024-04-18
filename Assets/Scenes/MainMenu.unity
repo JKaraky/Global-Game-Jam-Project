@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8523,7 +8523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: "\xC9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
   m_sharedMaterial: {fileID: -3957052271393250427, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
@@ -18470,6 +18470,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -24446,6 +24453,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -71348,6 +71362,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -84602,7 +84623,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9
+  m_text: "\xC7"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
   m_sharedMaterial: {fileID: 9120670310413268591, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
@@ -89526,7 +89547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Up/Left/Down/Right
+  m_text: Haut/Gauche/Bas/Droite
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
   m_sharedMaterial: {fileID: 9120670310413268591, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
@@ -89615,7 +89636,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold 3
+  m_text: Hold "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
   m_sharedMaterial: {fileID: -3957052271393250427, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
@@ -90723,7 +90744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold 0
+  m_text: "Hold \xC0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
   m_sharedMaterial: {fileID: 9120670310413268591, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
@@ -91922,7 +91943,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: W/A/S/D
+  m_text: Z/Q/S/D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
   m_sharedMaterial: {fileID: -3957052271393250427, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}

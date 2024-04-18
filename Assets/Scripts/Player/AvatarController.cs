@@ -165,8 +165,6 @@ public class AvatarController : MonoBehaviour
                     explosion.transform.localPosition = cannon.transform.localPosition;
                     explosion.SetActive(true);
 
-                    Debug.Log("I am " + cannon.gameObject.name);
-
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
                 }
