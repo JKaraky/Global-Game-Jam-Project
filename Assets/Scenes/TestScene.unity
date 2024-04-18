@@ -1108,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 1078686652}
     - target: {fileID: 1187882761552687595, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: rotationSpeed
-      value: 0.05
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2026241485772718455, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_IsActive
@@ -1132,7 +1132,7 @@ PrefabInstance:
       objectReference: {fileID: 1902973515}
     - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: rotationSpeed
-      value: 0.05
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6755378322920621881, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_IsActive
@@ -1229,19 +1229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53c9f943e5e174c9a6418f1241bfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1359689898
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359689894}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 42.305336, y: 34.81634, z: 33.588028}
-  m_Center: {x: 0.48196793, y: 0.95395327, z: -0.044441223}
 --- !u!1 &1467373000
 GameObject:
   m_ObjectHideFlags: 0

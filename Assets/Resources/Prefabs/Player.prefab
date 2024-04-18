@@ -4823,6 +4823,7 @@ MonoBehaviour:
   speed: 60
   inputScript: {fileID: 0}
   gravityMultiplier: 2.5
+  rotationMovementSpeed: 0.05
   rotationSpeed: 0.05
   destructionRadius: 30
   cannon: {fileID: 4965237104025878246}
@@ -23858,6 +23859,7 @@ GameObject:
   - component: {fileID: 295408682463738679}
   - component: {fileID: 4157086372718385927}
   - component: {fileID: 4419337174304661792}
+  - component: {fileID: 2082195233053553656}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -23927,6 +23929,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingPoints: 3
+--- !u!114 &2082195233053553656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7545299533072548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78d3afb34a37c94bbc6edb11446c6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementRotationSpeed: 0.1
+  rotationSpeed: 5
 --- !u!1 &8211708965643559697
 GameObject:
   m_ObjectHideFlags: 0
@@ -38069,6 +38085,7 @@ MonoBehaviour:
   speed: 60
   inputScript: {fileID: 0}
   gravityMultiplier: 2.5
+  rotationMovementSpeed: 0.05
   rotationSpeed: 0.05
   destructionRadius: 30
   cannon: {fileID: 898952935399668651}

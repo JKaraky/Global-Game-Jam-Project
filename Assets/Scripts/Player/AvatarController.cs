@@ -30,7 +30,9 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private float gravityMultiplier = 1f;
     [SerializeField]
-    private float rotationSpeed = 0.05f;
+    private float rotationMovementSpeed = 0.05f;
+    [SerializeField]
+    private float rotationSpeed = 30f;
 
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
@@ -52,6 +54,7 @@ public class AvatarController : MonoBehaviour
     private AvatarController otherPlayer;
 
     private Transform playerObj;
+    private PlayerRotation rotationScript;
     private Vector3 _movement;
     private Rigidbody _rb;
     private float _currentEnergy;
@@ -83,6 +86,8 @@ public class AvatarController : MonoBehaviour
     void Start()
     {
         playerObj = transform.parent;
+        rotationScript = playerObj.GetComponent<PlayerRotation>();
+
         _rb = playerObj.GetComponent<Rigidbody>();
 
         _currentEnergy = maxEnergy;
@@ -97,14 +102,18 @@ public class AvatarController : MonoBehaviour
             _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
         }
-
-        playerObj.rotation = Quaternion.Slerp(playerObj.rotation, _finalRotation, rotationSpeed);
     }
     private void FixedUpdate()
     {
         // Simulating gravity
         _rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
 
+        AttemptMovement();
+    }
+    #region Player Actions
+
+    private void AttemptMovement()
+    {
         _movement = Move();
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
@@ -112,43 +121,29 @@ public class AvatarController : MonoBehaviour
 
             _rb.AddForce(_movement * speed);
 
-            // Look away from the camera (same direction as it's pointing)
-            // Get the position of the camera
-            Vector3 cameraPosition = Camera.main.transform.position;
-
-            // Calculate the direction from the player to the camera
-            Vector3 directionToCamera = playerObj.position - cameraPosition;
-
-            // Ignore the y component of the direction
-            directionToCamera.y = 0;
-
-            // Make the player object rotate only on the y-axis
-            Quaternion rotation = Quaternion.LookRotation(directionToCamera);
-
-            // Apply the rotation to the player object, only rotating around the y-axis
-            _finalRotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
-
-            //playerObj.rotation = _finalRotation;
-
+            Rotate(_movement);
         }
     }
-    #region Player Actions
-
     private Vector3 Move()
     {
         // Get the forward direction of the camera
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0f; // Zero out the y component to ensure movement is in the horizontal plane
-
-        // Get the right direction of the camera
+        
         Vector3 cameraRight = Camera.main.transform.right;
         cameraRight.y = 0f;
 
         // Combine the forward and right directions based on input
         Vector3 movementDirection = (cameraForward * inputScript.Movement.y + cameraRight * inputScript.Movement.x).normalized;
+        //Vector3 movementDirection = (cameraForward * inputScript.Movement.y).normalized;
 
         // Set the movement vector
         return new Vector3(movementDirection.x, 0, movementDirection.z);
+    }
+
+    private void Rotate(Vector3 rotationVector)
+    {
+        rotationScript.RotateTowards(rotationVector);
     }
 
     public void DestroyPowerup()
@@ -192,6 +187,11 @@ public class AvatarController : MonoBehaviour
     #endregion
 
     #region Utility Methods
+
+    private void RotateTowardsCamera()
+    {
+        rotationScript.RotateTowardsCamera();
+    }
     public void GetJammed()
     {
         StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed, jamParticles));
