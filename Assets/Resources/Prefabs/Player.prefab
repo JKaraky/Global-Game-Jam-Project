@@ -4823,8 +4823,6 @@ MonoBehaviour:
   speed: 60
   inputScript: {fileID: 0}
   gravityMultiplier: 2.5
-  rotationMovementSpeed: 0.05
-  rotationSpeed: 0.05
   destructionRadius: 30
   cannon: {fileID: 4965237104025878246}
   explosion: {fileID: 2089255933398158745}
@@ -23900,7 +23898,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!135 &4157086372718385927
@@ -38085,8 +38083,6 @@ MonoBehaviour:
   speed: 60
   inputScript: {fileID: 0}
   gravityMultiplier: 2.5
-  rotationMovementSpeed: 0.05
-  rotationSpeed: 0.05
   destructionRadius: 30
   cannon: {fileID: 898952935399668651}
   explosion: {fileID: 5319831047163088783}

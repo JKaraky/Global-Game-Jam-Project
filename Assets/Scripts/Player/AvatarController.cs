@@ -29,10 +29,6 @@ public class AvatarController : MonoBehaviour
     private SimplifiedInput inputScript;
     [SerializeField]
     private float gravityMultiplier = 1f;
-    [SerializeField]
-    private float rotationMovementSpeed = 0.05f;
-    [SerializeField]
-    private float rotationSpeed = 30f;
 
     [Header("Destroying Enemy Powerup")]
     [SerializeField]
@@ -60,8 +56,6 @@ public class AvatarController : MonoBehaviour
     private float _currentEnergy;
     private float _energyRegeneration = 0;
     private Coroutine _energyRoutine;
-
-    private Quaternion _finalRotation;
 
     #endregion
     #region Events
