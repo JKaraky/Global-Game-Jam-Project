@@ -60,6 +60,8 @@ public class AvatarController : MonoBehaviour
     #endregion
     #region Events
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
+    public static event Action JammedCannon;
+    public static event Action FiredCannon;
     #endregion
     public int PlayerNbr
     {
@@ -156,6 +158,7 @@ public class AvatarController : MonoBehaviour
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
+                    FiredCannon?.Invoke();
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
@@ -164,6 +167,7 @@ public class AvatarController : MonoBehaviour
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(true);
+                    FiredCannon?.Invoke();
                 }
             }
         }
@@ -175,6 +179,7 @@ public class AvatarController : MonoBehaviour
         {
             DepleteEnergy(true);
             otherPlayer.GetJammed();
+            JammedCannon?.Invoke();
         }
     }
 

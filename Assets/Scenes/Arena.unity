@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17854066, g: 0.2235562, b: 0.30552894, a: 1}
+  m_IndirectSpecularColor: {r: 0.17854042, g: 0.2235558, b: 0.30552804, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1534,22 +1534,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8f5f8dc83a78b41ad533a52d7ab66f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whenDuckWins:
-  - {fileID: 8300000, guid: 5cf8b47ae7c1d1d4e80db360fd65f745, type: 3}
-  - {fileID: 8300000, guid: bdb2c52a043c99643b39f23983d0c3d8, type: 3}
-  - {fileID: 8300000, guid: c577c749c5fa268429527cd426409f78, type: 3}
-  - {fileID: 8300000, guid: 2cd962a44c305a84d88d07151f48bf86, type: 3}
-  - {fileID: 8300000, guid: de50ef489b3cb714abc97b578779bc64, type: 3}
-  - {fileID: 8300000, guid: 8b76031cc2b91984e9708337eafb37b2, type: 3}
-  - {fileID: 8300000, guid: 6a93737ed4190314681a38c56e121068, type: 3}
-  - {fileID: 8300000, guid: b7f79e9a72ab9f144a233abb70d512f9, type: 3}
-  whenWormWins:
-  - {fileID: 8300000, guid: e2e355055dad733428b00c2a23661863, type: 3}
-  - {fileID: 8300000, guid: ac8cfc8734b47a14b8556507cf23d2cd, type: 3}
-  - {fileID: 8300000, guid: ac6fd10417e555c4b9e78fceb78f874c, type: 3}
-  - {fileID: 8300000, guid: cf0bf2aad1c1e0e449fc93c4224266c0, type: 3}
-  - {fileID: 8300000, guid: 299d3a1cfa54f804ea647d3aff00677c, type: 3}
-  - {fileID: 8300000, guid: e63ca269e66eca54b9a20f76f7c88763, type: 3}
+  collectibleOne: {fileID: 8300000, guid: 017bc586d242ad549887966014086c6f, type: 3}
+  collectibleTwo: {fileID: 8300000, guid: 235c6ec325bb15d4a97d4790b1121007, type: 3}
+  collectibleThree: {fileID: 8300000, guid: 77f75cda88986b543bb1494b20311f15, type: 3}
+  jamCannon: {fileID: 8300000, guid: 7d165bb3b0862f146a3ca79739b1998c, type: 3}
+  cannonShot: {fileID: 8300000, guid: 40de8fa9293cca2499ad5c38ce7668d8, type: 3}
 --- !u!1 &837417204
 GameObject:
   m_ObjectHideFlags: 3
@@ -2581,6 +2570,10 @@ PrefabInstance:
       propertyPath: inputScript
       value: 
       objectReference: {fileID: 420354462}
+    - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 1401580671}
     - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: jamParticles
       value: 

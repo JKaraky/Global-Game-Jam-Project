@@ -4,46 +4,106 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    #region Variables
+    [Header("Audio when a collectible is collected")]
+    [SerializeField]
+    private AudioClip collectibleOne;
+    [SerializeField]
+    private AudioClip collectibleTwo;
+    [SerializeField]
+    private AudioClip collectibleThree;
+
+    [Header("Audio when players take actions")]
+    [SerializeField]
+    private AudioClip jamCannon;
+    [SerializeField]
+    private AudioClip cannonShot;
+
     private AudioSource audioSource;
+    #endregion
 
-    [SerializeField]
-    private AudioClip[] whenDuckWins;
+    #region Singleton Setup
+    // To setup Singleton
+    private static AudioManager instance;
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                SetupInstance();
+            }
 
-    [SerializeField]
-    private AudioClip[] whenWormWins;
+            return instance;
+        }
+    }
+    #endregion
 
+    #region Method to Create Singleton Instance
+    private static void SetupInstance()
+    {
+        instance = FindObjectOfType<AudioManager>();
 
+        if (instance == null)
+        {
+            GameObject gameObj = new GameObject();
+            gameObj.name = "AudioManager";
+            instance = gameObj.AddComponent<AudioManager>();
+        }
+    }
+    #endregion
 
+    #region Start
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
+    #endregion
 
-    private void PlayAudio(int player)
+    #region Audio Methods
+    private void CollectiblesAudio(Collectibles collectible)
     {
-        if(player == 0)
+        if(collectible == Collectibles.One)
         {
-            int audioToPlay = Random.Range(0, whenDuckWins.Length);
-            audioSource.PlayOneShot(whenDuckWins[audioToPlay]);
+            PlayAudio(collectibleOne);
         }
-        else if(player == 1)
+        else if(collectible == Collectibles.Two)
         {
-            int audioToPlay = Random.Range(0, whenWormWins.Length);
-            audioSource.PlayOneShot(whenWormWins[audioToPlay]);
+            PlayAudio(collectibleTwo);
         }
         else
         {
-            Debug.LogError("Audio manager got an int that is out of range");
+            PlayAudio(collectibleThree);
         }
     }
 
+    private void JamAudio()
+    {
+        PlayAudio(jamCannon);
+    }
+
+    private void FireAudio()
+    {
+        PlayAudio(cannonShot);
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+    #endregion
+
     private void OnEnable()
     {
-        PointsManager.GainedPoint += PlayAudio;
+        Points.CollectibleCollected += CollectiblesAudio;
+        AvatarController.JammedCannon += JamAudio;
+        AvatarController.FiredCannon += FireAudio;
     }
 
     private void OnDisable()
     {
-        PointsManager.GainedPoint -= PlayAudio;
+        Points.CollectibleCollected -= CollectiblesAudio;
+        AvatarController.JammedCannon -= JamAudio;
+        AvatarController.FiredCannon -= FireAudio;
     }
 }

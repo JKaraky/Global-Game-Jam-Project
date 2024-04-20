@@ -5,6 +5,7 @@ using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public enum Players { Nobody, PlayerOne, PlayerTwo };
+public enum Collectibles { One, Two, Three};
 
 [RequireComponent(typeof(Collider))]
 public class Points : MonoBehaviour
@@ -20,6 +21,7 @@ public class Points : MonoBehaviour
 
     public static event Action<Players> PlayerWon;
     public static event Action<Players> PointForPlayer;
+    public static event Action<Collectibles> CollectibleCollected;
     public static event Action<int> TurnsToSpecialSpawn;
 
     public int PlayerOnePoints
@@ -134,16 +136,19 @@ public class Points : MonoBehaviour
         if (other.gameObject.CompareTag("CollectibleOne"))
         {
             PointForPlayerOne();
+            CollectibleCollected?.Invoke(Collectibles.One);
         }
 
         if (other.gameObject.CompareTag("CollectibleTwo"))
         {
             PointForPlayerTwo();
+            CollectibleCollected?.Invoke(Collectibles.Two);
         }
 
         if (other.gameObject.CompareTag("CollectibleThree"))
         {
             RemoveFromWinner();
+            CollectibleCollected?.Invoke(Collectibles.Three);
         }
     }
     #endregion
