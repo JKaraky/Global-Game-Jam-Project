@@ -37,12 +37,18 @@ public class AvatarController : MonoBehaviour
     private GameObject cannon;
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
+    private int destructionEnergyConsumption = 1;
 
     [Header("Jam Canon")]
     [SerializeField]
     private float jamCooldown; // How long does a player stay hampered
     [SerializeField]
     private GameObject jamParticles;
+    [SerializeField]
+    [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
+    private int jamEnergyConsumption = 3;
     private bool _isJammed = false;
 
     [Header("Enemy Player Reference")]
@@ -113,7 +119,7 @@ public class AvatarController : MonoBehaviour
         _movement = Move();
         if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
         {
-            DepleteEnergy(false); // Gradually depleting energy bar
+            DepleteEnergy(0); // Gradually depleting energy bar
 
             _rb.AddForce(_movement * speed);
 
@@ -157,7 +163,7 @@ public class AvatarController : MonoBehaviour
                     explosion.SetActive(true);
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
-                    DepleteEnergy(true);
+                    DepleteEnergy(destructionEnergyConsumption);
                     FiredCannon?.Invoke();
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
@@ -166,7 +172,7 @@ public class AvatarController : MonoBehaviour
                     explosion.SetActive(true);
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
-                    DepleteEnergy(true);
+                    DepleteEnergy(destructionEnergyConsumption);
                     FiredCannon?.Invoke();
                 }
             }
@@ -175,9 +181,9 @@ public class AvatarController : MonoBehaviour
 
     public void JamPlayer()
     {
-        if (_currentEnergy >= maxEnergy)
+        if (_currentEnergy >= maxEnergy/3)
         {
-            DepleteEnergy(true);
+            DepleteEnergy(jamEnergyConsumption);
             otherPlayer.GetJammed();
             JammedCannon?.Invoke();
         }
@@ -196,15 +202,15 @@ public class AvatarController : MonoBehaviour
         StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed, jamParticles));
     }
 
-    private void DepleteEnergy(bool immediately)
+    private void DepleteEnergy(int energyDepletionRatio)
     {
         _energyRegeneration = 0;
 
         if (_energyRoutine != null) StopCoroutine(_energyRoutine);
 
-        if (immediately)
+        if (energyDepletionRatio != 0)
         {
-            _currentEnergy -= maxEnergy;
+            _currentEnergy -= maxEnergy/energyDepletionRatio;
         }
         else
         {
