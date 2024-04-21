@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private GameObject humanWin;
+    [SerializeField] private GameObject robotWin;
     [SerializeField]
     private ParticleSystem particleEffect;
     #endregion
@@ -79,9 +80,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Game Over Method
-    private void GameOver(int player)
+    private void GameOver(Players player)
     {
-        text.text = "Congratulations player " + (player + 1) + ", you have proved why your father left!";
+        if(player == Players.PlayerOne)
+        {
+            humanWin.SetActive(true);
+        }
+        else
+        {
+            robotWin.SetActive(true);
+        }
+
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
     }
@@ -132,11 +141,11 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PointsManager.GameOver += GameOver;
+        Points.PlayerWon += GameOver;
     }
 
     private void OnDisable()
     {
-        PointsManager.GameOver -= GameOver;
+        Points.PlayerWon -= GameOver;
     }
 }
