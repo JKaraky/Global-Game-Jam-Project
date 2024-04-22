@@ -68,6 +68,8 @@ public class AvatarController : MonoBehaviour
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
     public static event Action JammedCannon;
     public static event Action FiredCannon;
+    public static event Action<int, bool> toggleJamIcon;
+    public static event Action<int, bool> toggleCannonIcon;
     #endregion
     public int PlayerNbr
     {
@@ -103,6 +105,17 @@ public class AvatarController : MonoBehaviour
             _currentEnergy += _energyRegeneration;
             _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
+
+            if(_currentEnergy >= maxEnergy / destructionEnergyConsumption)
+            {
+                toggleCannonIcon?.Invoke(playerNumber, true);
+                toggleJamIcon?.Invoke(playerNumber, true);
+            }
+            else if (_currentEnergy >= maxEnergy /jamEnergyConsumption)
+            {
+                toggleCannonIcon?.Invoke(playerNumber, false);
+                toggleJamIcon?.Invoke(playerNumber, true);
+            }
         }
     }
     private void FixedUpdate()
@@ -165,6 +178,7 @@ public class AvatarController : MonoBehaviour
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(destructionEnergyConsumption);
                     FiredCannon?.Invoke();
+                    toggleCannonIcon?.Invoke(playerNumber, false);
                 }
                 if (collider.tag == "CollectibleOne" && playerNumber == 1)
                 {
@@ -174,6 +188,7 @@ public class AvatarController : MonoBehaviour
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(destructionEnergyConsumption);
                     FiredCannon?.Invoke();
+                    toggleCannonIcon?.Invoke(playerNumber, false);
                 }
             }
         }
@@ -186,6 +201,7 @@ public class AvatarController : MonoBehaviour
             DepleteEnergy(jamEnergyConsumption);
             otherPlayer.GetJammed();
             JammedCannon?.Invoke();
+            toggleJamIcon?.Invoke(playerNumber, false);
         }
     }
 

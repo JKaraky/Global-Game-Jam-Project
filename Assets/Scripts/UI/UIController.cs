@@ -23,6 +23,16 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Image player2EnergyBar2;
 
+    [Header("Abilities Icons")]
+    [SerializeField]
+    private GameObject humanJam;
+    [SerializeField]
+    private GameObject humanCannon;
+    [SerializeField]
+    private GameObject robotJam;
+    [SerializeField]
+    private GameObject robotCannon;
+
     [Header("Pause Menu")]
     [SerializeField]
     private GameObject pauseMenu;
@@ -88,6 +98,58 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void ToggleJamIcon(int player, bool enabled)
+    {
+        if (enabled)
+        {
+            if(player == 0)
+            {
+                humanJam.SetActive(true);
+            }
+            else
+            {
+                robotJam.SetActive(true);
+            }
+        }
+        else
+        {
+            if(player == 0)
+            {
+                humanJam.SetActive(false);
+            }
+            else
+            {
+                robotJam.SetActive(false);
+            }
+        }
+    }
+
+    private void ToggleCannonIcon(int player, bool enabled)
+    {
+        if (enabled)
+        {
+            if (player == 0) 
+            { 
+                humanCannon.SetActive(true); 
+            }
+            else
+            {
+                robotCannon.SetActive(true);
+            } 
+        }
+        else
+        {
+            if(player == 0)
+            {
+                humanCannon.SetActive(false);
+            }
+            else
+            {
+                robotCannon.SetActive(false);
+            }
+        }
+    }
+
     public void PauseMenu()
     {
         if (Time.timeScale == 1)
@@ -107,12 +169,16 @@ public class UIController : MonoBehaviour
     private void OnEnable()
     {
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
+        AvatarController.toggleCannonIcon += ToggleCannonIcon;
+        AvatarController.toggleJamIcon += ToggleJamIcon;
         pauseButton.action.performed += pauseTrigger;
     }
 
     private void OnDisable()
     {
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
+        AvatarController.toggleCannonIcon -= ToggleCannonIcon;
+        AvatarController.toggleJamIcon -= ToggleJamIcon;
         pauseButton.action.performed -= pauseTrigger;
     }
 }
