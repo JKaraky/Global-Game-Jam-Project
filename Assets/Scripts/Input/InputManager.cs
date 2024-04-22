@@ -13,9 +13,13 @@ public class InputManager : MonoBehaviour
     private InputDevice keyboard;
     private List<InputDevice> connectedControllers;
 
-    [Header("For Main Meny")]
+    [Header("For Main Menu")]
     [SerializeField]
     private MenuManager menu;
+    
+    [Header("For Arena")]
+    [SerializeField]
+    private UIController ui;
     private void Awake()
     {
         connectedControllers = new List<InputDevice>();
@@ -60,18 +64,24 @@ public class InputManager : MonoBehaviour
                 playerInput2.SwitchCurrentControlScheme(p2KeyboardScheme, keyboard);
                 if (menu != null)
                     menu.OnDeviceChange("keyboard", "keyboard");
+                if (ui != null)
+                    ui.OnDeviceChange("keyboard", "keyboard");
                 break;
             case 1:
                 playerInput1.SwitchCurrentControlScheme(p1KeyboardScheme, keyboard);
                 playerInput2.SwitchCurrentControlScheme(controllerScheme, connectedControllers[0]);
                 if (menu != null)
                     menu.OnDeviceChange("keyboard", "controller");
+                if (ui != null)
+                    ui.OnDeviceChange("keyboard", "controller");
                 break;
             case 2:
                 playerInput1.SwitchCurrentControlScheme(controllerScheme, connectedControllers[1]);
                 playerInput2.SwitchCurrentControlScheme(controllerScheme, connectedControllers[0]);
                 if (menu != null)
                     menu.OnDeviceChange("controller", "controller");
+                if (ui != null)
+                    ui.OnDeviceChange("controller", "controller");
                 break;
         }
     }

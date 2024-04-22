@@ -103,7 +103,7 @@
                 {
                     "name": "",
                     "id": "e37da814-0c2f-4685-a28a-491c24478eab",
-                    "path": "<Keyboard>/0",
+                    "path": "<Keyboard>/#(9)",
                     "interactions": "Hold(duration=60,pressPoint=0.5)",
                     "processors": "",
                     "groups": "Keyboard",
@@ -125,7 +125,7 @@
                 {
                     "name": "",
                     "id": "b8425aba-6754-4976-bd06-715e40bc948b",
-                    "path": "<Keyboard>/9",
+                    "path": "<Keyboard>/#(0)",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",

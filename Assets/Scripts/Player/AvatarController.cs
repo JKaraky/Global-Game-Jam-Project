@@ -39,7 +39,7 @@ public class AvatarController : MonoBehaviour
     private GameObject explosion;
     [SerializeField]
     [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
-    private int destructionEnergyConsumption = 1;
+    private int destructionEnergyConsumptionRatio = 1;
 
     [Header("Jam Canon")]
     [SerializeField]
@@ -48,7 +48,7 @@ public class AvatarController : MonoBehaviour
     private GameObject jamParticles;
     [SerializeField]
     [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
-    private int jamEnergyConsumption = 3;
+    private int jamEnergyConsumptionRatio = 3;
     private bool _isJammed = false;
 
     [Header("Enemy Player Reference")]
@@ -106,16 +106,7 @@ public class AvatarController : MonoBehaviour
             _currentEnergy = (float)Math.Clamp(Math.Round(_currentEnergy, 1, MidpointRounding.AwayFromZero), 0, maxEnergy);
             RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
 
-            if(_currentEnergy >= maxEnergy / destructionEnergyConsumption)
-            {
-                toggleCannonIcon?.Invoke(playerNumber, true);
-                toggleJamIcon?.Invoke(playerNumber, true);
-            }
-            else if (_currentEnergy >= maxEnergy /jamEnergyConsumption)
-            {
-                toggleCannonIcon?.Invoke(playerNumber, false);
-                toggleJamIcon?.Invoke(playerNumber, true);
-            }
+            ActionIconHandler();
         }
     }
     private void FixedUpdate()
@@ -176,7 +167,7 @@ public class AvatarController : MonoBehaviour
                     explosion.SetActive(true);
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
-                    DepleteEnergy(destructionEnergyConsumption);
+                    DepleteEnergy(destructionEnergyConsumptionRatio);
                     FiredCannon?.Invoke();
                     toggleCannonIcon?.Invoke(playerNumber, false);
                 }
@@ -186,7 +177,7 @@ public class AvatarController : MonoBehaviour
                     explosion.SetActive(true);
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
-                    DepleteEnergy(destructionEnergyConsumption);
+                    DepleteEnergy(destructionEnergyConsumptionRatio);
                     FiredCannon?.Invoke();
                     toggleCannonIcon?.Invoke(playerNumber, false);
                 }
@@ -198,7 +189,7 @@ public class AvatarController : MonoBehaviour
     {
         if (_currentEnergy >= maxEnergy/3)
         {
-            DepleteEnergy(jamEnergyConsumption);
+            DepleteEnergy(jamEnergyConsumptionRatio);
             otherPlayer.GetJammed();
             JammedCannon?.Invoke();
             toggleJamIcon?.Invoke(playerNumber, false);
@@ -216,6 +207,12 @@ public class AvatarController : MonoBehaviour
     public void GetJammed()
     {
         StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed, jamParticles));
+    }
+
+    private void ActionIconHandler()
+    {
+        toggleCannonIcon?.Invoke(playerNumber, _currentEnergy >= maxEnergy / destructionEnergyConsumptionRatio);
+        toggleJamIcon?.Invoke(playerNumber, _currentEnergy >= maxEnergy / jamEnergyConsumptionRatio);
     }
 
     private void DepleteEnergy(int energyDepletionRatio)

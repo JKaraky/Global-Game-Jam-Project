@@ -121,7 +121,7 @@
                 {
                     "name": "",
                     "id": "cc2eef3a-a9cb-40af-9ae4-7070aaa3afab",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/#(2)",
                     "interactions": "Hold(duration=60,pressPoint=0.5)",
                     "processors": "",
                     "groups": "Keyboard",
@@ -143,7 +143,7 @@
                 {
                     "name": "",
                     "id": "5b7d92ab-a9d0-46fc-bff4-126c96ca7b2e",
-                    "path": "<Keyboard>/2",
+                    "path": "<Keyboard>/#(1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
