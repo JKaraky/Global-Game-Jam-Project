@@ -36,20 +36,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject duckTarget;
-    public GameObject DuckTarget
+    [SerializeField] private GameObject humanTarget;
+    public GameObject HumanTarget
     { 
         get
         {
-            return duckTarget;
+            return humanTarget;
         }
     }
-    [SerializeField] private GameObject wormTarget;
-    public GameObject WormTarget
+    [SerializeField] private GameObject robotTarget;
+    public GameObject RobotTarget
     {
         get
         {
-            return wormTarget;
+            return robotTarget;
         }
     }
 

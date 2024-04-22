@@ -8,7 +8,7 @@ public class Collectible : MonoBehaviour
 {
     #region Variables
     private CollectiblePooling poolOfCollectible;
-    private static float lifespan = 20;
+    private static float lifespan = 30;
 
     public CollectiblePooling PoolOfCollectible
     {
