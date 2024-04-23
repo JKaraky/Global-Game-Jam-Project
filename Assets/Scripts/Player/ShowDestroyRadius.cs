@@ -10,15 +10,23 @@ public class ShowDestroyRadius : MonoBehaviour
     private GameObject destroyCircle;
 
     private float radius;
+    private float playerScale;
     private int player;
-    private DecalProjector projector;
+    //private DecalProjector projector;
     private void Start()
     {
         radius = GetComponent<AvatarController>().DestructionRadius;
         player = GetComponent<AvatarController>().PlayerNbr;
-        projector = destroyCircle.GetComponent<DecalProjector>();
 
-        projector.size.Set(radius*2, radius*2, projector.size.y);
+        // Get plaeyr scale so we can now how to accurately size the destruction radius
+        playerScale = transform.parent.localScale.x;
+        //projector = destroyCircle.GetComponent<DecalProjector>();
+
+        //projector.size.Set(radius*2, radius*2, projector.size.y);
+
+        // Setting the radius of the circle. Divide by 0.5 because that's the radius of its collider by default
+        radius = radius / 0.5f / playerScale;
+        destroyCircle.transform.localScale = new Vector3(radius, radius, radius);
     }
 
 
