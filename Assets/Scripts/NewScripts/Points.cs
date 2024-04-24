@@ -70,7 +70,7 @@ public class Points : MonoBehaviour
         playerTwoPoints--;
         PointForPlayer?.Invoke(Players.PlayerOne);
 
-        if(playerOnePoints == winningScore)
+        if(playerOnePoints >= winningScore)
         {
             PlayerWon?.Invoke(Players.PlayerOne);
         }
@@ -84,7 +84,7 @@ public class Points : MonoBehaviour
         playerOnePoints--;
         PointForPlayer?.Invoke(Players.PlayerTwo);
 
-        if (playerTwoPoints == winningScore)
+        if (playerTwoPoints >= winningScore)
         {
             PlayerWon?.Invoke(Players.PlayerTwo);
         }

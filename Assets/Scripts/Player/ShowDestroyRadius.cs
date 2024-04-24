@@ -8,15 +8,23 @@ public class ShowDestroyRadius : MonoBehaviour
 {
     [SerializeField]
     private GameObject destroyCircle;
+    [SerializeField]
+    private CannonRotation cannonScript;
 
     private float radius;
+    private float circleRadius;
     private float playerScale;
     private int player;
+
+    private string targetTag;
+    private bool checkForCollissions = false;
     //private DecalProjector projector;
     private void Start()
     {
         radius = GetComponent<AvatarController>().DestructionRadius;
         player = GetComponent<AvatarController>().PlayerNbr;
+
+        targetTag = player == 0 ? "CollectibleTwo" : "CollectibleOne";
 
         // Get plaeyr scale so we can now how to accurately size the destruction radius
         playerScale = transform.parent.localScale.x;
@@ -25,14 +33,39 @@ public class ShowDestroyRadius : MonoBehaviour
         //projector.size.Set(radius*2, radius*2, projector.size.y);
 
         // Setting the radius of the circle. Divide by 0.5 because that's the radius of its collider by default
-        radius = radius / 0.5f / playerScale;
-        destroyCircle.transform.localScale = new Vector3(radius, radius, radius);
+        circleRadius = radius / 0.5f / playerScale;
+        destroyCircle.transform.localScale = new Vector3(circleRadius, circleRadius, circleRadius);
+    }
+    private void Update()
+    {
+        if (checkForCollissions)
+        {
+            Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, radius);
+
+            foreach (Collider collider in objectsAroundPlayer)
+            {
+                if (collider.tag == targetTag)
+                {
+                    cannonScript.SetTarget(collider.gameObject.transform);
+                    Debug.Log("Entered radius");
+                }
+            }
+        }
     }
 
 
     private void ShowOrHideDestructionCircle(int playerNB)
     {
-        if (player == playerNB) destroyCircle.SetActive(!destroyCircle.activeSelf);
+        if (player == playerNB)
+        {
+            destroyCircle.SetActive(!destroyCircle.activeSelf);
+            if (destroyCircle.activeSelf)
+            {
+                checkForCollissions = true;
+            }
+            else
+                checkForCollissions= false;
+        }
     }
     private void OnEnable()
     {

@@ -34,7 +34,7 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private float destructionRadius;
     [SerializeField]
-    private GameObject cannon;
+    private GameObject cannonTip;
     [SerializeField]
     private GameObject explosion;
     [SerializeField]
@@ -56,6 +56,7 @@ public class AvatarController : MonoBehaviour
     private AvatarController otherPlayer;
 
     private Transform playerObj;
+    private string _targetTag;
     private PlayerRotation rotationScript;
     private Vector3 _movement;
     private Rigidbody _rb;
@@ -95,6 +96,7 @@ public class AvatarController : MonoBehaviour
         _rb = playerObj.GetComponent<Rigidbody>();
 
         _currentEnergy = maxEnergy;
+        _targetTag = playerNumber == 0 ? "CollectibleTwo" : "CollectibleOne";
     }
 
     // Update is called once per frame
@@ -160,24 +162,14 @@ public class AvatarController : MonoBehaviour
 
             foreach (Collider collider in objectsAroundPlayer)
             {
-                // Destruction logic goes here. Have to check whether it's a powerup or not
-                if (collider.tag == "CollectibleTwo" && playerNumber == 0)
+                if (collider.tag == _targetTag)
                 {
-                    explosion.transform.localPosition = cannon.transform.localPosition;
+                    explosion.transform.localPosition = cannonTip.transform.localPosition;
                     explosion.SetActive(true);
 
                     collider.GetComponent<Collectible>().DestroyCollectible();
                     DepleteEnergy(destructionEnergyConsumptionRatio);
-                    FiredCannon?.Invoke();
-                    toggleCannonIcon?.Invoke(playerNumber, false);
-                }
-                if (collider.tag == "CollectibleOne" && playerNumber == 1)
-                {
-                    explosion.transform.position = cannon.transform.position;
-                    explosion.SetActive(true);
 
-                    collider.GetComponent<Collectible>().DestroyCollectible();
-                    DepleteEnergy(destructionEnergyConsumptionRatio);
                     FiredCannon?.Invoke();
                     toggleCannonIcon?.Invoke(playerNumber, false);
                 }

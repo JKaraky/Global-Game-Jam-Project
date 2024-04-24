@@ -169,12 +169,16 @@ public class UIController : MonoBehaviour
             Time.timeScale = 0f;
             pauseMenu.SetActive(true);
             EventSystem.current.SetSelectedGameObject(resumeButton);
+
+            Cursor.visible = true;
         }
         else
         {
             Time.timeScale = 1f;
             pauseMenu.SetActive(false);
             EventSystem.current.SetSelectedGameObject(null);
+
+            Cursor.visible = false;
         }
     }
     public void OnDeviceChange(string humanScheme, string robotScheme)
