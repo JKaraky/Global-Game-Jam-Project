@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
+
+        Cursor.visible = true;
     }
     #endregion
 
@@ -101,6 +103,7 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         string sceneName = SceneManager.GetActiveScene().name;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
