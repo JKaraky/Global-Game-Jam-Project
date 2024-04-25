@@ -122,49 +122,48 @@ public class HousesHandling : MonoBehaviour
     }
 
     // In case game is won and there are still inactive takeover houses due to division being a float
-    private void ActivateRest(Players player)
-    {
-        if(player == Players.PlayerOne)
-        {
-            if(activatedHumanHouses < humanTakeoverHouses.Count)
-            {
-                for(int i = activatedHumanHouses; i < humanTakeoverHouses.Count; i++)
-                {
-                    humanTakeoverHouses[i].SetActive(true);
-                    robotHouses[i].SetActive(false);
-                }
-            }
-        }
-        else if(player == Players.PlayerTwo)
-        {
-            if (activatedRobotHouses < robotTakeoverHouses.Count)
-            {
-                for (int i = activatedRobotHouses; i < robotTakeoverHouses.Count; i++)
-                {
-                    robotTakeoverHouses[i].SetActive(true);
-                    humanHouses[i].SetActive(false);
-                }
-            }
-            Debug.Log("Activated rest of robot houses");
-        }
-        else
-        {
-            Debug.LogError("HousesHandling received that Nobody won the game");
-        }
-    }
+    //private void ActivateRest(Players player)
+    //{
+    //    if(player == Players.PlayerOne)
+    //    {
+    //        if(activatedHumanHouses < humanTakeoverHouses.Count)
+    //        {
+    //            for(int i = activatedHumanHouses; i < humanTakeoverHouses.Count; i++)
+    //            {
+    //                humanTakeoverHouses[i].SetActive(true);
+    //                robotHouses[i].SetActive(false);
+    //            }
+    //        }
+    //    }
+    //    else if(player == Players.PlayerTwo)
+    //    {
+    //        if (activatedRobotHouses < robotTakeoverHouses.Count)
+    //        {
+    //            for (int i = activatedRobotHouses; i < robotTakeoverHouses.Count; i++)
+    //            {
+    //                robotTakeoverHouses[i].SetActive(true);
+    //                humanHouses[i].SetActive(false);
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("HousesHandling received that Nobody won the game");
+    //    }
+    //}
     #endregion
 
     #region OnEnable and OnDisable
     private void OnEnable()
     {
         Points.PointForPlayer += AddHouses;
-        Points.PlayerWon += ActivateRest;
+        //Points.PlayerWon += ActivateRest;
     }
 
     private void OnDisable()
     {
         Points.PointForPlayer -= AddHouses;
-        Points.PlayerWon += ActivateRest;
+        //Points.PlayerWon += ActivateRest;
     }
     #endregion
 }

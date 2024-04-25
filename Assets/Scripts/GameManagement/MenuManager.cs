@@ -22,6 +22,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject[] instructions;
 
+    [Header("Credits Slides")]
+    [SerializeField]
+    private GameObject[] credits;
+
     [Header("Keyboard Actions")]
     [SerializeField]
     private List<GameObject> humanKeyboardActions;
@@ -34,8 +38,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> robotGamepadActions;
 
-    private LinkedList<GameObject> slides;
-    private LinkedListNode<GameObject> _currentSlide;
+    private LinkedList<GameObject> instructionSlides;
+    private LinkedList<GameObject> creditsSlides;
+    private LinkedListNode<GameObject> _currentInstructionSlide;
+    private LinkedListNode<GameObject> _currentCreditsSlide;
+
 
 
     #endregion
@@ -43,8 +50,11 @@ public class MenuManager : MonoBehaviour
     {
         SetSettingsSliderFromPrefs();
 
-        slides = new LinkedList<GameObject> (instructions);
-        _currentSlide = slides.First;
+        instructionSlides = new LinkedList<GameObject> (instructions);
+        _currentInstructionSlide = instructionSlides.First;
+
+        creditsSlides = new LinkedList<GameObject>(credits);
+        _currentCreditsSlide = creditsSlides.First;
     }
     public void StartGame()
     {
@@ -55,30 +65,58 @@ public class MenuManager : MonoBehaviour
 
     public void NextInstructionSlide()
     {
-        _currentSlide.Value.SetActive(false);
-        if (_currentSlide == slides.Last)
+        _currentInstructionSlide.Value.SetActive(false);
+        if (_currentInstructionSlide == instructionSlides.Last)
         {
-            _currentSlide = slides.First;
+            _currentInstructionSlide = instructionSlides.First;
         }
         else
         {
-            _currentSlide = _currentSlide.Next;
+            _currentInstructionSlide = _currentInstructionSlide.Next;
         }
-        _currentSlide.Value.SetActive(true);
+        _currentInstructionSlide.Value.SetActive(true);
     }
 
     public void PreviousInstructionSlide()
     {
-        _currentSlide.Value.SetActive(false);
-        if (_currentSlide == slides.First)
+        _currentInstructionSlide.Value.SetActive(false);
+        if (_currentInstructionSlide == instructionSlides.First)
         {
-            _currentSlide = slides.Last;
+            _currentInstructionSlide = instructionSlides.Last;
         }
         else
         {
-            _currentSlide = _currentSlide.Previous;
+            _currentInstructionSlide = _currentInstructionSlide.Previous;
         }
-        _currentSlide.Value.SetActive(true);
+        _currentInstructionSlide.Value.SetActive(true);
+    }
+
+    public void NextCreditsSlide()
+    {
+        _currentCreditsSlide.Value.SetActive(false);
+        if (_currentCreditsSlide == creditsSlides.Last)
+        {
+            _currentCreditsSlide = creditsSlides.First;
+        }
+        else
+        {
+            _currentCreditsSlide = _currentCreditsSlide.Next;
+        }
+        _currentCreditsSlide.Value.SetActive(true);
+    }
+
+    public void PreviousCreditsSlide()
+    {
+        _currentCreditsSlide.Value.SetActive(false);
+        if (_currentCreditsSlide == creditsSlides.First)
+        {
+            _currentCreditsSlide = creditsSlides.Last;
+        }
+        else
+        {
+            _currentCreditsSlide = _currentCreditsSlide.Previous;
+        }
+        _currentCreditsSlide.Value.SetActive(true);
     }
 
     public void ChangeSelectedButton(GameObject button)

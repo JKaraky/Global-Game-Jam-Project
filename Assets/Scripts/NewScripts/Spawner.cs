@@ -118,7 +118,6 @@ public class Spawner : MonoBehaviour
     {
         if(turn == 0)
         {
-            Debug.Log("Turn to special spawn was attempted to be 0, current turn is: " + specialSpawnTurn);
             return;
         }
         else
