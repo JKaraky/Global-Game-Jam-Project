@@ -362,7 +362,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35767220}
-  m_LocalRotation: {x: 0.20934469, y: 0.000000008841332, z: -0.0000000018928275, w: 0.9778419}
+  m_LocalRotation: {x: 0.20934469, y: 0.00000000841256, z: -0.0000000018010321, w: 0.9778419}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1316,7 +1316,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837417204}
-  m_LocalRotation: {x: 0.18557069, y: 0.000000020989695, z: -0.000000003963922, w: 0.98263097}
+  m_LocalRotation: {x: 0.18557069, y: -0.000000018903187, z: 0.0000000035698828, w: 0.98263097}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2113,7 +2113,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279457376}
-  m_LocalRotation: {x: 0.23310758, y: -0.0000000030926213, z: 7.413364e-10, w: 0.972451}
+  m_LocalRotation: {x: 0.23310758, y: 1e-45, z: -0, w: 0.972451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2524,7 +2524,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368464278}
-  m_LocalRotation: {x: 0.2093447, y: 0.000000017043552, z: -0.0000000036488284, w: 0.9778419}
+  m_LocalRotation: {x: 0.2093447, y: 0.000000016825119, z: -0.0000000036020644, w: 0.9778419}
   m_LocalPosition: {x: 172.6, y: 22.7, z: 136.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3213,7 +3213,7 @@ PrefabInstance:
     - target: {fileID: 5450579906619728181, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
       propertyPath: collectibleOnePool
       value: 
-      objectReference: {fileID: 1796834758}
+      objectReference: {fileID: 1898618902}
     - target: {fileID: 5450579906619728181, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
       propertyPath: collectibleTwoPool
       value: 
@@ -3221,7 +3221,7 @@ PrefabInstance:
     - target: {fileID: 5450579906619728181, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
       propertyPath: collectibleThreePool
       value: 
-      objectReference: {fileID: 1796834758}
+      objectReference: {fileID: 1898618901}
     - target: {fileID: 5450579906619728181, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 4
@@ -3245,6 +3245,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5450579906100864893, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
   m_PrefabInstance: {fileID: 1898618899}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1898618901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5450579904986770341, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
+  m_PrefabInstance: {fileID: 1898618899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103de3f78f780b14a8c38c92f6970fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1898618902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5450579906241561077, guid: db3a9ead43455db4eb8922d17a72dc2f, type: 3}
+  m_PrefabInstance: {fileID: 1898618899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103de3f78f780b14a8c38c92f6970fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912461880 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 802567131, guid: 98ba18b0b15453943923bd528dbf64ce, type: 3}
