@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +19,8 @@ public class MenuManager : MonoBehaviour
     private Slider musicSlider;
     [SerializeField]
     private AudioSource musicSource;
+    [SerializeField]
+    private AudioMixer masterMixer;
 
     [Header("Instrucitons Slides")]
     [SerializeField]
@@ -172,16 +176,14 @@ public class MenuManager : MonoBehaviour
         }
     }
     #region Audio Methods
-    public void ChangeMusicVolume()
+    public void ChangeMusicVolume(Single value)
     {
-        musicSource.volume = musicSlider.value;
-        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+        VolumeChange(value, "Music");
     }
 
-    public void ChangeSfxVolume()
+    public void ChangeSfxVolume(Single value)
     {
-        sfxSource.volume = sfxSlider.value;
-        PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
+        VolumeChange(value, "SFX");
     }
 
     public void SetSettingsSliderFromPrefs()
@@ -189,13 +191,22 @@ public class MenuManager : MonoBehaviour
         if (PlayerPrefs.HasKey("MusicVolume"))
         {
             musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-            musicSource.volume = musicSlider.value;
+            VolumeChange(musicSlider.value, "Music");
         }
         if (PlayerPrefs.HasKey("SFXVolume"))
         {
             sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
-            sfxSource.volume = sfxSlider.value;
+            VolumeChange(musicSlider.value, "SFX");
         }
+    }
+
+    private void VolumeChange (Single audioValue, string prefsText)
+    {
+        if (audioValue == 0) audioValue = 0.0001f;
+        masterMixer.SetFloat(prefsText, Mathf.Log10(audioValue) * 20 );
+        PlayerPrefs.SetFloat(prefsText + "Volume", audioValue);
+
+        Debug.Log(prefsText + ": " + Mathf.Log10(audioValue) * 20);
     }
     #endregion
 
