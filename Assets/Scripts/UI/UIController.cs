@@ -49,6 +49,10 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
     [SerializeField]
+    private SimplifiedInput playerOneInput;
+    [SerializeField]
+    private SimplifiedInput playerTwoInput;
+    [SerializeField]
     private InputActionReference pauseButton;
     [SerializeField]
     private GameObject resumeButton;
@@ -167,6 +171,10 @@ public class UIController : MonoBehaviour
         if (Time.timeScale == 1)
         {
             Time.timeScale = 0f;
+
+            playerOneInput.enabled = false;
+            playerTwoInput.enabled = false;
+
             pauseMenu.SetActive(true);
             EventSystem.current.SetSelectedGameObject(resumeButton);
 
@@ -175,6 +183,10 @@ public class UIController : MonoBehaviour
         else
         {
             Time.timeScale = 1f;
+
+            playerOneInput.enabled = true;
+            playerTwoInput.enabled = true;
+
             pauseMenu.SetActive(false);
             EventSystem.current.SetSelectedGameObject(null);
 

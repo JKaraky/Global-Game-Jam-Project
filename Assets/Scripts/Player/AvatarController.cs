@@ -247,7 +247,7 @@ public class AvatarController : MonoBehaviour
         _energyRegeneration = energyRegenerationRate;
     }
     #endregion
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (playerNumber == 0)
         {
