@@ -53,7 +53,9 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private SimplifiedInput playerTwoInput;
     [SerializeField]
-    private InputActionReference pauseButton;
+    private InputActionReference pauseButtonPlayerOne;
+    [SerializeField]
+    private InputActionReference pauseButtonPlayerTwo;
     [SerializeField]
     private GameObject resumeButton;
 
@@ -170,27 +172,31 @@ public class UIController : MonoBehaviour
     {
         if (Time.timeScale == 1)
         {
+            // Paused 
+
             Time.timeScale = 0f;
 
             playerOneInput.enabled = false;
             playerTwoInput.enabled = false;
 
             pauseMenu.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(resumeButton);
 
             Cursor.visible = true;
+            EventSystem.current.SetSelectedGameObject(resumeButton);
         }
         else
         {
+            // Unpaused
+
             Time.timeScale = 1f;
 
             playerOneInput.enabled = true;
             playerTwoInput.enabled = true;
 
             pauseMenu.SetActive(false);
-            EventSystem.current.SetSelectedGameObject(null);
 
             Cursor.visible = false;
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
     public void OnDeviceChange(string humanScheme, string robotScheme)
@@ -246,7 +252,8 @@ public class UIController : MonoBehaviour
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         AvatarController.toggleCannonIcon += ToggleCannonIcon;
         AvatarController.toggleJamIcon += ToggleJamIcon;
-        pauseButton.action.performed += pauseTrigger;
+        pauseButtonPlayerOne.action.performed += pauseTrigger;
+        pauseButtonPlayerTwo.action.performed += pauseTrigger;
     }
 
     private void OnDisable()
@@ -254,6 +261,7 @@ public class UIController : MonoBehaviour
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         AvatarController.toggleCannonIcon -= ToggleCannonIcon;
         AvatarController.toggleJamIcon -= ToggleJamIcon;
-        pauseButton.action.performed -= pauseTrigger;
+        pauseButtonPlayerOne.action.performed -= pauseTrigger;
+        pauseButtonPlayerOne.action.performed -= pauseTrigger;
     }
 }

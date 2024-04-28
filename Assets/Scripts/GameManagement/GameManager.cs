@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject humanWin;
     [SerializeField] private GameObject robotWin;
+    [SerializeField] private GameObject restartButton;
     [SerializeField]
     private ParticleSystem particleEffect;
     #endregion
@@ -93,6 +94,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(restartButton);
 
         Cursor.visible = true;
     }

@@ -123,7 +123,7 @@ public class AvatarController : MonoBehaviour
     private void AttemptMovement()
     {
         _movement = Move();
-        if (_movement != Vector3.zero && _currentEnergy >= moveEnergyConsumption)
+        if (_movement != Vector3.zero && !_isJammed && _currentEnergy >= moveEnergyConsumption)
         {
             DepleteEnergy(0); // Gradually depleting energy bar
 
