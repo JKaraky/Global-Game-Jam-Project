@@ -37398,6 +37398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 981825017}
   - component: {fileID: 981825016}
+  - component: {fileID: 981825018}
   m_Layer: 0
   m_Name: Menu Manager
   m_TagString: Untagged
@@ -37465,6 +37466,114 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &981825018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981825015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45677e6434dbb0344b30f107bb0d7ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HumanText:
+  - {fileID: 1994120756}
+  - {fileID: 465767443}
+  - {fileID: 199070725}
+  - {fileID: 1960140564}
+  - {fileID: 661641013}
+  - {fileID: 1237351084}
+  - {fileID: 1306206702}
+  - {fileID: 1265644521}
+  - {fileID: 1919949417}
+  - {fileID: 1456725530}
+  - {fileID: 245862783}
+  - {fileID: 458297213879874585}
+  - {fileID: 7318406327845119590}
+  - {fileID: 1410712469}
+  - {fileID: 5062288180417177509}
+  - {fileID: 5085812246422627699}
+  - {fileID: 1130229365}
+  - {fileID: 89882526}
+  - {fileID: 447211186}
+  - {fileID: 2062798184}
+  - {fileID: 1989665089}
+  - {fileID: 1359882243}
+  - {fileID: 1055138499}
+  - {fileID: 1623136926}
+  - {fileID: 202057075}
+  - {fileID: 282542857}
+  - {fileID: 2085671065}
+  - {fileID: 1143284954}
+  - {fileID: 1591266710}
+  - {fileID: 1367526360}
+  - {fileID: 573433635}
+  - {fileID: 1490560584}
+  - {fileID: 1009653235}
+  - {fileID: 525742172}
+  - {fileID: 1101279046}
+  - {fileID: 1889859050}
+  - {fileID: 1406740050}
+  - {fileID: 971142168}
+  - {fileID: 1713741983}
+  - {fileID: 881079572}
+  - {fileID: 1434912836}
+  - {fileID: 1873236148}
+  - {fileID: 783626678}
+  - {fileID: 1125710515}
+  - {fileID: 1728506812}
+  - {fileID: 1329890717}
+  RobotText:
+  - {fileID: 255202811}
+  - {fileID: 2132505388}
+  - {fileID: 1718494254}
+  - {fileID: 176502742}
+  - {fileID: 153813080}
+  - {fileID: 922829953}
+  - {fileID: 589272962}
+  - {fileID: 1884537608}
+  - {fileID: 901752044}
+  - {fileID: 1514200704}
+  - {fileID: 1951714625}
+  - {fileID: 5054716227166991635}
+  - {fileID: 8043707894116400504}
+  - {fileID: 516864754}
+  - {fileID: 2479135662591004878}
+  - {fileID: 1546092332794868899}
+  - {fileID: 168687631}
+  - {fileID: 1503619577}
+  - {fileID: 87019870}
+  - {fileID: 542080194}
+  - {fileID: 226277010}
+  - {fileID: 1727997728}
+  - {fileID: 269450552}
+  - {fileID: 1761277024}
+  - {fileID: 315732556}
+  - {fileID: 1046929485}
+  - {fileID: 1181702170}
+  - {fileID: 1792695439}
+  - {fileID: 781663044}
+  - {fileID: 1756890706}
+  - {fileID: 51363242}
+  - {fileID: 1353090697}
+  - {fileID: 867310897}
+  - {fileID: 1298995918}
+  - {fileID: 1880697312}
+  - {fileID: 973917808}
+  - {fileID: 1574120194}
+  - {fileID: 1061963051}
+  - {fileID: 548185463}
+  - {fileID: 1073131536}
+  - {fileID: 1667734880}
+  - {fileID: 1992212627}
+  - {fileID: 497904160}
+  - {fileID: 1831700191}
+  - {fileID: 115477913}
+  - {fileID: 233352087}
+  humanFont: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
+  robotFont: {fileID: 11400000, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
 --- !u!1001 &991037127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60945,8 +61054,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Move the camera around with mouse, touchpad, or the right stick on a controller.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
-  m_sharedMaterial: {fileID: 9120670310413268591, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
+  m_sharedMaterial: {fileID: 8274433622167952940, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -71498,8 +71607,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gamepad Controls
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
-  m_sharedMaterial: {fileID: 9120670310413268591, guid: abddc421a0cb91740bb1c5e5a66335da, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
+  m_sharedMaterial: {fileID: 8274433622167952940, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
