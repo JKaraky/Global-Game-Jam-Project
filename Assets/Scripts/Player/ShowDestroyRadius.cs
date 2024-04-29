@@ -21,16 +21,13 @@ public class ShowDestroyRadius : MonoBehaviour
     //private DecalProjector projector;
     private void Start()
     {
-        radius = GetComponent<AvatarController>().DestructionRadius;
+        radius = transform.parent.GetComponent<PlayerAttributes>().destructionRadius;
         player = GetComponent<AvatarController>().PlayerNbr;
 
         targetTag = player == 0 ? "CollectibleTwo" : "CollectibleOne";
 
         // Get plaeyr scale so we can now how to accurately size the destruction radius
         playerScale = transform.parent.localScale.x;
-        //projector = destroyCircle.GetComponent<DecalProjector>();
-
-        //projector.size.Set(radius*2, radius*2, projector.size.y);
 
         // Setting the radius of the circle. Divide by 0.5 because that's the radius of its collider by default
         circleRadius = radius / 0.5f / playerScale;

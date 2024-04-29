@@ -13,41 +13,35 @@ public class AvatarController : MonoBehaviour
 
     [Header ("General Settings")]
     [SerializeField]
+    private PlayerAttributes playerAttributesScript;
+
     private float maxEnergy;
-    [SerializeField]
     private float moveEnergyConsumption;
-    [SerializeField]
     private float energyCooldown;
-    [SerializeField]
     private float energyRegenerationRate;
 
 
     [Header("Movement")]
     [SerializeField]
-    private float speed = 17;
-    [SerializeField]
     private SimplifiedInput inputScript;
-    [SerializeField]
-    private float gravityMultiplier = 1f;
+
+    private float speed;
+    private float gravityMultiplier;
 
     [Header("Destroying Enemy Powerup")]
-    [SerializeField]
-    private float destructionRadius;
     [SerializeField]
     private GameObject cannonTip;
     [SerializeField]
     private GameObject explosion;
-    [SerializeField]
-    [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
+
+    private float destructionRadius;
     private int destructionEnergyConsumptionRatio = 1;
 
     [Header("Jam Canon")]
     [SerializeField]
-    private float jamCooldown; // How long does a player stay hampered
-    [SerializeField]
     private GameObject jamParticles;
-    [SerializeField]
-    [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
+
+    private float jamCooldown; // How long does a player stay hampered
     private int jamEnergyConsumptionRatio = 3;
     private bool _isJammed = false;
 
@@ -64,6 +58,9 @@ public class AvatarController : MonoBehaviour
     private float _energyRegeneration = 0;
     private Coroutine _energyRoutine;
 
+    // For ShowArrow Script
+    public Vector3 playerMovement = Vector3.one;
+
     #endregion
     #region Events
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
@@ -79,17 +76,11 @@ public class AvatarController : MonoBehaviour
             return playerNumber;
         }
     }
-
-    public float DestructionRadius
-    {
-        get
-        {
-            return destructionRadius;
-        }
-    }
     // Start is called before the first frame update
     void Start()
     {
+        LoadVariables();
+
         playerObj = transform.parent;
         rotationScript = playerObj.GetComponent<PlayerRotation>();
 
@@ -125,11 +116,13 @@ public class AvatarController : MonoBehaviour
         _movement = Move();
         if (_movement != Vector3.zero && !_isJammed && _currentEnergy >= moveEnergyConsumption)
         {
+            playerMovement = _movement;
+
             DepleteEnergy(0); // Gradually depleting energy bar
 
             _rb.AddForce(_movement * speed);
 
-            Rotate(_movement);
+            //Rotate(_movement);
         }
     }
     private Vector3 Move()
@@ -192,9 +185,21 @@ public class AvatarController : MonoBehaviour
 
     #region Utility Methods
 
-    private void RotateTowardsCamera()
+    private void LoadVariables()
     {
-        rotationScript.RotateTowardsCamera();
+        maxEnergy = playerAttributesScript.maxEnergy;
+        moveEnergyConsumption = playerAttributesScript.moveEnergyConsumption;
+        energyCooldown = playerAttributesScript.energyCooldown;
+        energyRegenerationRate = playerAttributesScript.energyRegenerationRate;
+
+        speed = playerAttributesScript.speed;
+        gravityMultiplier = playerAttributesScript.gravityMultiplier;
+
+        destructionRadius = playerAttributesScript.destructionRadius;
+        destructionEnergyConsumptionRatio = playerAttributesScript.destructionEnergyConsumptionRatio;
+
+        jamCooldown = playerAttributesScript.jamCooldown;
+        jamEnergyConsumptionRatio = playerAttributesScript.jamEnergyConsumptionRatio;
     }
     public void GetJammed()
     {

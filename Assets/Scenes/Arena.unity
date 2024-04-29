@@ -2142,6 +2142,14 @@ PrefabInstance:
       propertyPath: jamEnergyConsumption
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1749310847322116575, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: humanIn
+      value: 
+      objectReference: {fileID: 541253000}
+    - target: {fileID: 1749310847322116575, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: robotIn
+      value: 
+      objectReference: {fileID: 420354462}
     - target: {fileID: 2026241485772718455, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2237,6 +2245,30 @@ PrefabInstance:
     - target: {fileID: 5769853370564630960, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: particleEffect
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834541862882505522, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5958812321164336795, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_IsActive
