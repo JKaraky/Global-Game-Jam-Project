@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "f6fcf264-2e8e-4615-98c1-590e829efb51",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -112,7 +121,7 @@
                 {
                     "name": "",
                     "id": "e37da814-0c2f-4685-a28a-491c24478eab",
-                    "path": "<Keyboard>/#(9)",
+                    "path": "<Keyboard>/9",
                     "interactions": "Hold(duration=60,pressPoint=0.5)",
                     "processors": "",
                     "groups": "Keyboard",
@@ -134,7 +143,7 @@
                 {
                     "name": "",
                     "id": "b8425aba-6754-4976-bd06-715e40bc948b",
-                    "path": "<Keyboard>/#(0)",
+                    "path": "<Keyboard>/0",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -161,6 +170,28 @@
                     "processors": "",
                     "groups": "Controllers",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f41de0b2-4857-4c9a-890b-94a0c27256a6",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controllers",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6f40d51-8495-4d78-9b76-d66cc3c0f5b6",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

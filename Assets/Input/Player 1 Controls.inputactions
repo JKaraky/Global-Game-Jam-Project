@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "ea41f3e0-a14a-40da-8fcf-35cad8242dd6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -121,7 +130,7 @@
                 {
                     "name": "",
                     "id": "cc2eef3a-a9cb-40af-9ae4-7070aaa3afab",
-                    "path": "<Keyboard>/#(2)",
+                    "path": "<Keyboard>/2",
                     "interactions": "Hold(duration=60,pressPoint=0.5)",
                     "processors": "",
                     "groups": "Keyboard",
@@ -143,7 +152,7 @@
                 {
                     "name": "",
                     "id": "5b7d92ab-a9d0-46fc-bff4-126c96ca7b2e",
-                    "path": "<Keyboard>/#(1)",
+                    "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -203,6 +212,28 @@
                     "processors": "",
                     "groups": "Controllers",
                     "action": "Mouse Pos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2eb1aca1-e563-447d-ae9f-2bf279f9ccc6",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df719781-7451-42c8-b2b2-628da6785b16",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controllers",
+                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

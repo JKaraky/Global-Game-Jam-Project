@@ -9,21 +9,21 @@ public class SimplifiedInput : MonoBehaviour
     #region Variables
     [Header("Player 1 or Player 2?")]
     [SerializeField]
-    private int playerNumber;
+    protected int playerNumber;
     [SerializeField]
-    private AvatarController avatarController;
+    protected AvatarController avatarController;
     [Header("Player Controls")]
     [SerializeField]
-    private InputActionReference move;
+    protected InputActionReference move;
     [SerializeField]
-    private InputActionReference destroy;
+    protected InputActionReference destroy;
     [SerializeField]
-    private InputActionReference hamper;
+    protected InputActionReference jam;
 
-    private Vector2 _movement;
+    protected Vector2 _movement;
 
-    private Action<InputAction.CallbackContext> destroyTrigger;
-    private Action<InputAction.CallbackContext> hamperTrigger;
+    protected Action<InputAction.CallbackContext> destroyTrigger;
+    protected Action<InputAction.CallbackContext> jamTrigger;
 
     public static event Action<int> ShowOrDestroyRadius;
     #endregion
@@ -37,7 +37,7 @@ public class SimplifiedInput : MonoBehaviour
     private void Awake()
     {
         destroyTrigger = (ctx) => DestroyBtnPressed();
-        hamperTrigger = (ctx) => HamperBtnPressed();
+        jamTrigger = (ctx) => HamperBtnPressed();
     }
 
     // Update is called once per frame
@@ -46,24 +46,24 @@ public class SimplifiedInput : MonoBehaviour
         MovementInput();
     }
     #region Event Handlers
-    private void MovementInput()
+    protected void MovementInput()
     {
         _movement = move.action.ReadValue<Vector2>();
     }
 
-    private void DestroyBtnPressed()
+    protected void DestroyBtnPressed()
     {
         ShowOrDestroyRadius?.Invoke(playerNumber);
 
         avatarController.DestroyPowerup();
     }
 
-    private void DestroyBtnHeld(InputAction.CallbackContext context)
+    protected void DestroyBtnHeld(InputAction.CallbackContext context)
     {
         ShowOrDestroyRadius?.Invoke(playerNumber);
     }
 
-    private void HamperBtnPressed()
+    protected void HamperBtnPressed()
     {
         avatarController.JamPlayer();
     }
@@ -74,14 +74,14 @@ public class SimplifiedInput : MonoBehaviour
         destroy.action.started += DestroyBtnHeld;
         destroy.action.performed += destroyTrigger;
         destroy.action.canceled += destroyTrigger;
-        hamper.action.performed += hamperTrigger;
+        jam.action.performed += jamTrigger;
     }
     private void OnDisable()
     {
         destroy.action.started -= DestroyBtnHeld;
         destroy.action.performed -= destroyTrigger;
         destroy.action.canceled -= destroyTrigger;
-        hamper.action.performed -= hamperTrigger;
+        jam.action.performed -= jamTrigger;
     }
     #endregion
 }

@@ -122,7 +122,7 @@ public class AvatarController : MonoBehaviour
 
             _rb.AddForce(_movement * speed);
 
-            //Rotate(_movement);
+            Rotate(_movement);
         }
     }
     private Vector3 Move()
