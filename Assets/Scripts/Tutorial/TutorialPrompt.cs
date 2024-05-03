@@ -23,6 +23,12 @@ public class TutorialPrompt : MonoBehaviour
     [SerializeField]
     private bool hamper;
 
+    [Header("Who Can Do The Actions")]
+    [SerializeField]
+    private bool playerOne;
+    [SerializeField]
+    private bool playerTwo;
+
     private bool turnOff;   // to turn off prompt holder after taking action with player continue input
 
     public static event Action NextSection;
@@ -88,9 +94,26 @@ public class TutorialPrompt : MonoBehaviour
 
     private void SetUpInputs()
     {
-        tutorialInputOne.moveListen = tutorialInputTwo.moveListen = move;
-        tutorialInputOne.destroyListen = tutorialInputTwo.destroyListen = destroy;
-        tutorialInputOne.hamperListen = tutorialInputTwo.hamperListen = hamper;
+        // Reset Inputs
+        tutorialInputOne.moveListen = tutorialInputTwo.moveListen = false;
+        tutorialInputOne.destroyListen = tutorialInputTwo.destroyListen = false;
+        tutorialInputOne.hamperListen = tutorialInputTwo.hamperListen = false;
+
+        // Reconfigure
+        if (playerOne)
+        {
+            tutorialInputOne.moveListen = move;
+            tutorialInputOne.destroyListen = destroy;
+            tutorialInputOne.hamperListen = hamper;
+        }
+
+        if (playerTwo)
+        {
+            tutorialInputTwo.moveListen = move;
+            tutorialInputTwo.destroyListen = destroy;
+            tutorialInputTwo.hamperListen = hamper;
+        }
+
     }
     #endregion
 
