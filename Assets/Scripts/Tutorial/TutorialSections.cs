@@ -24,6 +24,7 @@ public class TutorialSections : MonoBehaviour
         }
         else
         {
+            currentSection.Value.SetActive(false);
             currentSection = currentSection.Next;
             currentSection.Value.SetActive(true);
         }
@@ -31,11 +32,11 @@ public class TutorialSections : MonoBehaviour
 
     private void OnEnable()
     {
-        TutorialPrompt.NextSection += MoveToNextSection;
+        TutorialObjectives.ObjectiveComplete += MoveToNextSection;
     }
 
     private void OnDisable()
     {
-        TutorialPrompt.NextSection -= MoveToNextSection;
+        TutorialObjectives.ObjectiveComplete -= MoveToNextSection;
     }
 }

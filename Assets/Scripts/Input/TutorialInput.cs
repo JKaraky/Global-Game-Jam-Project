@@ -12,14 +12,19 @@ public class TutorialInput : SimplifiedInput
     private InputActionReference continueButton;
 
     [Header("Actions To Listen To")]
-    [HideInInspector]
+    [SerializeField]
     public bool moveListen;
-    [HideInInspector]
+    [SerializeField]
     public bool destroyListen;
-    [HideInInspector]
+    [SerializeField]
     public bool hamperListen;
+    [SerializeField]
+    public bool continueListen;
 
     public static event Action<int> ContinuePressed;
+    public static event Action Moved;
+    public static event Action Destroyed;
+    public static event Action Jammed;
     private Action<InputAction.CallbackContext> continueTrigger;
     #endregion
     public new Vector2 Movement
@@ -49,6 +54,22 @@ public class TutorialInput : SimplifiedInput
     {
         ContinuePressed?.Invoke(playerNumber);
     }
+
+    private void MoveButtonPressed()
+    {
+        Moved?.Invoke();
+    }
+
+    private void JamButtonPressed()
+    {
+        Jammed?.Invoke();
+    }
+
+    private void DestroyButtonPressed()
+    {
+        Destroyed?.Invoke();
+    }
+
     #region Event Subscribing
     private void OnEnable()
     {
@@ -62,8 +83,10 @@ public class TutorialInput : SimplifiedInput
         {
             jam.action.performed += jamTrigger;
         }
-
-        continueButton.action.performed += continueTrigger;
+        if (continueListen)
+        {
+            continueButton.action.performed += continueTrigger;
+        }
     }
     private void OnDisable()
     {
@@ -77,8 +100,10 @@ public class TutorialInput : SimplifiedInput
         {
             jam.action.performed -= jamTrigger;
         }
-
-        continueButton.action.performed -= continueTrigger;
+        if (continueListen)
+        {
+            continueButton.action.performed -= continueTrigger;
+        }
     }
     #endregion
 }
