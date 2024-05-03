@@ -7,15 +7,20 @@ using UnityEngine.InputSystem;
 public class TutorialInput : SimplifiedInput
 {
     #region Variables
-    [Header("Actions To Listen To")]
+    [Header("Additional Action Reference")]
     [SerializeField]
-    private bool moveListen;
-    [SerializeField]
-    private bool destroyListen;
-    [SerializeField]
-    private bool hamperListen;
+    private InputActionReference continueButton;
 
-    public static event Action<int> ShowOrDestroyRadius;
+    [Header("Actions To Listen To")]
+    [HideInInspector]
+    public bool moveListen;
+    [HideInInspector]
+    public bool destroyListen;
+    [HideInInspector]
+    public bool hamperListen;
+
+    public static event Action<int> ContinuePressed;
+    private Action<InputAction.CallbackContext> continueTrigger;
     #endregion
     public new Vector2 Movement
     {
@@ -28,6 +33,7 @@ public class TutorialInput : SimplifiedInput
     {
         destroyTrigger = (ctx) => DestroyBtnPressed();
         jamTrigger = (ctx) => HamperBtnPressed();
+        continueTrigger = (ctx) => ContinueButtonPressed();
     }
 
     // Update is called once per frame
@@ -37,6 +43,11 @@ public class TutorialInput : SimplifiedInput
         {
             MovementInput();
         }
+    }
+
+    private void ContinueButtonPressed()
+    {
+        ContinuePressed?.Invoke(playerNumber);
     }
     #region Event Subscribing
     private void OnEnable()
@@ -51,6 +62,8 @@ public class TutorialInput : SimplifiedInput
         {
             jam.action.performed += jamTrigger;
         }
+
+        continueButton.action.performed += continueTrigger;
     }
     private void OnDisable()
     {
@@ -64,6 +77,8 @@ public class TutorialInput : SimplifiedInput
         {
             jam.action.performed -= jamTrigger;
         }
+
+        continueButton.action.performed -= continueTrigger;
     }
     #endregion
 }
