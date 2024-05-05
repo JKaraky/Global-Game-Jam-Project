@@ -37,7 +37,7 @@ public class SimplifiedInput : MonoBehaviour
     private void Awake()
     {
         destroyTrigger = (ctx) => DestroyBtnPressed();
-        jamTrigger = (ctx) => HamperBtnPressed();
+        jamTrigger = (ctx) => JamBtnPressed();
     }
 
     // Update is called once per frame
@@ -63,7 +63,7 @@ public class SimplifiedInput : MonoBehaviour
         ShowOrDestroyRadius?.Invoke(playerNumber);
     }
 
-    protected void HamperBtnPressed()
+    protected void JamBtnPressed()
     {
         avatarController.JamPlayer();
     }

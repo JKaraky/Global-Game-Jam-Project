@@ -26,6 +26,7 @@ public class TutorialInput : SimplifiedInput
     public static event Action Destroyed;
     public static event Action Jammed;
     private Action<InputAction.CallbackContext> continueTrigger;
+    public static event Action<int> ShowOrDestroyRadius;
     #endregion
     public new Vector2 Movement
     {
@@ -37,7 +38,7 @@ public class TutorialInput : SimplifiedInput
     private void Awake()
     {
         destroyTrigger = (ctx) => DestroyBtnPressed();
-        jamTrigger = (ctx) => HamperBtnPressed();
+        jamTrigger = (ctx) => JamBtnPressed();
         continueTrigger = (ctx) => ContinueButtonPressed();
     }
 
@@ -47,6 +48,10 @@ public class TutorialInput : SimplifiedInput
         if (moveListen)
         {
             MovementInput();
+            if (_movement != Vector2.zero)
+            {
+                MoveButtonPressed();
+            }
         }
     }
 
@@ -59,14 +64,18 @@ public class TutorialInput : SimplifiedInput
     {
         Moved?.Invoke();
     }
-
-    private void JamButtonPressed()
+    
+    private void JamBtnPressed()
     {
+        avatarController.JamPlayer();
         Jammed?.Invoke();
     }
 
-    private void DestroyButtonPressed()
+    private void DestroyBtnPressed()
     {
+        ShowOrDestroyRadius?.Invoke(playerNumber);
+
+        avatarController.DestroyPowerup();
         Destroyed?.Invoke();
     }
 
