@@ -17,9 +17,11 @@ public class TutorialInput : SimplifiedInput
     [SerializeField]
     public bool destroyListen;
     [SerializeField]
-    public bool hamperListen;
+    public bool jamListen;
     [SerializeField]
     public bool continueListen;
+
+    private bool triggeredMove = false;
 
     public static event Action<int> ContinuePressed;
     public static event Action Moved;
@@ -48,8 +50,9 @@ public class TutorialInput : SimplifiedInput
         if (moveListen)
         {
             MovementInput();
-            if (_movement != Vector2.zero)
+            if (!triggeredMove && _movement != Vector2.zero)
             {
+                triggeredMove = true;
                 MoveButtonPressed();
             }
         }
@@ -88,7 +91,7 @@ public class TutorialInput : SimplifiedInput
             destroy.action.performed += destroyTrigger;
             destroy.action.canceled += destroyTrigger;
         }
-        if (hamperListen)
+        if (jamListen)
         {
             jam.action.performed += jamTrigger;
         }
@@ -105,7 +108,7 @@ public class TutorialInput : SimplifiedInput
             destroy.action.performed -= destroyTrigger;
             destroy.action.canceled -= destroyTrigger;
         }
-        if (hamperListen)
+        if (jamListen)
         {
             jam.action.performed -= jamTrigger;
         }

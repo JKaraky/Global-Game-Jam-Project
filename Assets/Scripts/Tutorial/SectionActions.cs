@@ -32,7 +32,7 @@ public class SectionActions : MonoBehaviour
     [SerializeField]
     private bool destroy;
     [SerializeField]
-    private bool hamper;
+    private bool jam;
     [SerializeField]
     private bool continueTutorial;
 
@@ -52,11 +52,11 @@ public class SectionActions : MonoBehaviour
         }
     }
 
-    public bool HamperCheck
+    public bool JamCheck
     {
         get
         {
-            return hamper;
+            return jam;
         }
     }
 
@@ -80,7 +80,7 @@ public class SectionActions : MonoBehaviour
 
         tutorialInputOne.moveListen = tutorialInputTwo.moveListen = false;
         tutorialInputOne.destroyListen = tutorialInputTwo.destroyListen = false;
-        tutorialInputOne.hamperListen = tutorialInputTwo.hamperListen = false;
+        tutorialInputOne.jamListen = tutorialInputTwo.jamListen = false;
         tutorialInputOne.continueListen = tutorialInputTwo.continueListen = false;
 
         // Reconfigure
@@ -88,7 +88,7 @@ public class SectionActions : MonoBehaviour
         {
             tutorialInputOne.moveListen = move;
             tutorialInputOne.destroyListen = destroy;
-            tutorialInputOne.hamperListen = hamper;
+            tutorialInputOne.jamListen = jam;
             tutorialInputOne.continueListen = continueTutorial;
         }
 
@@ -96,7 +96,7 @@ public class SectionActions : MonoBehaviour
         {
             tutorialInputTwo.moveListen = move;
             tutorialInputTwo.destroyListen = destroy;
-            tutorialInputTwo.hamperListen = hamper;
+            tutorialInputTwo.jamListen = jam;
             tutorialInputTwo.continueListen = continueTutorial;
         }
 

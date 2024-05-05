@@ -16,7 +16,7 @@ public class TutorialAction : TutorialObjectives
     {
         move = sectionActions.MoveCheck;
         destroy = sectionActions.DestroyCheck;
-        hamper = sectionActions.HamperCheck;
+        hamper = sectionActions.JamCheck;
     }
 
     private void ObjectiveButtonPressed()
@@ -26,8 +26,10 @@ public class TutorialAction : TutorialObjectives
 
     private IEnumerator ToNextSection()
     {
+        Debug.Log("entered enumerrtiti");
         yield return new WaitForSeconds(timeToComplete);
         CompleteObjective();
+        Debug.Log("Finsihed enuer=mrier");
     }
 
     private void OnEnable()
