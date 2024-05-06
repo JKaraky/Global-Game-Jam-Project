@@ -24,6 +24,5 @@ public class TutorialObjectives : MonoBehaviour
     protected void CompleteObjective()
     {
         ObjectiveComplete?.Invoke();
-        Debug.Log("Objective Complete");
     }
 }

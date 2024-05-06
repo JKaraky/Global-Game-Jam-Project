@@ -17,24 +17,8 @@ public class TutorialAction : TutorialObjectives
         move = sectionActions.MoveCheck;
         destroy = sectionActions.DestroyCheck;
         hamper = sectionActions.JamCheck;
-    }
 
-    private void ObjectiveButtonPressed()
-    {
-        StartCoroutine(ToNextSection());
-    }
-
-    private IEnumerator ToNextSection()
-    {
-        Debug.Log("entered enumerrtiti");
-        yield return new WaitForSeconds(timeToComplete);
-        CompleteObjective();
-        Debug.Log("Finsihed enuer=mrier");
-    }
-
-    private void OnEnable()
-    {
-        if(move)
+        if (move)
         {
             TutorialInput.Moved += ObjectiveButtonPressed;
         }
@@ -46,6 +30,17 @@ public class TutorialAction : TutorialObjectives
         {
             TutorialInput.Jammed += ObjectiveButtonPressed;
         }
+    }
+
+    private void ObjectiveButtonPressed()
+    {
+        StartCoroutine(ToNextSection());
+    }
+
+    private IEnumerator ToNextSection()
+    {
+        yield return new WaitForSeconds(timeToComplete);
+        CompleteObjective();
     }
 
     private void OnDisable()

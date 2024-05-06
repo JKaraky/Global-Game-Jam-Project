@@ -9,6 +9,8 @@ public class SectionActions : MonoBehaviour
     private TutorialInput tutorialInputOne;
     [SerializeField]
     private TutorialInput tutorialInputTwo;
+    [SerializeField]
+    private GameObject[] objectsToActivate;
 
     public TutorialInput TutorialInputOne
     {
@@ -70,6 +72,7 @@ public class SectionActions : MonoBehaviour
     private void Awake()
     {
         SetUpInputs();
+        ActivateGameObjects();
     }
 
     private void SetUpInputs()
@@ -94,6 +97,7 @@ public class SectionActions : MonoBehaviour
 
         if (playerTwo)
         {
+            Debug.Log("revonfiguring");
             tutorialInputTwo.moveListen = move;
             tutorialInputTwo.destroyListen = destroy;
             tutorialInputTwo.jamListen = jam;
@@ -103,5 +107,16 @@ public class SectionActions : MonoBehaviour
 
         tutorialInputOne.gameObject.SetActive(true);
         tutorialInputTwo.gameObject.SetActive(true);
+    }
+
+    private void ActivateGameObjects()
+    {
+        if(objectsToActivate.Length > 0)
+        {
+            foreach (GameObject obj in objectsToActivate)
+            {
+                obj.SetActive(true);
+            }
+        }
     }
 }
