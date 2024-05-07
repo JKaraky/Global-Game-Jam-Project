@@ -97,7 +97,6 @@ public class SectionActions : MonoBehaviour
 
         if (playerTwo)
         {
-            Debug.Log("revonfiguring");
             tutorialInputTwo.moveListen = move;
             tutorialInputTwo.destroyListen = destroy;
             tutorialInputTwo.jamListen = jam;
