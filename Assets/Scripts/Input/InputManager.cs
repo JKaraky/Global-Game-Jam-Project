@@ -89,6 +89,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         InputSystem.onDeviceChange += OnDeviceChange;
+        SwitchControllerScheme();
     }
 
     private void OnDisable()

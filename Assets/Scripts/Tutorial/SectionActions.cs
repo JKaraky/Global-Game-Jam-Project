@@ -78,6 +78,7 @@ public class SectionActions : MonoBehaviour
     private void SetUpInputs()
     {
         // Reset Inputs
+        tutorialInputOne.transform.parent.gameObject.SetActive(false);
         tutorialInputOne.gameObject.SetActive(false);
         tutorialInputTwo.gameObject.SetActive(false);
 
@@ -106,6 +107,7 @@ public class SectionActions : MonoBehaviour
 
         tutorialInputOne.gameObject.SetActive(true);
         tutorialInputTwo.gameObject.SetActive(true);
+        tutorialInputOne.transform.parent.gameObject.SetActive(true);
     }
 
     private void ActivateGameObjects()
