@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class Collectible : MonoBehaviour
 {
@@ -55,7 +53,14 @@ public class Collectible : MonoBehaviour
 
     private void ReleaseCollectible()
     {
-        poolOfCollectible.pool.Release(this);
+        if(poolOfCollectible != null)
+        {
+            poolOfCollectible.pool.Release(this);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
     #endregion
 
