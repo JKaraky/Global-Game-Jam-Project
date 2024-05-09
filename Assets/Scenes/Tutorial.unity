@@ -8150,7 +8150,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564372102}
-  m_LocalRotation: {x: 0.20934469, y: 0.00000000841256, z: -0.0000000018010321, w: 0.9778419}
+  m_LocalRotation: {x: 0.20934469, y: -0.00000000841256, z: 0.0000000018010321, w: 0.9778419}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23991,7 +23991,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529468305}
-  m_LocalRotation: {x: 0.2093447, y: 0.000000016825119, z: -0.0000000036020644, w: 0.9778419}
+  m_LocalRotation: {x: 0.2093447, y: -0.000000016825119, z: 0.0000000036020644, w: 0.9778419}
   m_LocalPosition: {x: 172.6, y: 22.7, z: 136.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24337,7 +24337,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543078117}
-  m_LocalRotation: {x: 0.18557072, y: -0.000000018903185, z: 0.0000000035698826, w: 0.98263097}
+  m_LocalRotation: {x: 0.18557072, y: 0.000000018903185, z: -0.0000000035698826, w: 0.98263097}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -30295,6 +30295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935423010}
   - component: {fileID: 1935423012}
+  - component: {fileID: 1935423013}
   m_Layer: 0
   m_Name: CM FreeLook1
   m_TagString: Untagged
@@ -30431,6 +30432,22 @@ MonoBehaviour:
   - {fileID: 27258264}
   - {fileID: 313982130}
   - {fileID: 1676857658}
+--- !u!114 &1935423013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935423009}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1939877622
 GameObject:
   m_ObjectHideFlags: 0
@@ -32638,6 +32655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074642641}
   - component: {fileID: 2074642643}
+  - component: {fileID: 2074642644}
   m_Layer: 0
   m_Name: CM FreeLook1
   m_TagString: Untagged
@@ -32774,6 +32792,22 @@ MonoBehaviour:
   - {fileID: 366759302}
   - {fileID: 728808895}
   - {fileID: 918489870}
+--- !u!114 &2074642644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074642640}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -5630151704836100654, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &2075801729
 GameObject:
   m_ObjectHideFlags: 0
