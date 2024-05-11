@@ -7,6 +7,7 @@ public class Collectible : MonoBehaviour
     #region Variables
     private CollectiblePooling poolOfCollectible;
     private static float lifespan = 30;
+    [SerializeField] private bool fade = true;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -28,7 +29,10 @@ public class Collectible : MonoBehaviour
     #region OnEnable
     private void OnEnable()
     {
-        StartCoroutine(LifeSpan());
+        if (fade)
+        {
+            StartCoroutine(LifeSpan());
+        }
     }
     #endregion
 
