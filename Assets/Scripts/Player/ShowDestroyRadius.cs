@@ -51,11 +51,11 @@ public class ShowDestroyRadius : MonoBehaviour
     }
 
 
-    private void ShowOrHideDestructionCircle(int playerNB)
+    private void ShowOrHideDestructionCircle(int playerNB, bool activate)
     {
         if (player == playerNB)
         {
-            destroyCircle.SetActive(!destroyCircle.activeSelf);
+            destroyCircle.SetActive(activate);
             if (destroyCircle.activeSelf)
             {
                 checkForCollissions = true;

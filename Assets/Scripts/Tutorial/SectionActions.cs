@@ -79,6 +79,9 @@ public class SectionActions : MonoBehaviour
     {
         // Reset Inputs
         tutorialInputOne.transform.parent.gameObject.SetActive(false);
+
+        tutorialInputOne.Movement = tutorialInputTwo.Movement = Vector2.zero;
+
         tutorialInputOne.gameObject.SetActive(false);
         tutorialInputTwo.gameObject.SetActive(false);
 

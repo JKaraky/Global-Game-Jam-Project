@@ -28,13 +28,17 @@ public class TutorialInput : SimplifiedInput
     public static event Action Destroyed;
     public static event Action Jammed;
     private Action<InputAction.CallbackContext> continueTrigger;
-    public static event Action<int> ShowOrDestroyRadius;
+    public static event Action<int, bool> ShowOrDestroyRadius;
     #endregion
     public new Vector2 Movement
     {
         get
         {
             return _movement;
+        }
+        set
+        {
+            _movement = value;
         }
     }
     private void Awake()
@@ -76,7 +80,7 @@ public class TutorialInput : SimplifiedInput
 
     private void DestroyBtnPressed()
     {
-        ShowOrDestroyRadius?.Invoke(playerNumber);
+        ShowOrDestroyRadius?.Invoke(playerNumber, false);
 
         avatarController.DestroyPowerup();
         Destroyed?.Invoke();

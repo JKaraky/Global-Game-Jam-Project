@@ -203,7 +203,7 @@ public class AvatarController : MonoBehaviour
     }
     public void GetJammed()
     {
-        StartCoroutine(CooldownCountdown(jamCooldown, true, _isJammed, jamParticles));
+        StartCoroutine(JamCooldownCountdown(jamCooldown, jamParticles));
     }
 
     private void ActionIconHandler()
@@ -238,12 +238,14 @@ public class AvatarController : MonoBehaviour
     {
         particles.SetActive(!particles.activeSelf);
     }
-    IEnumerator CooldownCountdown(float duration, bool toggling, bool variableToToggle, GameObject particles)
+    IEnumerator JamCooldownCountdown(float duration, GameObject particles)
     {
+        Debug.Log("Player " + playerNumber + " getting jammed. isJammed: " + _isJammed);
         ToggleParticles(particles);
-        variableToToggle = !variableToToggle;
+        _isJammed = !_isJammed;
+        Debug.Log("Player " + playerNumber + " post jammed jammed. isJammed: " + _isJammed);
         yield return new WaitForSeconds(duration);
-        variableToToggle = !variableToToggle;
+        _isJammed = !_isJammed;
         ToggleParticles(particles);
     }
     IEnumerator WaitTillEnergyReplenishes(float duration)

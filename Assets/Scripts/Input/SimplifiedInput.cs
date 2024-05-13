@@ -25,7 +25,7 @@ public class SimplifiedInput : MonoBehaviour
     protected Action<InputAction.CallbackContext> destroyTrigger;
     protected Action<InputAction.CallbackContext> jamTrigger;
 
-    public static event Action<int> ShowOrDestroyRadius;
+    public static event Action<int, bool> ShowOrDestroyRadius;
     #endregion
     public Vector2 Movement
     {
@@ -53,14 +53,14 @@ public class SimplifiedInput : MonoBehaviour
 
     protected void DestroyBtnPressed()
     {
-        ShowOrDestroyRadius?.Invoke(playerNumber);
+        ShowOrDestroyRadius?.Invoke(playerNumber, false);
 
         avatarController.DestroyPowerup();
     }
 
     protected void DestroyBtnHeld(InputAction.CallbackContext context)
     {
-        ShowOrDestroyRadius?.Invoke(playerNumber);
+        ShowOrDestroyRadius?.Invoke(playerNumber, true);
     }
 
     protected void JamBtnPressed()
