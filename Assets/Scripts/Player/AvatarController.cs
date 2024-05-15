@@ -172,7 +172,7 @@ public class AvatarController : MonoBehaviour
 
     public void JamPlayer()
     {
-        if (_currentEnergy >= maxEnergy/3)
+        if (!_isJammed && _currentEnergy >= maxEnergy/3)
         {
             DepleteEnergy(jamEnergyConsumptionRatio);
             otherPlayer.GetJammed();
@@ -240,10 +240,8 @@ public class AvatarController : MonoBehaviour
     }
     IEnumerator JamCooldownCountdown(float duration, GameObject particles)
     {
-        Debug.Log("Player " + playerNumber + " getting jammed. isJammed: " + _isJammed);
         ToggleParticles(particles);
         _isJammed = !_isJammed;
-        Debug.Log("Player " + playerNumber + " post jammed jammed. isJammed: " + _isJammed);
         yield return new WaitForSeconds(duration);
         _isJammed = !_isJammed;
         ToggleParticles(particles);
