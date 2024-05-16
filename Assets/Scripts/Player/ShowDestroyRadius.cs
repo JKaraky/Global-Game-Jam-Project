@@ -44,7 +44,6 @@ public class ShowDestroyRadius : MonoBehaviour
                 if (collider.tag == targetTag)
                 {
                     cannonScript.SetTarget(collider.gameObject.transform);
-                    Debug.Log("Entered radius");
                 }
             }
         }

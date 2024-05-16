@@ -32,7 +32,6 @@ public class ShowArrows : MonoBehaviour
 
         if (rb.velocity.magnitude >= 0 && rb.velocity.magnitude <= 0.01f && checkTwo) //Stalemate
         {
-            Debug.Log("They be stucketh");
             humanArrow.SetActive(true);
             robotArrow.SetActive(true);
 

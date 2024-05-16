@@ -29,7 +29,15 @@ public class FollowPlayer : MonoBehaviour
     {
         if (agent.enabled == true && target != null)
         {
-            agent.destination = target.transform.position;
+            try
+            {
+                agent.destination = target.transform.position;
+            }
+            catch
+            {
+                agent.gameObject.transform.position = target.transform.position + new Vector3(0,10, 0);
+            }
+
         }
     }
 }
