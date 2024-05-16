@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,13 +30,21 @@ public class FollowPlayer : MonoBehaviour
     {
         if (agent.enabled == true && target != null)
         {
-            try
+            if (agent.isOnNavMesh)
             {
                 agent.destination = target.transform.position;
             }
-            catch
+            else
             {
-                agent.gameObject.transform.position = target.transform.position + new Vector3(0,10, 0);
+                RaycastHit hit;
+                bool didHit;
+                didHit = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 100f, 1 << 0);
+                if (didHit)
+                {
+                    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+
+                    agent.Warp(hit.point + Vector3.up);
+                }
             }
 
         }
