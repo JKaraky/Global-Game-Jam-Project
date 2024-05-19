@@ -240,7 +240,10 @@ public class AvatarController : MonoBehaviour
     }
     IEnumerator JamCooldownCountdown(float duration, GameObject particles)
     {
-        ToggleParticles(particles);
+        if(!particles.activeSelf)
+        {
+            ToggleParticles(particles);
+        }
         _isJammed = !_isJammed;
         yield return new WaitForSeconds(duration);
         _isJammed = !_isJammed;

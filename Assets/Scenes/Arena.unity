@@ -362,7 +362,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35767220}
-  m_LocalRotation: {x: 0.20934469, y: 0.000000008463708, z: -0.0000000018119823, w: 0.9778419}
+  m_LocalRotation: {x: 0.20934469, y: 0.00000000841256, z: -0.0000000018010321, w: 0.9778419}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1106,6 +1106,7 @@ GameObject:
   - component: {fileID: 834420981}
   - component: {fileID: 834420983}
   - component: {fileID: 834420982}
+  - component: {fileID: 834420984}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -1241,6 +1242,19 @@ MonoBehaviour:
   collectibleThree: {fileID: 8300000, guid: 77f75cda88986b543bb1494b20311f15, type: 3}
   jamCannon: {fileID: 8300000, guid: 7d165bb3b0862f146a3ca79739b1998c, type: 3}
   cannonShot: {fileID: 8300000, guid: 40de8fa9293cca2499ad5c38ce7668d8, type: 3}
+--- !u!114 &834420984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834420980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610de0f750b4ddc4abed088c5f313dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSound: {fileID: 8300000, guid: 1f9b234e63fbc9547a38664337d20c3b, type: 3}
 --- !u!1 &837417204
 GameObject:
   m_ObjectHideFlags: 3
@@ -1317,7 +1331,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837417204}
-  m_LocalRotation: {x: 0.18557072, y: -0.000000018951276, z: 0.000000003578965, w: 0.98263097}
+  m_LocalRotation: {x: 0.18557072, y: 0.000000018903185, z: -0.0000000035698826, w: 0.98263097}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2114,7 +2128,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279457376}
-  m_LocalRotation: {x: 0.23310758, y: -1.5500495e-15, z: 5.9455143e-16, w: 0.972451}
+  m_LocalRotation: {x: 0.23310758, y: -1e-45, z: -0, w: 0.972451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2281,6 +2295,10 @@ PrefabInstance:
     - target: {fileID: 5958812321164755643, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263003574985654203, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6348664372316975426, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: particleEffect
@@ -2557,7 +2575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368464278}
-  m_LocalRotation: {x: 0.2093447, y: 0.000000016850752, z: -0.0000000036075523, w: 0.9778419}
+  m_LocalRotation: {x: 0.2093447, y: 0.000000016825119, z: -0.0000000036020644, w: 0.9778419}
   m_LocalPosition: {x: 172.6, y: 22.7, z: 136.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

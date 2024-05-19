@@ -8664,7 +8664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"1"'
+  m_text: '&'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
   m_sharedMaterial: {fileID: -3957052271393250427, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
@@ -75063,6 +75063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1834168449}
   - component: {fileID: 1834168450}
+  - component: {fileID: 1834168451}
   m_Layer: 0
   m_Name: SFX Source
   m_TagString: Untagged
@@ -75181,6 +75182,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1834168451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834168448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610de0f750b4ddc4abed088c5f313dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSound: {fileID: 8300000, guid: 1f9b234e63fbc9547a38664337d20c3b, type: 3}
 --- !u!1001 &1836383279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86596,7 +86610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"0"'
+  m_text: "\xC0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
   m_sharedMaterial: {fileID: 8274433622167952940, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
@@ -91662,7 +91676,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold "2"
+  m_text: "Hold \xC9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
   m_sharedMaterial: {fileID: -3957052271393250427, guid: 40411b5dbaf7525438b969ee364d6261, type: 2}
@@ -92770,7 +92784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold "9"
+  m_text: "Hold \xC7"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}
   m_sharedMaterial: {fileID: 8274433622167952940, guid: c7f9be6e4c71d3d41a64ea1acd61be67, type: 2}

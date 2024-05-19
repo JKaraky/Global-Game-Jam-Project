@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,6 +10,8 @@ public class ChangeText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private TextMeshProUGUI humanText;
     [SerializeField]
     private TextMeshProUGUI robotText;
+
+    public static event Action ButtonSelected;
     #endregion
 
     #region Methods
@@ -18,6 +19,7 @@ public class ChangeText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         humanText.gameObject.SetActive(false);
         robotText.gameObject.SetActive(true);
+        ButtonSelected?.Invoke();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -30,6 +32,7 @@ public class ChangeText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         humanText.gameObject.SetActive(false);
         robotText.gameObject.SetActive(true);
+        ButtonSelected?.Invoke();
     }
 
     public void OnDeselect(BaseEventData eventData)
