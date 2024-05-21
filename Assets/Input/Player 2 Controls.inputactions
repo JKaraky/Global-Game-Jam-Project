@@ -165,22 +165,11 @@
                 {
                     "name": "",
                     "id": "a543ee80-812c-4c58-a073-e35f8ae231de",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controllers",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f41de0b2-4857-4c9a-890b-94a0c27256a6",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controllers",
-                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -191,6 +180,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Continue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f41de0b2-4857-4c9a-890b-94a0c27256a6",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controllers",
                     "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false

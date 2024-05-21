@@ -185,7 +185,7 @@
                 {
                     "name": "",
                     "id": "887f97ca-8d8c-4c15-8e80-f99873825c74",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controllers",

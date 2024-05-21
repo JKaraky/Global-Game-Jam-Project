@@ -262,6 +262,6 @@ public class UIController : MonoBehaviour
         AvatarController.toggleCannonIcon -= ToggleCannonIcon;
         AvatarController.toggleJamIcon -= ToggleJamIcon;
         pauseButtonPlayerOne.action.performed -= pauseTrigger;
-        pauseButtonPlayerOne.action.performed -= pauseTrigger;
+        pauseButtonPlayerTwo.action.performed -= pauseTrigger;
     }
 }

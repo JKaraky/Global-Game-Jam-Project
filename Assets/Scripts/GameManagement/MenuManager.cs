@@ -22,6 +22,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private AudioMixer masterMixer;
 
+    [Header("Tutorial")]
+    [SerializeField]
+    private Toggle tutorialToggle;
+
     [Header("Instrucitons Slides")]
     [SerializeField]
     private GameObject[] instructions;
@@ -52,6 +56,14 @@ public class MenuManager : MonoBehaviour
     #endregion
     private void Start()
     {
+        if (!PlayerPrefs.HasKey("PlayTutorial"))
+        {
+            PlayerPrefs.SetInt("PlayTutorial", 1);
+        }
+        else
+        {
+            tutorialToggle.isOn = PlayerPrefs.GetInt("PlayTutorial") == 1 ? true : false;
+        }
         SetSettingsSliderFromPrefs();
 
         instructionSlides = new LinkedList<GameObject> (instructions);
@@ -63,8 +75,16 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         Cursor.visible = false;
+        string sceneToLoad = "Arena";
+        if (PlayerPrefs.GetInt("PlayTutorial") == 1)
+        {
+            sceneToLoad = "Tutorial";
 
-        SceneManager.LoadScene("Arena", LoadSceneMode.Single);
+            PlayerPrefs.SetInt("PlayTutorial", 0);
+            tutorialToggle.isOn = false;
+        }
+
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 
     public void NextInstructionSlide()
@@ -121,6 +141,11 @@ public class MenuManager : MonoBehaviour
             _currentCreditsSlide = _currentCreditsSlide.Previous;
         }
         _currentCreditsSlide.Value.SetActive(true);
+    }
+
+    public void ResetTutorial (bool reset)
+    {
+        PlayerPrefs.SetInt("PlayTutorial", reset ? 1 : 0);
     }
 
     public void ChangeSelectedButton(GameObject button)

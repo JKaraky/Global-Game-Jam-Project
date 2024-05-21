@@ -27,16 +27,17 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             }
         }
 
+
         protected void OnUpdateBindingDisplay(RebindActionUI component, string bindingDisplayString, string deviceLayoutName, string controlPath)
         {
             if (string.IsNullOrEmpty(deviceLayoutName) || string.IsNullOrEmpty(controlPath))
                 return;
 
             var icon = default(Sprite);
-            if (InputSystem.IsFirstLayoutBasedOnSecond(deviceLayoutName, "DualShockGamepad"))
-                icon = ps4.GetSprite(controlPath);
-            else if (InputSystem.IsFirstLayoutBasedOnSecond(deviceLayoutName, "Gamepad"))
+            if (InputSystem.IsFirstLayoutBasedOnSecond(deviceLayoutName, "Xbox"))
                 icon = xbox.GetSprite(controlPath);
+            else if (InputSystem.IsFirstLayoutBasedOnSecond(deviceLayoutName, "Gamepad"))
+                icon = ps4.GetSprite(controlPath);
 
             var textComponent = component.bindingText;
 
