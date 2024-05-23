@@ -244,9 +244,9 @@ public class AvatarController : MonoBehaviour
         {
             ToggleParticles(particles);
         }
-        _isJammed = !_isJammed;
+        _isJammed = true;
         yield return new WaitForSeconds(duration);
-        _isJammed = !_isJammed;
+        _isJammed = false;
         ToggleParticles(particles);
     }
     IEnumerator WaitTillEnergyReplenishes(float duration)

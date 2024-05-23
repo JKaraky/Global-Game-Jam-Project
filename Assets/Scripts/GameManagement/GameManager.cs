@@ -52,6 +52,18 @@ public class GameManager : MonoBehaviour
             return robotTarget;
         }
     }
+    [SerializeField] private float spawnLifeSpan = 30f;
+    public float SpawnLifeSpan
+    {
+        get
+        {
+            return spawnLifeSpan;
+        }
+        set
+        {
+            spawnLifeSpan = value;
+        }
+    }
 
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject humanWin;
@@ -76,6 +88,15 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        if (PlayerPrefs.HasKey("SpawnLifeSpan"))
+        {
+            SpawnLifeSpan = PlayerPrefs.GetFloat("SpawnLifeSpan");
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("SpawnLifeSpan", SpawnLifeSpan);
         }
     }
     #endregion

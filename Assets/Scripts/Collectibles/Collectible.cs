@@ -31,6 +31,7 @@ public class Collectible : MonoBehaviour
     {
         if (fade)
         {
+            lifespan = GameManager.Instance.SpawnLifeSpan;
             StartCoroutine(LifeSpan());
         }
     }
