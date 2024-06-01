@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
@@ -72,19 +74,21 @@ public class MenuManager : MonoBehaviour
         creditsSlides = new LinkedList<GameObject>(credits);
         _currentCreditsSlide = creditsSlides.First;
     }
-    public void StartGame()
+    public void StartGame(GameObject tutorialPanel)
     {
-        Cursor.visible = false;
-        string sceneToLoad = "Arena";
-        if (PlayerPrefs.GetInt("PlayTutorial") == 1)
+        if (!tutorialPanel.activeSelf && PlayerPrefs.GetInt("PlayTutorial") == 1)
         {
-            sceneToLoad = "Tutorial";
+            tutorialPanel.SetActive(true);
 
             PlayerPrefs.SetInt("PlayTutorial", 0);
             tutorialToggle.isOn = false;
         }
 
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+        else
+        {
+            Cursor.visible = false;
+            SceneManager.LoadScene("Arena", LoadSceneMode.Single);
+        }
     }
 
     public void NextInstructionSlide()
