@@ -59,6 +59,14 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private GameObject resumeButton;
 
+    private Image humanCannonImage;
+    private Image humanJamImage;
+    private Image robotCannonImage;
+    private Image robotJamImage;
+
+    private Color humanEnergyBarColor;
+    private Color robotEnergyBarColor;
+
     private int player1EnergyBarsActive = 1;
     private int player2EnergyBarsActive = 1;
     
@@ -66,6 +74,15 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         pauseTrigger = (ctx) => PauseMenu();
+
+        humanEnergyBarColor = player1EnergyBar1.color;
+        robotEnergyBarColor = player2EnergyBar1.color;
+
+        humanCannonImage = humanCannon.transform.GetChild(0).GetComponent<Image>();
+        humanJamImage = humanJam.transform.GetChild(0).GetComponent<Image>();
+
+        robotCannonImage = robotCannon.transform.GetChild(0).GetComponent<Image>();
+        robotJamImage = robotJam.transform.GetChild(0).GetComponent<Image>();
     }
     private void UpdateEnergyBar(int player, float energy, float maxEnergy)
     {
@@ -199,6 +216,40 @@ public class UIController : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
         }
     }
+    private void GreyOutUI(int player, bool toggle)
+    {
+        // True means grey out, false back to normal
+        if (toggle)
+        {
+            if (player == 0)
+            {
+                player1EnergyBar1.color = Color.gray;
+                humanCannonImage.color = Color.gray;
+                humanJamImage.color = Color.gray;
+            }
+            else
+            {
+                player2EnergyBar1.color = Color.gray;
+                robotCannonImage.color = Color.gray;
+                robotJamImage.color = Color.gray;
+            }
+        }
+        else
+        {
+            if (player == 0)
+            {
+                player1EnergyBar1.color = humanEnergyBarColor;
+                humanCannonImage.color = Color.white;
+                humanJamImage.color = Color.white;
+            }
+            else
+            {
+                player2EnergyBar1.color = robotEnergyBarColor;
+                robotCannonImage.color = Color.white;
+                robotJamImage.color = Color.white;
+            }
+        }
+    }
     public void OnDeviceChange(string humanScheme, string robotScheme)
     {
         if (humanScheme == "keyboard")
@@ -252,6 +303,7 @@ public class UIController : MonoBehaviour
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         AvatarController.toggleCannonIcon += ToggleCannonIcon;
         AvatarController.toggleJamIcon += ToggleJamIcon;
+        AvatarController.greyOutUI += GreyOutUI;
         pauseButtonPlayerOne.action.performed += pauseTrigger;
         pauseButtonPlayerTwo.action.performed += pauseTrigger;
     }
@@ -261,6 +313,7 @@ public class UIController : MonoBehaviour
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         AvatarController.toggleCannonIcon -= ToggleCannonIcon;
         AvatarController.toggleJamIcon -= ToggleJamIcon;
+        AvatarController.greyOutUI -= GreyOutUI;
         pauseButtonPlayerOne.action.performed -= pauseTrigger;
         pauseButtonPlayerTwo.action.performed -= pauseTrigger;
     }

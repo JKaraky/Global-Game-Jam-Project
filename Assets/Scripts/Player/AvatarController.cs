@@ -68,6 +68,7 @@ public class AvatarController : MonoBehaviour
     public static event Action FiredCannon;
     public static event Action<int, bool> toggleJamIcon;
     public static event Action<int, bool> toggleCannonIcon;
+    public static event Action<int, bool> greyOutUI;
     #endregion
     public int PlayerNbr
     {
@@ -172,7 +173,7 @@ public class AvatarController : MonoBehaviour
 
     public void JamPlayer()
     {
-        if (!_isJammed && _currentEnergy >= maxEnergy/3)
+        if (!_isJammed && _currentEnergy >= maxEnergy/jamEnergyConsumptionRatio)
         {
             DepleteEnergy(jamEnergyConsumptionRatio);
             otherPlayer.GetJammed();
@@ -238,8 +239,15 @@ public class AvatarController : MonoBehaviour
     {
         particles.SetActive(!particles.activeSelf);
     }
+
+    private void GreyOutUI(bool toggle)
+    {
+        greyOutUI?.Invoke(playerNumber, toggle);
+    }
     IEnumerator JamCooldownCountdown(float duration, GameObject particles)
     {
+        GreyOutUI(true);
+
         if(!particles.activeSelf)
         {
             ToggleParticles(particles);
@@ -247,6 +255,9 @@ public class AvatarController : MonoBehaviour
         _isJammed = true;
         yield return new WaitForSeconds(duration);
         _isJammed = false;
+
+        GreyOutUI(false);
+
         ToggleParticles(particles);
     }
     IEnumerator WaitTillEnergyReplenishes(float duration)
