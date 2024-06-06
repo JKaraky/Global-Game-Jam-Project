@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1841565489203361330
 Transform:
   m_ObjectHideFlags: 0
@@ -135,6 +135,7 @@ Transform:
   - {fileID: 1036537561262056285}
   - {fileID: 4678947603453764903}
   - {fileID: 1841565489203361330}
+  - {fileID: 4802689559211755745}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa495561aa4004429d62f298aaa233b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fade: 1
 --- !u!65 &5982619983194334628
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -275,6 +277,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7072444061591351794, guid: 910177ec26b76c14996c2d53627a6def, type: 3}
   m_PrefabInstance: {fileID: 2506438362403951829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4984409225313005322
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3759234229603088895}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.71
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+      propertyPath: m_Name
+      value: Peacekeeper Banner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+--- !u!4 &4802689559211755745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0e7637a4395efab47a4186a7a2d0962a, type: 3}
+  m_PrefabInstance: {fileID: 4984409225313005322}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7801601301777142447
 PrefabInstance:
