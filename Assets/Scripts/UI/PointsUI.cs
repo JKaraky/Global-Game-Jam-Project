@@ -17,6 +17,8 @@ public class PointsUI : MonoBehaviour
     private Image playerTwoHuman;
     [SerializeField]
     private Image playerTwoRobot;
+    [SerializeField]
+    private Slider pointsSlider;
 
     [SerializeField]
     private Points pointsScript;
@@ -42,6 +44,7 @@ public class PointsUI : MonoBehaviour
     #region Points Management Methods
     private void PlayerOnePoint()
     {
+        pointsSlider.value++;
         if(playerOneRobot.fillAmount > 0)
         {
             playerOneRobot.fillAmount -= fillAmount;
@@ -56,6 +59,7 @@ public class PointsUI : MonoBehaviour
 
     private void PlayerTwoPoint()
     {
+        pointsSlider.value--;
         if (playerTwoHuman.fillAmount > 0)
         {
             playerTwoHuman.fillAmount -= fillAmount;
