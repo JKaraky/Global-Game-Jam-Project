@@ -4782,6 +4782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyCircle: {fileID: 8407730429205336537}
+  playerValues: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
 --- !u!1 &2089255933398158745
 GameObject:
   m_ObjectHideFlags: 0
@@ -24139,7 +24140,6 @@ GameObject:
   - component: {fileID: 4157086372718385927}
   - component: {fileID: 4419337174304661792}
   - component: {fileID: 2082195233053553656}
-  - component: {fileID: 4142582977776120751}
   - component: {fileID: 1749310847322116575}
   m_Layer: 0
   m_Name: Player
@@ -24224,28 +24224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementRotationSpeed: 0.1
   rotationSpeed: 5
---- !u!114 &4142582977776120751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7545299533072548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622c384fcb55a6c4aaa30ed299951203, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxEnergy: 40
-  moveEnergyConsumption: 0.2
-  energyCooldown: 1.2
-  energyRegenerationRate: 0.5
-  speed: 100
-  gravityMultiplier: 2.5
-  destructionRadius: 30
-  destructionEnergyConsumptionRatio: 1
-  jamCooldown: 2
-  jamEnergyConsumptionRatio: 3
 --- !u!114 &1749310847322116575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38521,6 +38499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyCircle: {fileID: 7868143960999166116}
+  playerValues: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
 --- !u!1001 &1683111612004331103
 PrefabInstance:
   m_ObjectHideFlags: 0

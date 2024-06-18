@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9510060da9a59524ca725977dcc8d9d7, type: 3}
   m_Name: PlayerValues
   m_EditorClassIdentifier: 
-  maxEnergy: 40
+  maxEnergy: 50
   moveEnergyConsumption: 0.2
   energyCooldown: 1.2
   energyRegenerationRate: 0.5
-  speed: 60
+  speed: 90
   gravityMultiplier: 2.5
   destructionRadius: 30
   destructionEnergyConsumptionRatio: 1
   jamCooldown: 2
   jamEnergyConsumptionRatio: 3
+  spawnLifeSpan: 30

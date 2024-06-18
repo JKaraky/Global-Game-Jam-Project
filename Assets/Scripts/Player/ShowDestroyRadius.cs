@@ -8,6 +8,8 @@ public class ShowDestroyRadius : MonoBehaviour
 {
     [SerializeField]
     private GameObject destroyCircle;
+    [SerializeField]
+    private PlayerValues playerValues;
     //[SerializeField]
     //private CannonRotation cannonScript;
 
@@ -21,7 +23,7 @@ public class ShowDestroyRadius : MonoBehaviour
     //private DecalProjector projector;
     private void Start()
     {
-        radius = transform.parent.GetComponent<PlayerAttributes>().destructionRadius;
+        radius = playerValues.destructionRadius;
         player = GetComponent<AvatarController>().PlayerNbr;
 
         //targetTag = player == 0 ? "CollectibleTwo" : "CollectibleOne";

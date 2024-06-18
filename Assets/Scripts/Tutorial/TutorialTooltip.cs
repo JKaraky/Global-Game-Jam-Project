@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class TutorialTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,ISelectHandler, IDeselectHandler
 {
     private GameObject textBubble;
-    private void Start()
+    private void Awake()
     {
         textBubble = transform.GetChild(0).gameObject;
     }
