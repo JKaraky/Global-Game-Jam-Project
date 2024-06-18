@@ -52,12 +52,15 @@ public class MenuManager : MonoBehaviour
     private LinkedList<GameObject> creditsSlides;
     private LinkedListNode<GameObject> _currentInstructionSlide;
     private LinkedListNode<GameObject> _currentCreditsSlide;
+    private EventSystem _eventSystem;
 
 
 
     #endregion
     private void Start()
     {
+        _eventSystem = EventSystem.current;
+
         if (!PlayerPrefs.HasKey("PlayTutorial"))
         {
             PlayerPrefs.SetInt("PlayTutorial", 1);
@@ -154,7 +157,16 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeSelectedButton(GameObject button)
     {
-        EventSystem.current.SetSelectedGameObject(button);
+        // Trigger deselect for currently selected object
+
+        if (button.name != "Dummy Object")
+        {
+            _eventSystem.SetSelectedGameObject(button);
+        }
+        else
+            _eventSystem.SetSelectedGameObject(null);
+
+
     }
 
     public void OnDeviceChange(string humanScheme, string robotScheme)

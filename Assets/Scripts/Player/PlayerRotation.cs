@@ -11,8 +11,9 @@ public class PlayerRotation : MonoBehaviour
     private float rotationSpeed = 5f;
 
     private Transform _playerObj;
-    private Quaternion _targetRotation;
+    private Quaternion _targetRotation, _temp;
     private Camera _mainCamera;
+    private Vector3 _cameraPosition, _directionToCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,22 +35,22 @@ public class PlayerRotation : MonoBehaviour
         // Look away from the camera (same direction as it's pointing)
 
         // Get the position of the camera
-        Vector3 cameraPosition = _mainCamera.transform.position;
+        _cameraPosition = _mainCamera.transform.position;
 
         // Calculate the direction from the player to the camera
-        Vector3 directionToCamera = _playerObj.position - cameraPosition;
+        _directionToCamera = _playerObj.position - _cameraPosition;
 
         // Ignore the y component of the direction
-        directionToCamera.y = 0;
+        _directionToCamera.y = 0;
 
-        RotateTowards(directionToCamera);
+        RotateTowards(_directionToCamera);
     }
 
     public void RotateTowards(Vector3 rotationValue)
     {
-        Quaternion rotation = Quaternion.LookRotation(rotationValue);
+        _temp = Quaternion.LookRotation(rotationValue);
 
-        _targetRotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
+        _targetRotation = Quaternion.Euler(0, _temp.eulerAngles.y, 0);
 
         //Debug.Log("Rotating: " + _targetRotation);
     }

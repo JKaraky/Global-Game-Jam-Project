@@ -25,6 +25,9 @@ public class Spawner : MonoBehaviour
     private bool readyToSpawn = true;
     private int specialSpawnTurn; // How many turns until collectible three spawns
     private int currentSpawnTurn = 0;
+    private int poolNumber;
+    private int randomPosition;
+    private Collectible spawnedCollectible;
     #endregion
 
     #region Start and Update
@@ -66,8 +69,8 @@ public class Spawner : MonoBehaviour
         currentSpawnTurn++;
 
         // Choose random normal pool
-        int poolNumber = Random.Range(0, 2);
-        Collectible spawnedCollectible = null;
+        poolNumber = Random.Range(0, 2);
+        spawnedCollectible = null;
 
         if(poolNumber == 0)
         {
@@ -93,8 +96,8 @@ public class Spawner : MonoBehaviour
         readyToSpawn = false;
         currentSpawnTurn = 0;
 
-        Collectible spawnedColledctible = collectibleThreePool.pool.Get();
-        SpawnedEntityProcessing(spawnedColledctible);
+        spawnedCollectible = collectibleThreePool.pool.Get();
+        SpawnedEntityProcessing(spawnedCollectible);
 
         yield return new WaitForSeconds(spawnRate);
         readyToSpawn = true;
@@ -103,14 +106,14 @@ public class Spawner : MonoBehaviour
     private void SpawnedEntityProcessing(Collectible spawnedObject)
     {
         // Assign position
-        int randomPosition = Random.Range(0, spawnPoints.Length);
+        randomPosition = Random.Range(0, spawnPoints.Length);
         spawnedObject.transform.position = spawnPoints[randomPosition].transform.position;
 
         // Assign target to spawn agent, agent only works if you turn it off then on again
-        NavMeshAgent spawnAgent = spawnedObject.GetComponent<NavMeshAgent>();
-        spawnAgent.enabled = false;
-        spawnedObject.GetComponent<FollowPlayer>().Target = spawnTarget;
-        spawnAgent.enabled = true;
+        //NavMeshAgent spawnAgent = spawnedObject.NavMeshAgent;
+        spawnedObject.NavMeshAgent.enabled = false;
+        spawnedObject.FollowPlayer.Target = spawnTarget;
+        spawnedObject.NavMeshAgent.enabled = true;
     }
 
     private void UpdateSpecialSpawn(int turn)

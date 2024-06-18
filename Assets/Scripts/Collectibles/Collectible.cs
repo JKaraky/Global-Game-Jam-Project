@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Collectible : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Collectible : MonoBehaviour
     private CollectiblePooling poolOfCollectible;
     private static float lifespan = 30;
     [SerializeField] private bool fade = true;
+    private NavMeshAgent _navMeshAgent;
+    private FollowPlayer _followPlayerScript;
 
     public CollectiblePooling PoolOfCollectible
     {
@@ -20,11 +23,31 @@ public class Collectible : MonoBehaviour
             poolOfCollectible = value;
         }
     }
+    public NavMeshAgent NavMeshAgent
+    {
+        get
+        {
+            return _navMeshAgent;
+        }
+    }
+    public FollowPlayer FollowPlayer
+    {
+        get
+        {
+            return _followPlayerScript;
+        }
+    }
 
     public static event Action<Vector3> CollectibleCollected;
     public static event Action<Vector3> CollectibleDestroyed;
     public static event Action<Vector3> CollectibleFaded;
     #endregion
+
+    private void Awake()
+    {
+        _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        _followPlayerScript = gameObject.GetComponent<FollowPlayer>();
+    }
 
     #region OnEnable
     private void OnEnable()

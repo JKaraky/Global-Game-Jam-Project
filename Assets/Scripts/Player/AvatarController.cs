@@ -58,6 +58,10 @@ public class AvatarController : MonoBehaviour
     private float _energyRegeneration = 0;
     private Coroutine _energyRoutine;
 
+    private Vector3 _cameraForward, _cameraRight, _movementDirection, _moveReturn;
+
+    private Camera _mainCamera;
+
     // For ShowArrow Script
     public Vector3 playerMovement = Vector3.one;
 
@@ -84,6 +88,8 @@ public class AvatarController : MonoBehaviour
 
         playerObj = transform.parent;
         rotationScript = playerObj.GetComponent<PlayerRotation>();
+
+        _mainCamera = Camera.main;
 
         _rb = playerObj.GetComponent<Rigidbody>();
 
@@ -129,18 +135,21 @@ public class AvatarController : MonoBehaviour
     private Vector3 Move()
     {
         // Get the forward direction of the camera
-        Vector3 cameraForward = Camera.main.transform.forward;
-        cameraForward.y = 0f; // Zero out the y component to ensure movement is in the horizontal plane
+        _cameraForward = _mainCamera.transform.forward;
+        _cameraForward.y = 0f; // Zero out the y component to ensure movement is in the horizontal plane
         
-        Vector3 cameraRight = Camera.main.transform.right;
-        cameraRight.y = 0f;
+        _cameraRight = _mainCamera.transform.right;
+        _cameraRight.y = 0f;
 
         // Combine the forward and right directions based on input
-        Vector3 movementDirection = (cameraForward * inputScript.Movement.y + cameraRight * inputScript.Movement.x).normalized;
+        _movementDirection = (_cameraForward * inputScript.Movement.y + _cameraRight * inputScript.Movement.x).normalized;
         //Vector3 movementDirection = (cameraForward * inputScript.Movement.y).normalized;
 
         // Set the movement vector
-        return new Vector3(movementDirection.x, 0, movementDirection.z);
+        _moveReturn.x = _movementDirection.x;
+        _moveReturn.y = 0;
+        _moveReturn.z = _movementDirection.z;
+        return _moveReturn;
     }
 
     private void Rotate(Vector3 rotationVector)
