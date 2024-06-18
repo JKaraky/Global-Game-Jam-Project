@@ -246,8 +246,6 @@ public class MenuManager : MonoBehaviour
         if (audioValue == 0) audioValue = 0.0001f;
         masterMixer.SetFloat(prefsText, Mathf.Log10(audioValue) * 20 );
         PlayerPrefs.SetFloat(prefsText + "Volume", audioValue);
-
-        Debug.Log(prefsText + ": " + Mathf.Log10(audioValue) * 20);
     }
     #endregion
 

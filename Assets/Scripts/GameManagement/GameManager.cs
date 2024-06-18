@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject restartButton;
     [SerializeField]
     private ParticleSystem particleEffect;
+
+    [SerializeField]
+    private PlayerValues playerValues;
     #endregion
 
     #region Awake Methods
@@ -90,14 +93,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (PlayerPrefs.HasKey("SpawnLifeSpan"))
-        {
-            SpawnLifeSpan = PlayerPrefs.GetFloat("SpawnLifeSpan");
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("SpawnLifeSpan", SpawnLifeSpan);
-        }
+        SpawnLifeSpan = playerValues.spawnLifeSpan;
     }
     #endregion
 

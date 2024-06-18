@@ -10,6 +10,12 @@ public class DevScript : MonoBehaviour
     private Slider slider;
     private TextMeshProUGUI valueText;
     private string prefName;
+    private float defaultFloatValue;
+    private int defaultIntValue;
+    [SerializeField]
+    private PlayerValues playerValues;
+    [SerializeField]
+    private PlayerValues defaultValues;
 
     private void Start()
     {
@@ -17,13 +23,17 @@ public class DevScript : MonoBehaviour
         prefName = slider.name;
         valueText = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
-        if (PlayerPrefs.HasKey(prefName) && slider.wholeNumbers)
+        if (slider.wholeNumbers)
         {
-            slider.value = PlayerPrefs.GetInt(prefName);
+            //slider.value = PlayerPrefs.GetInt(prefName);
+            slider.value = playerValues.GetIntFromName(prefName);
+            defaultIntValue = defaultValues.GetIntFromName(prefName);
         }
-        else if (PlayerPrefs.HasKey(prefName))
+        else
         {
-            slider.value = PlayerPrefs.GetFloat(prefName);
+            //slider.value = PlayerPrefs.GetFloat(prefName);
+            slider.value = playerValues.GetFloatFromName(prefName);
+            defaultFloatValue = defaultValues.GetFloatFromName(prefName);
         }
 
         valueText.text = slider.value.ToString();
@@ -36,11 +46,36 @@ public class DevScript : MonoBehaviour
 
         if (slider.wholeNumbers)
         {
-            PlayerPrefs.SetInt(prefName, (int)slider.value);
+            //PlayerPrefs.SetInt(prefName, (int)slider.value);
+            playerValues.SetIntField(prefName, (int)slider.value);
         }
         else
         {
-            PlayerPrefs.SetFloat(prefName, slider.value);
+            //PlayerPrefs.SetFloat(prefName, slider.value);
+            playerValues.SetFloatField(prefName, slider.value);
         }
+    }
+
+    private void ResetToDefault()
+    {
+        if (slider.wholeNumbers)
+        {
+            slider.value = defaultIntValue;
+        }
+        else
+        {
+            slider.value = defaultFloatValue;
+        }
+
+        valueText.text = slider.value.ToString();
+    }
+
+    private void OnEnable()
+    {
+        ResetPlayerValues.ResetSliderValues += ResetToDefault;
+    }
+    private void OnDisable()
+    {
+        ResetPlayerValues.ResetSliderValues -= ResetToDefault;
     }
 }

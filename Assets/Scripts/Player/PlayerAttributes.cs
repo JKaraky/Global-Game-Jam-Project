@@ -38,7 +38,7 @@ public class PlayerAttributes : MonoBehaviour
     public int jamEnergyConsumptionRatio = 3;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         LoadSettings();
     }

@@ -210,10 +210,11 @@ public class UIController : MonoBehaviour
             playerOneInput.enabled = true;
             playerTwoInput.enabled = true;
 
+            EventSystem.current.SetSelectedGameObject(null);
+
             pauseMenu.SetActive(false);
 
             Cursor.visible = false;
-            EventSystem.current.SetSelectedGameObject(null);
         }
     }
     private void GreyOutUI(int player, bool toggle)

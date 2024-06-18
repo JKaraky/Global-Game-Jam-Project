@@ -4762,7 +4762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
-  playerAttributesScript: {fileID: 4142582977776120751}
+  playerAttributesObject: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
   inputScript: {fileID: 0}
   cannonTip: {fileID: 4965237104025878246}
   explosion: {fileID: 2089255933398158745}
@@ -4782,7 +4782,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyCircle: {fileID: 8407730429205336537}
-  cannonScript: {fileID: 2039527986545788679}
 --- !u!1 &2089255933398158745
 GameObject:
   m_ObjectHideFlags: 0
@@ -38502,7 +38501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 1
-  playerAttributesScript: {fileID: 4142582977776120751}
+  playerAttributesObject: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
   inputScript: {fileID: 0}
   cannonTip: {fileID: 898952935399668651}
   explosion: {fileID: 6288175044915771140}
@@ -38522,7 +38521,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyCircle: {fileID: 7868143960999166116}
-  cannonScript: {fileID: 2384337832109421105}
 --- !u!1001 &1683111612004331103
 PrefabInstance:
   m_ObjectHideFlags: 0

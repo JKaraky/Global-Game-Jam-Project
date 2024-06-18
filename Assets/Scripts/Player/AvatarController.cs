@@ -13,7 +13,7 @@ public class AvatarController : MonoBehaviour
 
     [Header ("General Settings")]
     [SerializeField]
-    private PlayerAttributes playerAttributesScript;
+    private PlayerValues playerAttributesObject;
 
     private float maxEnergy;
     private float moveEnergyConsumption;
@@ -197,19 +197,19 @@ public class AvatarController : MonoBehaviour
 
     private void LoadVariables()
     {
-        maxEnergy = playerAttributesScript.maxEnergy;
-        moveEnergyConsumption = playerAttributesScript.moveEnergyConsumption;
-        energyCooldown = playerAttributesScript.energyCooldown;
-        energyRegenerationRate = playerAttributesScript.energyRegenerationRate;
+        maxEnergy = playerAttributesObject.maxEnergy;
+        moveEnergyConsumption = playerAttributesObject.moveEnergyConsumption;
+        energyCooldown = playerAttributesObject.energyCooldown;
+        energyRegenerationRate = playerAttributesObject.energyRegenerationRate;
 
-        speed = playerAttributesScript.speed;
-        gravityMultiplier = playerAttributesScript.gravityMultiplier;
+        speed = playerAttributesObject.speed;
+        gravityMultiplier = playerAttributesObject.gravityMultiplier;
 
-        destructionRadius = playerAttributesScript.destructionRadius;
-        destructionEnergyConsumptionRatio = playerAttributesScript.destructionEnergyConsumptionRatio;
+        destructionRadius = playerAttributesObject.destructionRadius;
+        destructionEnergyConsumptionRatio = playerAttributesObject.destructionEnergyConsumptionRatio;
 
-        jamCooldown = playerAttributesScript.jamCooldown;
-        jamEnergyConsumptionRatio = playerAttributesScript.jamEnergyConsumptionRatio;
+        jamCooldown = playerAttributesObject.jamCooldown;
+        jamEnergyConsumptionRatio = playerAttributesObject.jamEnergyConsumptionRatio;
     }
     public void GetJammed()
     {
