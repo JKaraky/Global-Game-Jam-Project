@@ -25,8 +25,11 @@ public class ResetPlayerValues : MonoBehaviour
         playerValues.destructionRadius = defaultPlayerValues.destructionRadius;
         playerValues.destructionEnergyConsumptionRatio = defaultPlayerValues.destructionEnergyConsumptionRatio;
 
-        playerValues.jamCooldown = defaultPlayerValues.jamCooldown;
-        playerValues.jamEnergyConsumptionRatio = defaultPlayerValues.jamEnergyConsumptionRatio;
+        playerValues.secondaryActionCooldown = defaultPlayerValues.secondaryActionCooldown;
+        playerValues.sAEnergyConsumptionRatio = defaultPlayerValues.sAEnergyConsumptionRatio;
+
+        playerValues.speedBoostMultiplier = defaultPlayerValues.speedBoostMultiplier;
+
         playerValues.spawnLifeSpan = defaultPlayerValues.spawnLifeSpan;
 
         ResetSliderValues?.Invoke();

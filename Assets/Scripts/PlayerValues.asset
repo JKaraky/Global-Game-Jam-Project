@@ -22,4 +22,5 @@ MonoBehaviour:
   destructionEnergyConsumptionRatio: 1
   jamCooldown: 2
   jamEnergyConsumptionRatio: 3
+  speedBoostMultiplier: 1.5
   spawnLifeSpan: 30

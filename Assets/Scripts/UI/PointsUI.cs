@@ -9,14 +9,14 @@ public class PointsUI : MonoBehaviour
     private int fullFill;
     private float fillAmount;
 
-    [SerializeField]
-    private Image playerOneHuman;
-    [SerializeField]
-    private Image playerOneRobot;
-    [SerializeField]
-    private Image playerTwoHuman;
-    [SerializeField]
-    private Image playerTwoRobot;
+    //[SerializeField]
+    //private Image playerOneHuman;
+    //[SerializeField]
+    //private Image playerOneRobot;
+    //[SerializeField]
+    //private Image playerTwoHuman;
+    //[SerializeField]
+    //private Image playerTwoRobot;
     [SerializeField]
     private Slider pointsSlider;
 
@@ -45,31 +45,31 @@ public class PointsUI : MonoBehaviour
     private void PlayerOnePoint()
     {
         pointsSlider.value++;
-        if(playerOneRobot.fillAmount > 0)
-        {
-            playerOneRobot.fillAmount -= fillAmount;
-            playerOneHuman.fillAmount += fillAmount;
-        }
-        else
-        {
-            playerTwoHuman.fillAmount += fillAmount;
-            playerTwoRobot.fillAmount -= fillAmount;
-        }
+        //if(playerOneRobot.fillAmount > 0)
+        //{
+        //    playerOneRobot.fillAmount -= fillAmount;
+        //    playerOneHuman.fillAmount += fillAmount;
+        //}
+        //else
+        //{
+        //    playerTwoHuman.fillAmount += fillAmount;
+        //    playerTwoRobot.fillAmount -= fillAmount;
+        //}
     }
 
     private void PlayerTwoPoint()
     {
         pointsSlider.value--;
-        if (playerTwoHuman.fillAmount > 0)
-        {
-            playerTwoHuman.fillAmount -= fillAmount;
-            playerTwoRobot.fillAmount += fillAmount;
-        }
-        else
-        {
-            playerOneRobot.fillAmount += fillAmount;
-            playerOneHuman.fillAmount -= fillAmount;
-        }
+        //if (playerTwoHuman.fillAmount > 0)
+        //{
+        //    playerTwoHuman.fillAmount -= fillAmount;
+        //    playerTwoRobot.fillAmount += fillAmount;
+        //}
+        //else
+        //{
+        //    playerOneRobot.fillAmount += fillAmount;
+        //    playerOneHuman.fillAmount -= fillAmount;
+        //}
     }
 
     private void GivePoint(Players player)

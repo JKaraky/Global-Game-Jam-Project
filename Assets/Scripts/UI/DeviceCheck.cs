@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -11,6 +13,10 @@ public class DeviceCheck : MonoBehaviour
     private InputActionReference continuePlayerOne;
     [SerializeField]
     private InputActionReference continuePlayerTwo;
+
+    [Header("Robot Jam Option")]
+    [SerializeField]
+    private GameObject robotJamOption;
 
     [Header("To Turn On")]
     [SerializeField]
@@ -48,6 +54,10 @@ public class DeviceCheck : MonoBehaviour
     private bool fadingRobot = false;
     private Color tempColorHuman, tempColorRobot;
 
+    private bool humanJamOrBoost, robotJamOrBoost;
+
+    public static event Action<bool, bool> SetPlayerAbility;
+
     private void Update()
     {
         if (fadingHuman)
@@ -82,6 +92,11 @@ public class DeviceCheck : MonoBehaviour
 
         continuePlayerOne.action.performed -= PlayerOnePressed;
         continuePlayerTwo.action.performed += PlayerTwoPressed;
+
+        // Check what ability player chose
+        HandlePlayerChoice(0);
+
+        EventSystem.current.SetSelectedGameObject(robotJamOption);
     }
     private void PlayerTwoPressed(InputAction.CallbackContext context)
     {
@@ -97,8 +112,37 @@ public class DeviceCheck : MonoBehaviour
 
         fadingRobot = true;
 
+        // Check what ability player chose
+        HandlePlayerChoice(1);
+
         // Start game
         StartCoroutine(StartGame (startGameDelay));
+    }
+
+    private void HandlePlayerChoice(int player)
+    {
+        string optionName = EventSystem.current.currentSelectedGameObject.name;
+        bool option;
+
+        switch (optionName)
+        {
+            case "Jam Option":
+                option = true;
+                break;
+            case "Boost Option":
+                option = false;
+                break;
+            default:
+                option = true;
+                break;
+        }
+
+        if (player == 0)
+        {
+            humanJamOrBoost = option;
+        }
+        else
+            robotJamOrBoost = option;
     }
 
     IEnumerator StartGame(float duration)
@@ -114,7 +158,8 @@ public class DeviceCheck : MonoBehaviour
             obj.SetActive(true);
         }
 
-
+        // Send event to Avatar Controller to set their abilities. Should also change UI
+        SetPlayerAbility?.Invoke(humanJamOrBoost, robotJamOrBoost);
     }
     private void OnEnable()
     {

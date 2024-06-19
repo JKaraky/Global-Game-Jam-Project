@@ -74,7 +74,7 @@ public class TutorialInput : SimplifiedInput
     
     private void JamBtnPressed()
     {
-        avatarController.JamPlayer();
+        avatarController.SecondaryActionPressed();
         Jammed?.Invoke();
     }
 

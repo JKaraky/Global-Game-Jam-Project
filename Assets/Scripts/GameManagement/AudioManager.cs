@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     private AudioClip jamCannon;
     [SerializeField]
     private AudioClip cannonShot;
+    [SerializeField]
+    private AudioClip boostSpeed;
 
     private AudioSource audioSource;
     #endregion
@@ -87,6 +89,11 @@ public class AudioManager : MonoBehaviour
         PlayAudio(cannonShot);
     }
 
+    private void BoostAudio()
+    {
+        PlayAudio(boostSpeed);
+    }
+
     private void PlayAudio(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
@@ -98,6 +105,7 @@ public class AudioManager : MonoBehaviour
         Points.CollectibleCollected += CollectiblesAudio;
         AvatarController.JammedCannon += JamAudio;
         AvatarController.FiredCannon += FireAudio;
+        AvatarController.BoostSpeed += BoostAudio;
     }
 
     private void OnDisable()
@@ -105,5 +113,6 @@ public class AudioManager : MonoBehaviour
         Points.CollectibleCollected -= CollectiblesAudio;
         AvatarController.JammedCannon -= JamAudio;
         AvatarController.FiredCannon -= FireAudio;
+        AvatarController.BoostSpeed -= BoostAudio;
     }
 }

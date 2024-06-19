@@ -65,7 +65,7 @@ public class SimplifiedInput : MonoBehaviour
 
     protected void JamBtnPressed()
     {
-        avatarController.JamPlayer();
+        avatarController.SecondaryActionPressed();
     }
     #endregion
     #region Event Subscribing

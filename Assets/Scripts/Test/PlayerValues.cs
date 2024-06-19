@@ -31,12 +31,17 @@ public class PlayerValues : ScriptableObject
     [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
     public int destructionEnergyConsumptionRatio = 1;
 
-    [Header("Jam Canon")]
+    [Header("Jam Cannon")]
     [SerializeField]
-    public float jamCooldown = 2; // How long does a player stay hampered
+    public float secondaryActionCooldown = 2; // How long does a player stay jammed or boosted
     [SerializeField]
     [Tooltip("The ratio of max energy that this action will use. For example, 1 is all energy, 2 is half, etc...")]
-    public int jamEnergyConsumptionRatio = 3;
+    public int sAEnergyConsumptionRatio = 3;
+
+    [Header("Boost")]
+    [SerializeField]
+    public float speedBoostMultiplier = 2;
+    [Header("Collectibles")]
     [SerializeField]
     public float spawnLifeSpan = 30f;
 

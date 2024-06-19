@@ -59,10 +59,10 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private GameObject resumeButton;
 
-    private Image humanCannonImage;
-    private Image humanJamImage;
-    private Image robotCannonImage;
-    private Image robotJamImage;
+    private Image humanCannonImage, humanJamImage;
+    private Image robotCannonImage, robotJamImage;
+    // To switch on Boost or Jam when selected
+    private GameObject humanJamIcon, humanBoostIcon, robotJamIcon, robotBoostIcon;
 
     private Color humanEnergyBarColor;
     private Color robotEnergyBarColor;
@@ -79,10 +79,14 @@ public class UIController : MonoBehaviour
         robotEnergyBarColor = player2EnergyBar1.color;
 
         humanCannonImage = humanCannon.transform.GetChild(0).GetComponent<Image>();
-        humanJamImage = humanJam.transform.GetChild(0).GetComponent<Image>();
+        humanJamIcon = humanJam.transform.GetChild(0).gameObject;
+        humanJamImage = humanJamIcon.GetComponent<Image>();
+        humanBoostIcon = humanJam.transform.GetChild(1).gameObject;
 
         robotCannonImage = robotCannon.transform.GetChild(0).GetComponent<Image>();
-        robotJamImage = robotJam.transform.GetChild(0).GetComponent<Image>();
+        robotJamIcon = robotJam.transform.GetChild(0).gameObject;
+        robotJamImage = robotJamIcon.GetComponent<Image>();
+        robotBoostIcon = robotJam.transform.GetChild(1).gameObject;
     }
     private void UpdateEnergyBar(int player, float energy, float maxEnergy)
     {
@@ -251,6 +255,18 @@ public class UIController : MonoBehaviour
             }
         }
     }
+
+    private void SetAbilityIcon(bool abilityHuman, bool abilityRobot)
+    {
+        // ability true => Jam selected
+        // ability false => Boost selected
+
+        humanJamIcon.SetActive(abilityHuman);
+        humanBoostIcon.SetActive(!abilityHuman);
+
+        robotJamIcon.SetActive(abilityRobot);
+        robotBoostIcon.SetActive(!abilityRobot);
+    }
     public void OnDeviceChange(string humanScheme, string robotScheme)
     {
         if (humanScheme == "keyboard")
@@ -303,19 +319,21 @@ public class UIController : MonoBehaviour
     {
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
         AvatarController.toggleCannonIcon += ToggleCannonIcon;
-        AvatarController.toggleJamIcon += ToggleJamIcon;
+        AvatarController.toggleSecondaryActionIcon += ToggleJamIcon;
         AvatarController.greyOutUI += GreyOutUI;
         pauseButtonPlayerOne.action.performed += pauseTrigger;
         pauseButtonPlayerTwo.action.performed += pauseTrigger;
+        DeviceCheck.SetPlayerAbility += SetAbilityIcon;
     }
 
     private void OnDisable()
     {
         AvatarController.RefreshEnergyBarTrigger -= UpdateEnergyBar;
         AvatarController.toggleCannonIcon -= ToggleCannonIcon;
-        AvatarController.toggleJamIcon -= ToggleJamIcon;
+        AvatarController.toggleSecondaryActionIcon -= ToggleJamIcon;
         AvatarController.greyOutUI -= GreyOutUI;
         pauseButtonPlayerOne.action.performed -= pauseTrigger;
         pauseButtonPlayerTwo.action.performed -= pauseTrigger;
+        DeviceCheck.SetPlayerAbility -= SetAbilityIcon;
     }
 }

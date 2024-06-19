@@ -41,9 +41,18 @@ public class AvatarController : MonoBehaviour
     [SerializeField]
     private GameObject jamParticles;
 
-    private float jamCooldown; // How long does a player stay hampered
-    private int jamEnergyConsumptionRatio = 3;
+    private float secondaryActionCooldown; // How long does a player stay jammed or boosted
+    private int sAEnergyConsumptionRatio = 3; // Secondary Action
     private bool _isJammed = false;
+
+    [Header("Boost")]
+    [SerializeField]
+    private GameObject boostParticles;
+
+    // true means jam, false means boost
+    private bool jamOrBoost;
+    // If player choose Boost ability
+    private float _speedBoostMultiplier; // multiplies speed by this number
 
     [Header("Enemy Player Reference")]
     [SerializeField]
@@ -68,9 +77,10 @@ public class AvatarController : MonoBehaviour
     #endregion
     #region Events
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
-    public static event Action JammedCannon;
+    public static event Action JammedCannon; // Triggers jam audio
+    public static event Action BoostSpeed; // Triggers boost audio
     public static event Action FiredCannon;
-    public static event Action<int, bool> toggleJamIcon;
+    public static event Action<int, bool> toggleSecondaryActionIcon;
     public static event Action<int, bool> toggleCannonIcon;
     public static event Action<int, bool> greyOutUI;
     #endregion
@@ -180,14 +190,23 @@ public class AvatarController : MonoBehaviour
         }
     }
 
-    public void JamPlayer()
+    // When jamming or boosting
+    public void SecondaryActionPressed()
     {
-        if (!_isJammed && _currentEnergy >= maxEnergy/jamEnergyConsumptionRatio)
+        if (!_isJammed && _currentEnergy >= maxEnergy/sAEnergyConsumptionRatio)
         {
-            DepleteEnergy(jamEnergyConsumptionRatio);
-            otherPlayer.GetJammed();
-            JammedCannon?.Invoke();
-            toggleJamIcon?.Invoke(playerNumber, false);
+            DepleteEnergy(sAEnergyConsumptionRatio);
+            if (jamOrBoost)
+            {
+                otherPlayer.GetJammed();
+                JammedCannon?.Invoke();
+            }
+            else
+            {
+                StartCoroutine(BoostCooldownCountdown(secondaryActionCooldown, boostParticles));
+                BoostSpeed?.Invoke();
+            }
+            toggleSecondaryActionIcon?.Invoke(playerNumber, false);
         }
     }
 
@@ -208,18 +227,20 @@ public class AvatarController : MonoBehaviour
         destructionRadius = playerAttributesObject.destructionRadius;
         destructionEnergyConsumptionRatio = playerAttributesObject.destructionEnergyConsumptionRatio;
 
-        jamCooldown = playerAttributesObject.jamCooldown;
-        jamEnergyConsumptionRatio = playerAttributesObject.jamEnergyConsumptionRatio;
+        secondaryActionCooldown = playerAttributesObject.secondaryActionCooldown;
+        sAEnergyConsumptionRatio = playerAttributesObject.sAEnergyConsumptionRatio;
+
+        _speedBoostMultiplier = playerAttributesObject.speedBoostMultiplier;
     }
     public void GetJammed()
     {
-        StartCoroutine(JamCooldownCountdown(jamCooldown, jamParticles));
+        StartCoroutine(JamCooldownCountdown(secondaryActionCooldown, jamParticles));
     }
 
     private void ActionIconHandler()
     {
         toggleCannonIcon?.Invoke(playerNumber, _currentEnergy >= maxEnergy / destructionEnergyConsumptionRatio);
-        toggleJamIcon?.Invoke(playerNumber, _currentEnergy >= maxEnergy / jamEnergyConsumptionRatio);
+        toggleSecondaryActionIcon?.Invoke(playerNumber, _currentEnergy >= maxEnergy / sAEnergyConsumptionRatio);
     }
 
     private void DepleteEnergy(int energyDepletionRatio)
@@ -244,30 +265,46 @@ public class AvatarController : MonoBehaviour
         RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
     }
 
-    private void ToggleParticles(GameObject particles)
+    private void ToggleParticles(GameObject particles, bool onOrOff)
     {
-        particles.SetActive(!particles.activeSelf);
+        particles.SetActive(onOrOff);
     }
 
     private void GreyOutUI(bool toggle)
     {
         greyOutUI?.Invoke(playerNumber, toggle);
     }
+
+    private void SetSecondaryAbility(bool abilityHuman, bool abilityRobot)
+    {
+        if (playerNumber == 0)
+            jamOrBoost = abilityHuman;
+        else
+            jamOrBoost = abilityRobot;
+    }
     IEnumerator JamCooldownCountdown(float duration, GameObject particles)
     {
         GreyOutUI(true);
 
-        if(!particles.activeSelf)
-        {
-            ToggleParticles(particles);
-        }
+        ToggleParticles(particles, true);
+
         _isJammed = true;
         yield return new WaitForSeconds(duration);
         _isJammed = false;
 
         GreyOutUI(false);
 
-        ToggleParticles(particles);
+        ToggleParticles(particles, false);
+    }
+    IEnumerator BoostCooldownCountdown(float duration, GameObject particles)
+    {
+        ToggleParticles(particles, true);
+
+        speed *= _speedBoostMultiplier;
+        yield return new WaitForSeconds(duration);
+        speed /= _speedBoostMultiplier;
+
+        ToggleParticles(particles, false);
     }
     IEnumerator WaitTillEnergyReplenishes(float duration)
     {
@@ -286,5 +323,13 @@ public class AvatarController : MonoBehaviour
             Gizmos.color = Color.red;
         }
         Gizmos.DrawWireSphere(transform.position, destructionRadius);
+    }
+    private void OnEnable()
+    {
+        DeviceCheck.SetPlayerAbility += SetSecondaryAbility;
+    }
+    private void OnDisable()
+    {
+        DeviceCheck.SetPlayerAbility -= SetSecondaryAbility;
     }
 }
