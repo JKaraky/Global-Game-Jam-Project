@@ -119,7 +119,7 @@ public class AvatarController : MonoBehaviour
             ActionIconHandler();
         }
     }
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         // Simulating gravity
         _rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
