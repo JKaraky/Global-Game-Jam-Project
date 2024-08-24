@@ -21,6 +21,7 @@ public class SimplifiedInput : MonoBehaviour
     protected InputActionReference jam;
 
     protected Vector2 _movement;
+    private Coroutine _movementCoroutine;
 
     protected Action<InputAction.CallbackContext> destroyTrigger;
     protected Action<InputAction.CallbackContext> jamTrigger;
@@ -41,14 +42,32 @@ public class SimplifiedInput : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        MovementInput();
-    }
+    //void Update()
+    //{
+    //    MovementInput();
+    //}
     #region Event Handlers
     protected void MovementInput()
     {
         _movement = move.action.ReadValue<Vector2>();
+        avatarController.AttemptMovement();
+    }
+    private void OnMovementStarted(InputAction.CallbackContext context)
+    {
+        // Start the coroutine to move continuously
+        if (_movementCoroutine == null)
+        {
+            _movementCoroutine = StartCoroutine(MoveContinuously());
+        }
+    }
+    private void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+        // Stop the movement coroutine when the input is canceled (keys released)
+        if (_movementCoroutine != null)
+        {
+            StopCoroutine(_movementCoroutine);
+            _movementCoroutine = null;
+        }
     }
 
     protected void DestroyBtnPressed()
@@ -68,10 +87,22 @@ public class SimplifiedInput : MonoBehaviour
         avatarController.SecondaryActionPressed();
     }
     #endregion
+    private IEnumerator MoveContinuously()
+    {
+        while (true)
+        {
+            MovementInput();
+
+            // Wait until the next frame
+            yield return null;
+        }
+    }
     #region Event Subscribing
     private void OnEnable()
     {
         destroy.action.started += DestroyBtnHeld;
+        move.action.started += OnMovementStarted;
+        move.action.canceled += OnMovementCanceled;
         destroy.action.performed += destroyTrigger;
         destroy.action.canceled += destroyTrigger;
         jam.action.performed += jamTrigger;
@@ -79,6 +110,8 @@ public class SimplifiedInput : MonoBehaviour
     private void OnDisable()
     {
         destroy.action.started -= DestroyBtnHeld;
+        move.action.started -= OnMovementStarted;
+        move.action.canceled -= OnMovementCanceled;
         destroy.action.performed -= destroyTrigger;
         destroy.action.canceled -= destroyTrigger;
         jam.action.performed -= jamTrigger;

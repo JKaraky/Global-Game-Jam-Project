@@ -53,7 +53,7 @@ public class TutorialInput : SimplifiedInput
     {
         if (moveListen)
         {
-            MovementInput();
+            //MovementInput();
             if (!triggeredMove && _movement != Vector2.zero)
             {
                 triggeredMove = true;

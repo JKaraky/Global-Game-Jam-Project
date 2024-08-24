@@ -4765,6 +4765,8 @@ MonoBehaviour:
   playerNumber: 0
   playerAttributesObject: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
   inputScript: {fileID: 0}
+  speed: 0
+  gravityMultiplier: 0
   cannonTip: {fileID: 4965237104025878246}
   explosion: {fileID: 2089255933398158745}
   jamParticles: {fileID: 1683111612004428029}
@@ -24149,7 +24151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7545299533072548587
 Transform:
   m_ObjectHideFlags: 0
@@ -24159,8 +24161,8 @@ Transform:
   m_GameObject: {fileID: 7545299533072548567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2010191502774249966}
   - {fileID: 5834541862882505522}
@@ -24224,8 +24226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d3afb34a37c94bbc6edb11446c6b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementRotationSpeed: 0.1
-  rotationSpeed: 5
+  movementRotationSpeed: 2
 --- !u!114 &1749310847322116575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38517,6 +38518,8 @@ MonoBehaviour:
   playerNumber: 1
   playerAttributesObject: {fileID: 11400000, guid: 34553ea3afe31c64daeafb22945dcdad, type: 2}
   inputScript: {fileID: 0}
+  speed: 0
+  gravityMultiplier: 0
   cannonTip: {fileID: 898952935399668651}
   explosion: {fileID: 6288175044915771140}
   jamParticles: {fileID: 6626610883392597193}
