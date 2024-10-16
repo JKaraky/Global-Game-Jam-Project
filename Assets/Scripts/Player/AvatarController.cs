@@ -62,6 +62,7 @@ public class AvatarController : MonoBehaviour
 
     private Transform playerObj;
     private string _targetTag;
+    [SerializeField]
     private PlayerRotation rotationScript;
     private Vector3 _movement;
     private Rigidbody _rb;
@@ -99,7 +100,7 @@ public class AvatarController : MonoBehaviour
         LoadVariables();
 
         playerObj = transform.parent;
-        rotationScript = playerObj.GetComponent<PlayerRotation>();
+        //rotationScript = playerObj.GetComponent<PlayerRotation>();
 
         _mainCamera = Camera.main;
 
