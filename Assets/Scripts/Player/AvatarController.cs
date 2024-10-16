@@ -315,6 +315,7 @@ public class AvatarController : MonoBehaviour
         _energyRegeneration = energyRegenerationRate;
     }
     #endregion
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         if (playerNumber == 0)
@@ -327,6 +328,7 @@ public class AvatarController : MonoBehaviour
         }
         Gizmos.DrawWireSphere(transform.position, destructionRadius);
     }
+#endif
     private void OnEnable()
     {
         DeviceCheck.SetPlayerAbility += SetSecondaryAbility;
