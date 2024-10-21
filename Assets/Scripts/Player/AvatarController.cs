@@ -315,6 +315,7 @@ public class AvatarController : MonoBehaviour
         _energyRegeneration = energyRegenerationRate;
     }
     #endregion
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
