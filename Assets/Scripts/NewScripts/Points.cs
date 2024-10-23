@@ -18,6 +18,8 @@ public class Points : MonoBehaviour
 
     public static event Action<Players> PlayerWon;
     public static event Action<Players> PointForPlayer;
+    public static event Action<int> CheckAbilitiesPlayerOne;
+    public static event Action<int> CheckAbilitiesPlayerTwo;
     public static event Action<Collectibles> CollectibleCollected;
     public static event Action<int> TurnsToSpecialSpawn;
 
@@ -76,6 +78,8 @@ public class Points : MonoBehaviour
         }
 
         TurnsToSpecialSpawn?.Invoke(GetLoserPoints());
+        CheckAbilitiesPlayerOne?.Invoke(playerOnePoints);
+        CheckAbilitiesPlayerTwo?.Invoke(playerTwoPoints);
     }
 
     private void PointForPlayerTwo()
@@ -90,6 +94,8 @@ public class Points : MonoBehaviour
         }
 
         TurnsToSpecialSpawn?.Invoke(GetLoserPoints());
+        CheckAbilitiesPlayerOne?.Invoke(playerOnePoints);
+        CheckAbilitiesPlayerTwo?.Invoke(playerTwoPoints);
     }
 
     private void RemoveFromWinner()

@@ -77,6 +77,10 @@ public class AvatarController : MonoBehaviour
     // For ShowArrow Script
     public Vector3 playerMovement = Vector3.one;
 
+    // To check if player can use abilities
+    private bool canDestroy = true;
+    private bool canUseSecondary = true;
+
     #endregion
     #region Events
     public static event Action<int, float, float> RefreshEnergyBarTrigger;
@@ -172,7 +176,7 @@ public class AvatarController : MonoBehaviour
 
     public void DestroyPowerup()
     {
-        if (!_isJammed && _currentEnergy >= maxEnergy)
+        if (!_isJammed && _currentEnergy >= maxEnergy && canDestroy)
         {
             Collider[] objectsAroundPlayer = Physics.OverlapSphere(transform.position, destructionRadius);
 
@@ -196,7 +200,7 @@ public class AvatarController : MonoBehaviour
     // When jamming or boosting
     public void SecondaryActionPressed()
     {
-        if (!_isJammed && _currentEnergy >= maxEnergy/sAEnergyConsumptionRatio)
+        if (!_isJammed && _currentEnergy >= maxEnergy/sAEnergyConsumptionRatio && canUseSecondary)
         {
             DepleteEnergy(sAEnergyConsumptionRatio);
             if (jamOrBoost)
@@ -268,6 +272,28 @@ public class AvatarController : MonoBehaviour
         RefreshEnergyBarTrigger?.Invoke(playerNumber, _currentEnergy, maxEnergy);
     }
 
+    private void CheckForAbilityUse(int playerPoints)
+    {
+        if(playerPoints >= 3)
+        {
+            canDestroy = true;
+            canUseSecondary = true;
+            ActionIconHandler();
+        }
+        else if(playerPoints == 2)
+        {
+            canDestroy = false;
+            canUseSecondary = true;
+            ActionIconHandler();
+        }
+        else
+        {
+            canDestroy = false;
+            canUseSecondary = false;
+            ActionIconHandler();
+        }
+    }
+
     private void ToggleParticles(GameObject particles, bool onOrOff)
     {
         particles.SetActive(onOrOff);
@@ -333,9 +359,27 @@ public class AvatarController : MonoBehaviour
     private void OnEnable()
     {
         DeviceCheck.SetPlayerAbility += SetSecondaryAbility;
+
+        if (playerNumber == 0)
+        {
+            Points.CheckAbilitiesPlayerOne += CheckForAbilityUse;
+        }
+        else
+        {
+            Points.CheckAbilitiesPlayerTwo += CheckForAbilityUse;
+        }
     }
     private void OnDisable()
     {
         DeviceCheck.SetPlayerAbility -= SetSecondaryAbility;
+
+        if (playerNumber == 0)
+        {
+            Points.CheckAbilitiesPlayerOne -= CheckForAbilityUse;
+        }
+        else
+        {
+            Points.CheckAbilitiesPlayerTwo -= CheckForAbilityUse;
+        }
     }
 }

@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -69,7 +68,12 @@ public class UIController : MonoBehaviour
 
     private int player1EnergyBarsActive = 1;
     private int player2EnergyBarsActive = 1;
-    
+
+    private bool destroyAvailableHuman = true;
+    private bool secondaryAvailableHuman = true;
+    private bool destroyAvailableRobot = true;
+    private bool secondaryAvailableRobot = true;
+
     private Action<InputAction.CallbackContext> pauseTrigger;
     private void Awake()
     {
@@ -143,11 +147,17 @@ public class UIController : MonoBehaviour
         {
             if(player == 0)
             {
-                humanJam.SetActive(true);
+                if (secondaryAvailableHuman)
+                {
+                    humanJam.SetActive(true);
+                }
             }
             else
             {
-                robotJam.SetActive(true);
+                if (secondaryAvailableRobot)
+                {
+                    robotJam.SetActive(true);
+                }
             }
         }
         else
@@ -168,12 +178,18 @@ public class UIController : MonoBehaviour
         if (enabled)
         {
             if (player == 0) 
-            { 
-                humanCannon.SetActive(true); 
+            {
+                if (destroyAvailableHuman)
+                {
+                    humanCannon.SetActive(true);
+                }
             }
             else
             {
-                robotCannon.SetActive(true);
+                if (destroyAvailableRobot)
+                {
+                    robotCannon.SetActive(true);
+                }
             } 
         }
         else
@@ -315,6 +331,54 @@ public class UIController : MonoBehaviour
         }
     }
 
+    private void CheckPlayerOneAbilities(int playerPoints)
+    {
+        if (playerPoints >= 3)
+        {
+            destroyAvailableHuman = true;
+            secondaryAvailableHuman = true;
+        }
+        else if (playerPoints == 2)
+        {
+            destroyAvailableHuman = false;
+            secondaryAvailableHuman = true;
+
+            humanCannon.SetActive(false);
+        }
+        else
+        {
+            destroyAvailableHuman = false;
+            secondaryAvailableHuman = false;
+
+            humanCannon.SetActive(false);
+            humanJam.SetActive(false);
+        }
+    }
+
+    private void CheckPlayerTwoAbilities(int playerPoints)
+    {
+        if (playerPoints >= 3)
+        {
+            destroyAvailableRobot = true;
+            secondaryAvailableRobot = true;
+        }
+        else if (playerPoints == 2)
+        {
+            destroyAvailableRobot = false;
+            secondaryAvailableRobot = true;
+
+            robotCannon.SetActive(false);
+        }
+        else
+        {
+            destroyAvailableRobot = false;
+            secondaryAvailableRobot = false;
+
+            robotCannon.SetActive(false);
+            robotJam.SetActive(false);
+        }
+    }
+
     private void OnEnable()
     {
         AvatarController.RefreshEnergyBarTrigger += UpdateEnergyBar;
@@ -324,6 +388,8 @@ public class UIController : MonoBehaviour
         pauseButtonPlayerOne.action.performed += pauseTrigger;
         pauseButtonPlayerTwo.action.performed += pauseTrigger;
         DeviceCheck.SetPlayerAbility += SetAbilityIcon;
+        Points.CheckAbilitiesPlayerOne += CheckPlayerOneAbilities;
+        Points.CheckAbilitiesPlayerTwo += CheckPlayerTwoAbilities;
     }
 
     private void OnDisable()
@@ -335,5 +401,7 @@ public class UIController : MonoBehaviour
         pauseButtonPlayerOne.action.performed -= pauseTrigger;
         pauseButtonPlayerTwo.action.performed -= pauseTrigger;
         DeviceCheck.SetPlayerAbility -= SetAbilityIcon;
+        Points.CheckAbilitiesPlayerOne -= CheckPlayerOneAbilities;
+        Points.CheckAbilitiesPlayerTwo -= CheckPlayerTwoAbilities;
     }
 }
