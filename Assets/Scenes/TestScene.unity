@@ -134,6 +134,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aec64fea919130498b7064f94e63e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &269031777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1202023674999108436, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+  m_PrefabInstance: {fileID: 1359689892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &269031780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269031777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78d3afb34a37c94bbc6edb11446c6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementRotationSpeed: 2
 --- !u!1 &323095948
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +986,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066638927}
-  m_LocalRotation: {x: 0.5054493, y: 0.000000014846634, z: -0.0000000086969525, w: 0.8628563}
+  m_LocalRotation: {x: 0.5054493, y: -0.000000014846632, z: 0.000000008696952, w: 0.8628563}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1041,7 +1059,7 @@ MonoBehaviour:
   avatarController: {fileID: 1049236047}
   move: {fileID: -2805958402783445559, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
   destroy: {fileID: -1389677938012391502, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
-  hamper: {fileID: 1583147694681179704, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
+  jam: {fileID: 1583147694681179704, guid: 9914fbecaee51da4a9b7efea2117b003, type: 3}
 --- !u!4 &1078686653
 Transform:
   m_ObjectHideFlags: 0
@@ -1537,6 +1555,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1187882761552687595, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1359689895}
+    - target: {fileID: 1187882761552687595, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1548,6 +1570,10 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 1187882761552687595, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: rotationScript
+      value: 
+      objectReference: {fileID: 269031780}
     - target: {fileID: 1749310847322116575, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: humanIn
       value: 
@@ -1573,6 +1599,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1359689895}
+    - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1584,6 +1614,10 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5730350238049296379, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+      propertyPath: rotationScript
+      value: 
+      objectReference: {fileID: 269031780}
     - target: {fileID: 6755378322920621881, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1656,7 +1690,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2082195233053553656, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
 --- !u!4 &1359689893 stripped
 Transform:
@@ -1666,6 +1701,11 @@ Transform:
 --- !u!1 &1359689894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7545299533072548567, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
+  m_PrefabInstance: {fileID: 1359689892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1359689895 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 295408682463738679, guid: 1cc680761cf9c4a499e1723b286a3bf7, type: 3}
   m_PrefabInstance: {fileID: 1359689892}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1467373000
@@ -2234,7 +2274,7 @@ MonoBehaviour:
   avatarController: {fileID: 143177148}
   move: {fileID: -2805958402783445559, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
   destroy: {fileID: -1389677938012391502, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
-  hamper: {fileID: 1583147694681179704, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
+  jam: {fileID: 1583147694681179704, guid: 77fb00b8ff102ba40a4b416e27e4fbbb, type: 3}
 --- !u!4 &1902973516
 Transform:
   m_ObjectHideFlags: 0
